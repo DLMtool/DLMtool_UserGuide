@@ -1,0 +1,17 @@
+# References
+
+Beverton, R. J. H., & Holt, S. J. (1957). *On the dynamics of exploited fish populations*. Fishery Investigation Series 2, United Kingdom Ministry of Agriculture and Fisheries, (Vol. 19). Book, London, United Kingdom.
+
+Butterworth, D. S. (2007). Why a management procedure approach? Some positives and negatives. *ICES Journal of Marine Science: Journal Du Conseil*, 64(1995), 613–617.
+
+Costello, C., Ovando, D., Hilborn, R., Gaines, S. D., Deschenes, O., & Lester, S. E. (2012). Status and solutions for the world’s unassessed fisheries. *Science*, 338, 517–520. 
+
+Newman, D., Berkson, J., & Suatoni, L. (2015). Current methods for setting catch limits for data-limited fish stocks in the United States. *Fisheries Research*, 164, 86–93. 
+
+Punt, A. E. (2015). Strategic management decision-making in a complex world: quantifying, understanding, and using trade-offs. *ICES Journal of Marine Science*, (fsv193), 12. 
+
+Punt, A. E., Butterworth, D. S., de Moor, C. L., De Oliveira, J. A. A., & Haddon, M. (2014). Management strategy evaluation: best practices. *Fish and Fisheries*.
+
+Restrepo, V., Thompson, G. G., Mace, P., Gabriel, W., Low, L., MacCall, A., Methot, R.D., Powers, J.E., Taylor, B., Wade, P.R., & Witzig, J. (1998). Guidance on the use of precautionary approaches to implementing National Standard 1 of the Magnuson-Stevens Fishery Conservation and Management. NOAA Technical Memorandum.
+
+Walters, C. J., & Martell, S. J. D. (2004). *Fisheries ecology and management*. Book, Princeton, USA: Princeton University Press.
