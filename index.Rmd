@@ -8,7 +8,8 @@ knit: bookdown::render_book
 output: bookdown::word_document2
 documentclass: book
 description: "User guide for the DLMtool R package"
-github-repo: "https\://github.com/DLMtool/DLMtool"
+github-repo: "DLMtool/DLMtool"
+favicon: "favicon-16x16.png"
 ---
 
 # Introduction 

@@ -15,7 +15,7 @@
   
   
   <meta property="og:description" content="User guide for the DLMtool R package" />
-  
+  <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool)" />
@@ -36,7 +36,7 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
-  
+  <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
 <link rel="prev" href="examining-the-mse-object.html">
 <link rel="next" href="assumptions-and-limitations-of-the-dlmtool.html">
 
@@ -483,43 +483,43 @@ Madeup@BMSY_B0 &lt;-<span class="st"> </span><span class="fl">0.35</span>       
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Atlantic_mackerel)</code></pre></div>
 <p><img src="userguide_files/figure-html/unnamed-chunk-128-1.png" width="576" /></p>
 <pre><code>##            MP Median   SD           Units
-## 1      DD4010   0.78 0.60 thousand tonnes
-## 2  Fratio4010   1.00 0.90 thousand tonnes
-## 3    DCAC4010   1.35 1.02 thousand tonnes
-## 4       HDAAC   2.23 0.86 thousand tonnes
-## 5        DAAC   2.72 1.21 thousand tonnes
-## 6          DD   3.12 1.01 thousand tonnes
-## 7        DepF   3.19 1.56 thousand tonnes
-## 8      Fratio   3.85 1.99 thousand tonnes
-## 9   DBSRA4010   4.04 6.10 thousand tonnes
-## 10       Fdem   4.62 1.93 thousand tonnes
-## 11   Itarget4   4.92 0.40 thousand tonnes
-## 12       DynF   5.01 1.35 thousand tonnes
-## 13      SPSRA   5.65 2.73 thousand tonnes
-## 14       DCAC   5.77 1.93 thousand tonnes
-## 15   Gcontrol   6.53 0.03 thousand tonnes
-## 16   Rcontrol   6.53 0.00 thousand tonnes
-## 17  Rcontrol2   6.53 0.00 thousand tonnes
-## 18      DBSRA   6.74 4.57 thousand tonnes
-## 19   Itarget1   7.21 0.64 thousand tonnes
-## 20    DCAC_40   7.43 2.37 thousand tonnes
-## 21        YPR   8.09 3.59 thousand tonnes
-## 22     Fadapt   8.13 0.06 thousand tonnes
-## 23   DBSRA_40   9.56 7.68 thousand tonnes
-## 24    MCD4010  10.33 7.48 thousand tonnes
-## 25         BK  10.42 3.98 thousand tonnes
-## 26      SPMSY  11.67 7.18 thousand tonnes
-## 27    Islope4  13.65 1.19 thousand tonnes
-## 28    SPslope  13.79 1.49 thousand tonnes
-## 29        MCD  14.47 6.39 thousand tonnes
-## 30      SPmod  15.10 3.77 thousand tonnes
-## 31   GB_slope  15.94 2.16 thousand tonnes
-## 32        CC4  16.45 1.55 thousand tonnes
-## 33    Islope1  17.26 1.66 thousand tonnes
-## 34       SBT1  18.06 3.70 thousand tonnes
-## 35        CC1  23.49 2.14 thousand tonnes
-## 36        AvC  24.53 5.04 thousand tonnes
-## 37        THC  43.24 4.80 thousand tonnes</code></pre>
+## 1  Fratio4010   0.87 0.72 thousand tonnes
+## 2      DD4010   0.95 0.61 thousand tonnes
+## 3    DCAC4010   1.46 1.08 thousand tonnes
+## 4       HDAAC   2.25 0.67 thousand tonnes
+## 5        DepF   2.79 1.58 thousand tonnes
+## 6        DAAC   2.88 1.20 thousand tonnes
+## 7          DD   3.28 0.85 thousand tonnes
+## 8      Fratio   4.03 2.97 thousand tonnes
+## 9   DBSRA4010   4.20 5.26 thousand tonnes
+## 10       Fdem   4.92 2.12 thousand tonnes
+## 11       DynF   5.00 1.27 thousand tonnes
+## 12   Itarget4   5.03 0.47 thousand tonnes
+## 13       DCAC   5.19 1.73 thousand tonnes
+## 14      DBSRA   6.13 4.91 thousand tonnes
+## 15      SPSRA   6.16 3.89 thousand tonnes
+## 16   Gcontrol   6.53 0.01 thousand tonnes
+## 17   Rcontrol   6.53 0.00 thousand tonnes
+## 18  Rcontrol2   6.53 0.00 thousand tonnes
+## 19   Itarget1   6.96 0.66 thousand tonnes
+## 20    DCAC_40   7.06 2.38 thousand tonnes
+## 21     Fadapt   8.13 0.05 thousand tonnes
+## 22        YPR   8.51 3.17 thousand tonnes
+## 23   DBSRA_40   8.90 8.38 thousand tonnes
+## 24         BK  11.19 4.26 thousand tonnes
+## 25    MCD4010  11.38 8.50 thousand tonnes
+## 26      SPMSY  11.59 7.66 thousand tonnes
+## 27    Islope4  13.92 1.24 thousand tonnes
+## 28        MCD  14.05 6.15 thousand tonnes
+## 29    SPslope  14.21 1.38 thousand tonnes
+## 30   GB_slope  16.32 2.43 thousand tonnes
+## 31        CC4  16.43 1.54 thousand tonnes
+## 32      SPmod  16.45 3.72 thousand tonnes
+## 33    Islope1  17.88 1.63 thousand tonnes
+## 34       SBT1  18.54 3.75 thousand tonnes
+## 35        CC1  23.60 2.37 thousand tonnes
+## 36        AvC  24.05 4.67 thousand tonnes
+## 37        THC  44.50 4.28 thousand tonnes</code></pre>
 
 </div>
 </div>
@@ -548,11 +548,8 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
-"download": ["userguide.pdf", "userguide.epub"],
+"edit": "https://github.com/DLMtool/DLMtool_UserGuide/edit/master/%s",
+"download": ["userguide.pdf"],
 "toc": {
 "collapse": "section"
 }

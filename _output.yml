@@ -8,7 +8,7 @@ bookdown::gitbook:
         <li><a href="./">DLMtool User Guide</a></li>
       after: |
         <li><a href="http://www.datalimitedfisheries.com" target="blank">DLMtool website</a></li>
-    # edit:
-      # link: https://github.com/rstudio/bookdown-demo/edit/master/%s
+    download: [pdf]
+    edit: https://github.com/DLMtool/DLMtool_UserGuide/edit/master/%s
 bookdown::pdf_book: default
 bookdown::epub_book: default

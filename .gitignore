@@ -48,3 +48,8 @@ Temporary Items
 .Rproj.user/3837C83A/build_options
 .Rproj.user/3837C83A/sdb/s-66556492/lock_file
 .Rproj.user/3837C83A/session-persistent-state
+
+#Bookdown files
+_bookdown_files
+_book
+_userguide_cache
