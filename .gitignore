@@ -50,6 +50,8 @@ Temporary Items
 .Rproj.user/3837C83A/session-persistent-state
 
 #Bookdown files
-_bookdown_files
-_book
-_userguide_cache
+_bookdown_files/
+_book/
+_userguide_cache/
+_userguide_files/
+*.docx
