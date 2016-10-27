@@ -73,6 +73,8 @@ The DLMtool is developed with [R](www.r-project.org) software, and users of the 
 ## Acknowledgements 
 Thanks to the many people who have alerted us to issues or bugs, provided suggestions for improvements, or asked the tricky, but important, questions that have helped us continue to develop the DLMtool.  
 
+This User Guide has been developed with the [bookdown](https://bookdown.org/) package.
+
 ***Developers:***
 
 - Thomas Carruthers, University of British Columbia (UBC) Institute for the Oceans and Fisheries
@@ -106,6 +108,7 @@ Thanks to the many people who have alerted us to issues or bugs, provided sugges
 The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) so that it can be fixed!
 
 Fundamentally, the package is stochastic so if you run into problems with the code, please report it (along with a random seed) and, in the meantime, simply try running it again: the problem may be attributable to a rare combination of sampled parameters.
+
 
 ## Version Notes
 The current version of the DLMtool package, available for download from [CRAN](https://cran.r-project.org/web/packages/DLMtool/index.html), is `r curVer`.
