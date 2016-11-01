@@ -57,3 +57,4 @@ _userguide_files/
 *.docx
 .Rhistory
 .Rproj.user/
+.Rproj.user
