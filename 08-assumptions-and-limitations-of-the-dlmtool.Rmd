@@ -3,55 +3,58 @@
 <!-- Tips, and Additional Information -->
 
 <!-- FAQ list to come -->
-> *Essentially, all models are wrong, but some are useful* - George E. P. Box 
 
-Like all models, DLMtool is a simplication of reality.  In order to approximate real fishery dynamics, DLMtool relies on a number of simplifying assumptions.  
+Like all models, DLMtool is a simplication of reality. In order to approximate real fishery dynamics, DLMtool relies on a number of simplifying assumptions.
 
-Some of these assumptions are common to many fishery science models (e.g., age-structured population dynamics) and are a central to the construction of DLMtool.  Other assumptions are a result of the way the DLMtool was designed and developed, and may represent limitations of DLMtool for applications to particular situations.  These assumptions may be overcome by further development of DLMtool.   
+Some of these assumptions are common to many fishery science models (e.g., age-structured population dynamics) and are a central to the structure of DLMtool. Other assumptions are a result of the way DLMtool was designed and developed, and may represent limitations of DLMtool for applications to particular situations. It may be possible to deal with some of these assumptions by further development of DLMtool.
 
 ## Biology
-### Natural Mortality Rate at Age
-The current simulation assumes constant M with age. Age-specific M will be added soon. 
-
 ### Short-Lived Species
-It's probably best not to try and use the package for very short lived stocks (that live for less than 5 years) due to the problems with approximating fine-scale temporal dynamics with an annual model. 
+Due to the problems with approximating fine-scale temporal dynamics with an annual model it is not advised to use the DLMtool for very short lived stocks (i.e., species with a longevity of 5 years or less).
 
-Technically you could just divide all your parameters by a subyear resolution but the TAC would be set by sub year and the data would also be available at this fine-scale which is highly unlikely in a data-limited setting.   
+Technically, you could just divide all temporal parameters by a subyear resolution, but the TAC would be set by sub year and the data would also be available at this fine-scale which is highly unlikely in a data-limited setting.
 
-### Density Dependent Compensation 
-not assumed (i.e. fish grow, reproduce at same rate regardless off stock size)
+A MSE model with monthly or weekly time-steps for the population dynamics is required for short-lived species, and may be developed in the future.
+
+### Density-Dependent Compensation
+DLMtool assumes there is no density-dependent compensation in the population dynamics, and fish growth, maturity, and mortality does not change directly in response to changes in stock size.
 
 ### von Bertalanffy Growth
+Growth model in DLMtool is modelled using the von Bertalanffy growth curve. While this is the most commonly applied model to describe fish growth, it may not be the preferred growth model for some species. The consequences of assuming the von Bertalanffy growth model should be considered when using the DLMtool for species with alternative growth patterns.
 
+### Natural Mortality Rate at Age
+DLMtool currently assumes that natural mortality (*M*) is constant with age. Age-specific M may be added in a future developments.
 
-## MSE Assumptions
+## MSE Model Assumptions
 ### Idealised Observation Models for Catch Composition Data
-Currently, DLMtool simulates catch-composition data from the true simulated catch composition data via a multinomial distribution and some effective sample size. This observation model may be unrealistically well-behaved and favour those approaches that use these data. We are considering adding a growth-type-group model to improve the realism of simulated length composition data. 
+Currently, DLMtool simulates catch-composition data from the true simulated catch composition data via a multinomial distribution and some effective sample size. This observation model may be unrealistically well-behaved and favour those approaches that use these data. We are considering adding a growth-type-group model to improve the realism of simulated length composition data.
 
 ### Implementation Error
-In this edition of DLMtool there is no implementation  error. The only imperfection between a management recommendation and the simulated TAC comes in the form of the MaxF argument that limits the maximum fishing mortality rate on any given age-class in the operating model. The default is 0.8 which is high for all but the shortest living fish species.  
-<!-- Maybe comment on why this is difficult to do? - TOM? -->
+In this edition of DLMtool there is no implementation error. The only imperfection between a management recommendation and the simulated TAC comes in the form of the MaxF argument that limits the maximum fishing mortality rate on any given age-class in the operating model. The default is 0.8 which is high for all but the shortest living fish species.
 
-### Closed System
-if you go with limitations, need to be explicit about Mexico
+### Discard Mortality
+Related to the previous point, DLMtool assumes that there is no discard mortality or fishing mortality for fish that are below the length of selectivity. This can be an important assumption, particularly when evaluating the impact of size-selectivity management methods such as a minimum legal length.
 
 ### Two-Box Model
-two boxes with homogeneous fishing, distribution
-
-### Marine Protected Areas
+DLMtool uses a two-box spatial model and assumes homogeneous fishing, and distribution of the fish stock. That is, growth and other life-history characteristics do not vary across the two spatial areas. Spatial targeting of the fishing fleet is currently being developed in the model.
 
 ### Ontogenetic Habitat Shifts
-Since the operating model simulated two areas, it is possible to prescribe a log-linear model that moves fish from one area to the other as they grow older. This could be used to simulate the ontogenetic shift of groupers from near shore waters to offshore reefs. Currently this feature is in development. 
+Since the operating model simulates two areas, it is possible to prescribe a log-linear model that moves fish from one area to the other as they grow older. This could be used to simulate the ontogenetic shift of groupers from near shore waters to offshore reefs. Currently this feature is in development.
+
+### Closed System
+DLMtool assumes that the population being modelled is in a closed system. There is no immigration or emigration, and a unit stock is assumed to be represented in the model and impacted by the management decisions. This assumption may be violated where the stock extends across management jurisdictions. Violations of this assumption may impact the interpretation of the MSE results, and these implications should be considered when applying DLMtool.
+
+Although a unit stock is a central assumption of many modeling and assessment approaches, it may be possible to further develop DLMtool to account for stocks that cross management boundaries.
+
+### Marine Protected Areas (MPA)
+MPAs can be evaluated as management action in DLMtool by closing one area to fishing in the future projections. Currently, it is not possible to include MPAs in future projections alongside other management methods such as TAC or effort controls. Similarly, further development of DLMtool is required to fully incorporate existing MPA networks into the MSE simulations
 
 ## Management Procedures
 ### Harvest Control Rules Must be Integrated into Data-Limited MPs
-In this version of DLMtool, harvest control rules (e.g. the 40-10 rule) must be written into a data-limited MP. There is currently no ability to do a factorial comparison of say 4 harvest controls rules against 3 MPs (the user must describe all 12 combinations). The reason for this is that it would require further subclasses. 
+In this version of DLMtool, harvest control rules (e.g. the 40-10 rule) must be written into a data-limited MP. There is currently no ability to do a factorial comparison of say 4 harvest controls rules against 3 MPs (the user must describe all 12 combinations). The reason for this is that it would require further subclasses.
 
 For example the 40-10 rule may be appropriate for the output of DBSRA but it would not be appropriate for some of the simple management procedures such as DynF that already incorporate throttling of TAC recommendations according to stock depletion.
 
-
 ## Data and Method Application
-### assumes all data collected is fully representative of stock
-
-
-  
+### Data Assumed to be Representative
+The MSE model accounts for observation error in the simulated fishery data. However, the application of management procedures for management advice assumes that the provided fishery data is representative of the fishery and is the best available information on the stock. Processing of fishery data should take place before entering the data into the fishery data tables, and assumptions of the management procedures should be carefully evaluated when applying methods using DLMtool.
