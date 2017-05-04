@@ -4,30 +4,24 @@ The last two chapters described how to set up an Operating Model object and to s
 This chapter will describe how to run the Management Strategy Evaluation using the DLMtool
 
 ## Re-cap on Setting up DLMtool
-Chapter \@ref(preq) describes the necessary to set up the DLMtool. In brief, the following five lines should appear at the top of your script whenever you are using the DLMtool to run a MSE:
+Chapter \@ref(preq) describes the necessary to set up the DLMtool. In brief, the following lines should appear at the top of your script whenever you are using the DLMtool to run a MSE:
 ```{r, eval=FALSE}
 library(DLMtool)
-for(i in 1:length(DLMdat)) assign(DLMdat[[i]]@Name, DLMdat[[i]])
-sfInit(parallel=TRUE, cpus=detectCores())
-sfExportAll()
-set.seed(101) 
+setup() 
 ```
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(DLMtool)
-for(i in 1:length(DLMdat)) assign(DLMdat[[i]]@Name, DLMdat[[i]])
-sfInit(parallel=TRUE, cpus=detectCores())
-sfExportAll()
-set.seed(101) 
+setup()
 ```
 
 ## Defining the Operating Model
 The operating model is the 'simulated reality': a series of known simulations for testing various data-limited Management Procedures. Operating models can either be specified in detail according to each variable (e.g. sample natural mortality rate between 0.2 and 0.3) or alternatively the user can rapidly construct an operating model based on a set of predefined `Stock`, `Fleet` and `Observation` models. See Chapter \@ref(setupOM) for more details on the operating model. 
 
-In this case we take the latter approach and pick the `Blue_shark` stock type, a generic fleet type and an observation model that generates data that can be both imprecise and biased.
+In this case we take the latter approach and pick the `Blue_shark` stock type, a generic fleet type and an observation model that generates data that can be both imprecise and biased. We will ignore implementation error and use the default `Perfect_Imp`.
 
 ```{r}
-OM <- new('OM', Blue_shark, Generic_fleet, Imprecise_Biased)
+OM <- new('OM', Blue_shark, Generic_fleet, Imprecise_Biased, Perfect_Imp)
 ```
 
 ## Choose Management Procedures
@@ -47,30 +41,37 @@ Here we briefly describe the arguments for the `runMSE` function:
 
 * `OM` - An object of class `OM`. Must be specified, see Chapter \@ref(setupOM) for details.
 * `MPs` - A character vector specifying the Management Procedures to be included in the MSE. If not specified, the DLMtool will run the MSE for all available methods in the Toolkit. 
-* `nsim` - Number of simulations
-* `proyears` - Number of projected years
+* `nsim` - Number of simulations (For backward compatibility only. `nsim` is now a slot in the `OM` object and this argument will be ignored if `nsim` is specfied in `OM@nsim`)
+* `proyears` - Number of projected years (For backward compatibility only. `proyears` is now a slot in the `OM` object and this argument will be ignored if `proyears` is specfied in `OM@proyears.`)
 * `interval` - The assessment interval - how often would you like to update the management system?
 * `pstar` - The percentile of the sample of the management recommendation for each method
 * `maxF` - Maximum instantaneous fishing mortality rate that may be simulated for any given age class
 * `timelimit` - Maximum time taken for a method to carry out 10 reps (methods are ignored that take longer)
 * `reps` - The number of samples of the management recommendation for each method. Note that when this is set to 1, the mean value of the data inputs is used
-* `custompars` - An optional data table that allows users to prescribe correlated parameters or estimates from stock assessments.
 * `CheckMPs` - A logical value to specify if the DLMtool should check if the Management Procedures can be run before running the entire MSE. Mainly used for developing and testing new methods.
+* `Hist` - Logical - Should model stop after historical simulations? Returns a list containing all data simulated for historical period
+* `ntrials` - Maximum of times depletion and recruitment deviations are resampled to optimize for depletion.
+* `fracD` - maximum allowed proportion of simulations where depletion is not close to sampled depletion from OM before model stops with error
+* `CalcBlow` - Logical - Should low biomass be calculated where this is the spawning biomass at which it takes HZN mean generation times of zero fishing to reach Bfrac fraction of SSBMSY?
+* `HZN` - The number of mean generation times required to reach Bfrac SSBMSY in the Blow calculation
+* `Bfrac` - The target fraction of SSBMSY for calculating Blow
 
 ### Using `runMSE`
 Most of the arguments for the `runMSE` function have default values. The most important parameters to specify are the Operating Model object, the Management Procedures to include, the number of simulations, the number of projection years, and the interval for management.
 
 Here we will demonstrate running the blue shark operating model that we created above, for the five Management Procedures selected above.  Note that in this example we have chosen to include 10 simulations (`nsim`=10) and left the other parameters at the default values. 
 
-```{r, include=FALSE, cache=TRUE}
-start <-Sys.time()
+
+```{r, include=FALSE}
+start <- Sys.time()
 ```
 
-```{r, cache=TRUE}
-BSharkMSE <- runMSE(OM=OM, MPs=MPs, nsim=10)
+```{r, runMSE}
+OM@nsim <- 10 
+BSharkMSE <- runMSE(OM=OM, MPs=MPs)
 ```
 
-```{r, include=FALSE, cache=TRUE}
+```{r, include=FALSE}
 end <- Sys.time() 
 elapse <- as.numeric(end-start )
 elapse <- round(elapse, 0)
@@ -78,30 +79,42 @@ elapse <- round(elapse, 0)
 
 Note that this is just a demonstration, in a real MSE you should use many more simulations (`nsim` more than 200), `reps` (samples per method more than 100) and perhaps a more frequent assessment interval (`interval` of 2 or 3 years). 
 
-Note that when `reps` is set to 1, all stochastic MPs use the mean value of an input and do not sample from the distribution according to the specified CV (the `DLM_output` MPs become deterministic and no longer produce samples of the TAC recommendation).
+Note that when `reps` is set to 1, all stochastic MPs use the mean value of an input and do not sample from the distribution according to the specified CV (the `Output` MPs become deterministic and no longer produce samples of the TAC recommendation).
 
 ### Robust Wrapper Function
 The above example, with 10 simulations and 5 Management Procedures, should take about `r elapse` seconds to complete.  A real MSE would include many more simulations and take significantly longer.
 
 The `runMSErobust` function has been designed as a more efficient way to run the MSE for a large number of simulations.  The `runMSErobust` function splits the MSE into a number of individual packets.  
 
-The advantages are that it is more efficient (i.e., quicker), it automatically saves the final MSE object to the hard disk, and re-starts a packet if the MSE model crashes.  Furthermore, he individual packets can be saved so if the model crashes, or you suffer a power outage the work is not lost.
+The advantages are that it is more efficient (i.e., quicker), it automatically saves the final MSE object to the hard disk, and re-starts a packet if the MSE model crashes.  Furthermore, the individual packets can be saved so if the model crashes, or you suffer a power outage the work is not lost.
 
 It is recommended to use the `runMSErobust` function if you are running a large number of simulations. However, it is always a good idea to run a small number of simulations first, to test that the MSE is running correctly, and not crashing due to mis-specified parameters or bugs in the Management Procedure code.
 
-The `runMSErobust` function is essentially a wrapper for the `runMSE` function and takes the same arguments as `runMSE`.  The `runMSErobust` function has several additional arguments, including:
+The `runMSErobust` function is essentially a wrapper for the `runMSE` function and takes the same arguments as `runMSE`.  The `runMSErobust` function has several additional arguments:
 
-* `maxsims` - The maximum number of simulations to include in each packet.
-* `name` - The file name of the MSE object that is saved to the hard disk.
-* `maxCrash` - The maximum number of consecutive crashes before the MSE stops.
-* `saveMSE` - A logical value (`TRUE`/`FALSE`) to indicate if final `MSE` object should be saved to current working directory (this is probably a good idea).
-* `savePack` - A logical value (`TRUE`/`FALSE`) to indicate if the packets should be save to current working directory.
+* `maxsims` - The maximum number of simulations to include in each packet
+* `name` - The file name of the MSE object that is saved to the hard disk
+* `unique` - Logical - Should the name be unique? Current date and time will be appended to name
+* `maxCrash` - The maximum number of consecutive crashes before the MSE stops
+* `saveMSE` - A logical value (`TRUE`/`FALSE`) to indicate if final `MSE` object should be saved to current working directory (this is probably a good idea)
+* `savePack` - A logical value (`TRUE`/`FALSE`) to indicate if the packets should be save to current working directory
 
 Here we will run the blue shark MSE with 300 simulations. Note that the output is not printed out in the User Manual.  
 
 ```{r, eval=FALSE}
-BSharkMSE <- runMSErobust(OM=OM, MPs=MPs, nsim=300, name="blueshark")
+OM@nsim <- 300
+BSharkMSE <- runMSErobust(OM=OM, MPs=MPs, name="bluesharkMSE")
 ```
+
+
+<!-- # ```{r, runMSErobust, cache=TRUE, include=FALSE} -->
+<!-- # OM@nsim <- 300  -->
+<!-- # BSharkMSE <- runMSErobust(OM=OM, MPs=MPs, name="bluesharkMSE") -->
+<!-- # ``` -->
+<!-- #  -->
+<!-- # ```{r, include=FALSE, cache=TRUE} -->
+<!-- # saveRDS(BSharkMSE, "bluesharkMSE.rdata") -->
+<!-- # ``` -->
 
 This run should be completed in 10 minutes or less.  The MSE object was saved (using the `saveRDS` function) to the current working directory as a `rdata` object named 'bluesharkMSE.rdata'. 
 
@@ -111,9 +124,9 @@ BSharkMSE <- readRDS("bluesharkMSE.rdata")
 ```
 
 ## Checking Convergence
-The MSE is now complete. We can use the `CheckConverg` function to confirm that the number of simulations is sufficient and the MSE model has converged, by which we mean that the relative position of the Management Procedures are stable with respect to different performance metrics:
+The MSE is now complete. We can use the `Converge` function to confirm that the number of simulations is sufficient and the MSE model has converged, by which we mean that the relative position of the Management Procedures are stable with respect to different performance metrics:
 ```{r}
-CheckConverg(BSharkMSE)
+Converge(BSharkMSE)
 ```
 
 ## A Quick Recap 
@@ -121,10 +134,10 @@ The next step is exploring the output of the MSE, and determining which Manageme
 
 The information above is spread out over a number of sections and paragraphs, and may appear a little complex. In fact, other than the initial set up of the DLMtool, it only took 4 lines of code to run the MSE and check the model for convergence:
 ```{r, eval=FALSE}
-OM <- new('OM', Blue_shark, Generic_fleet, Imprecise_Biased)
+OM <- new('OM', Blue_shark, Generic_fleet, Imprecise_Biased, nsim=300)
 MPs <- c("Fratio", "DCAC", "Fdem", "DD", "matlenlim")
-BSharkMSE <- runMSErobust(OM=OM, MPs=MPs, nsim=300, name="blueshark")
-CheckConverg(BSharkMSE)
+BSharkMSE <- runMSErobust(OM=OM, MPs=MPs, name="bluesharkMSE")
+Converge(BSharkMSE)
 ```
 
 In the next Chapter we will look at how to examine the output of the MSE.

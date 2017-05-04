@@ -3,7 +3,6 @@ The purpose of an MSE is to compare the performance of alternative management ap
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(DLMtool) # only needed for building individual chapter of user guide
-for(i in 1:length(DLMdat)) assign(DLMdat[[i]]@Name, DLMdat[[i]])
 ```
 
 ## What is a Management Procedure?
@@ -48,20 +47,20 @@ Details on how to develop new Management Procedures are provided in sections bel
 Output control methods (methods that return a TAC) in the DLMtool are of the class `DLM_output`.  You can use the `avail` function to list the available output controls in the DLMtool:
 
 ```{r}
-avail("DLM_output")
+avail("Output")
 ```
 
 ```{r, include=FALSE}
-nOut <- length(avail("DLM_output"))
-nIn <- length(avail("DLM_input"))
+nOut <- length(avail("Output"))
+nIn <- length(avail("Input"))
 ```
 
 As you can see, there are `r nOut` output control methods built into the DLMtool.  
 
 ### Input Controls
-The list of the `r nIn` available input control methods (class `DLM_input`) can be displayed in the same way:
+The list of the `r nIn` available input control methods (class `Input`) can be displayed in the same way:
 ```{r}
-avail("DLM_input")
+avail("Input")
 ```
 
 ## Details of the Methods
@@ -70,26 +69,26 @@ Information on each Management Procedure can be found be using the `?` function.
 The help documentation provides a description of the method, the arguments for the function, and the output of the function, together with references to the scientific literature that are associated with the method.
 
 ## Designing New Methods 
-DLMtool was designed to be extensible in order to promote the development of new Management Procedures. In this section we design a series of new Management Procedures that include spatial controls and input controls in the form of size limit restrictions. The central requirement of any MP is that it can be applied to a `DLM_data` object using the function `sapply` (`sfSapply()` in parallel processing).
+DLMtool was designed to be extensible in order to promote the development of new Management Procedures. In this section we design a series of new Management Procedures that include spatial controls and input controls in the form of size limit restrictions. The central requirement of any MP is that it can be applied to a `Data` object using the function `sapply` (`sfSapply()` in parallel processing).
 
-`DLM_data` objects have a single position `x` for each data entry (e.g. one value for natural mortality rate, a single vector of historical catches, etc.). In the MSE analysis this is extended to `nsim` positions. 
+`Data` objects have a single position `x` for each data entry (e.g. one value for natural mortality rate, a single vector of historical catches, etc.). In the MSE analysis this is extended to `nsim` positions. 
 
-See the [Managing Fishery Data] section for more information about the `DLM_data` object.
+See the [Managing Fishery Data] section for more information about the `Data` object.
 
-It follows that any MP arranged to function `sapply(x,MP,DLM_data)` will work. For example we can get five stochastic samples of the TAC for the demographic FMSY MP paired to catch-curve analysis `FdemCC` applied to a real data-limited data object for red snapper using:
+It follows that any MP arranged to function `sapply(x,MP,Data)` will work. For example we can get five stochastic samples of the TAC for the demographic FMSY MP paired to catch-curve analysis `FdemCC` applied to a real data-limited data object for red snapper using:
 ```{r}
 sapply(1,Fdem_CC,Red_snapper,reps=5)
 ```
 
-The MSE populates a `DLM_data` object with many simulations and uses `sfSapply()` (snowfall cluster computing equivalent) to calculate a management recommendation for each simulation. By making methods compatible with this standard the very same equations are used in both the MSE and the real management advice. 
+The MSE populates a `Data` object with many simulations and uses `sfSapply()` (snowfall cluster computing equivalent) to calculate a management recommendation for each simulation. By making methods compatible with this standard the very same equations are used in both the MSE and the real management advice. 
 
 ### Average Historical Catch Management Procedure
 The average historical catch has been suggested as a starting point for setting TACs in the most data-limited situations (following Restrepo et al., 1998). 
 
 Here we design such an Management Procedure:
 ```{r}
-AvC <- function(x, DLM_data, reps) {
-  rlnorm(reps, log(mean(DLM_data@Cat[x,], na.rm=T)), 0.1) 
+AvC <- function(x, Data, reps) {
+  rlnorm(reps, log(mean(Data@Cat[x,], na.rm=T)), 0.1) 
 }
 ```
 
@@ -97,9 +96,9 @@ Note that all Management Procedures have to be stochastic in this framework, whi
 
 Before the Management Procedure can be 'seen' by the rest of the DLMtool package we have to do three more things. 
 
-The  Management Procedure must be assigned a class based on what outputs it provides. Since this is an output control (TAC) based MP we assign it class `DLM_output`. The Management Procedure must also be assigned to the DLMtool namespace:
+The  Management Procedure must be assigned a class based on what outputs it provides. Since this is an output control (TAC) based MP we assign it class `Output`. The Management Procedure must also be assigned to the DLMtool namespace:
 ```{r}
-class(AvC) <-"DLM_output"
+class(AvC) <-"Output"
 environment(AvC) <-asNamespace('DLMtool')
 ```
 and - if we are using parallel computing - exported to the cluster:
@@ -126,21 +125,21 @@ sfExport("THC")
 -->
 
 ### Length-at-Selection Set Equal to Length-at-Maturity
-To simulate input controls that aim to alter the length-vulnerability to fishing it is possible to design a Management Procedure of class `DLM_input`. 
+To simulate input controls that aim to alter the length-vulnerability to fishing it is possible to design a Management Procedure of class `Input`. 
 
 In this example we set selectivity equal to the maturity curve, while the spatial and effort regulations remain constant:
 
 ```{r}
-matlenlim <- function (x, DLM_data, ...) {
+matlenlim <- function (x, Data, ...) {
     Allocate <- 1
     Effort <- 1
     Spatial <- c(1, 1)
-    newLFC <- DLM_data@L50[x] * 0.95
-    newLFS <- DLM_data@L50[x]
+    newLFC <- Data@L50[x] * 0.95
+    newLFS <- Data@L50[x]
     Vuln <- c(newLFC, newLFS)
     c(Allocate, Effort, Spatial, Vuln)
 }
-class(matlenlim) <- "DLM_input"
+class(matlenlim) <- "Input"
 environment(matlenlim) <- asNamespace("DLMtool")
 
 ```
@@ -152,17 +151,17 @@ sfExport("matlenlim")
 ### Harvest Slot Limit 
 We can also choose to create a Management Procedure with a harvest slot limit.  This example sets a minimum legal length at 1.1 times the size of maturity, and a maximum size limit at 75% of the distance between the minimum legal length and the estimate of asymptotic length recorded in the fishery data object:
 ```{r}
-slotlim <- function (x, DLM_data, ...) {
+slotlim <- function (x, Data, ...) {
     Allocate <- 1
     Effort <- 1
     Spatial <- c(1, 1)
-    newLFS <- 1.1 * DLM_data@L50[x]
+    newLFS <- 1.1 * Data@L50[x]
     newLFC <- 0.95 * newLFS
-    UppLim <- as.numeric(quantile(c(newLFS, DLM_data@vbLinf[x]), 0.75))
+    UppLim <- as.numeric(quantile(c(newLFS, Data@vbLinf[x]), 0.75))
     Vuln <- c(newLFC, newLFS, UppLim)
     c(Allocate, Effort, Spatial, Vuln)
 }
-class(slotlim) <- "DLM_input"
+class(slotlim) <- "Input"
 environment(slotlim) <- asNamespace("DLMtool")
 ```
 
@@ -177,14 +176,14 @@ Note that the arguments for the input methods must include either `reps` or `...
 Spatial controls operate similarly to the age/size based controls: a vector of length 2 (the spatial simulator is a 2-box model) that indicates the fraction of current spatial catches. In this example we reduce effort in area 1 by 50%. 
 
 ```{r}
-area1_50 <- function(x,DLM_data, ...){ 
+area1_50 <- function(x,Data, ...){ 
   Allocate <- 0 # Fraction of effort reallocated to open area
   Effort <- 1  # Fraction of effort in last historical year
   Spatial <- c(0.5,1) # Fraction of effort found in each area
   Vuln <- rep(NA,2) # Length vulnerability is not specified   
   c(Allocate, Effort, Spatial, Vuln) # Input controls stitched togther
 }
-class(area1_50)<-"DLM_input"
+class(area1_50)<-"Input"
 environment(area1_50) <- asNamespace('DLMtool')
 ```
 

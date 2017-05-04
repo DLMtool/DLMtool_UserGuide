@@ -107,7 +107,7 @@ Documentation for each function can be obtained by typing a ? symbol followed by
 
 Information on the DLMtool classes can be found by first typing ```class``` followed by the ? symbol and the class name.  For example:
 ```{r, eval=FALSE}
-class?DLM_data
+class?Data
 ```
 
 <!--See [Frequently Asked Questions] for tips on common issues and questions. -->

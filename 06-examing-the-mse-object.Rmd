@@ -30,7 +30,7 @@ slotNames(BSharkMSE)
 As you can see, `MSE` objects contain all of the information from the MSE, stored in `r nslots` slots.
 
 ### The First Six Slots
-The first six slots contain information on the structure of the MSE.  For example the first slot (`Name`),  is a combination of the names of the `Stock`, `Fleet`, and `Observation` objects that were used in the MSE:
+The first six slots contain information on the structure of the MSE.  For example the first slot (`Name`),  is a combination of the names of the `Stock`, `Fleet`, and `Obs` objects that were used in the MSE:
 ```{r}
 BSharkMSE@Name
 ```
@@ -206,22 +206,22 @@ The `NOAA_plot` function was developed from applications of the DLMtool to fishe
 NOAA_plot(BSharkMSE)
 ```
 
-The `TradePlot` function was developed as a generic plot that could be used to examine various trade-offs:
+<!-- The `TradePlot` function was developed as a generic plot that could be used to examine various trade-offs: -->
 
-```{r}
-TradePlot(BSharkMSE)
-```
+<!-- ```{r} -->
+<!-- TradePlot(BSharkMSE) -->
+<!-- ``` -->
 
-The `Tradeplot` function has several arguments which allow users to choose what trade-offs to display, specify the acceptable risk thresholds, and control other aspects of the plot.
+<!-- The `Tradeplot` function has several arguments which allow users to choose what trade-offs to display, specify the acceptable risk thresholds, and control other aspects of the plot. -->
 
-The acceptable level of risk can be changed using the `XThresh` and `YThresh` arguments.  For example, here we set the risk threshold for both not overfishing and not being in an overfished state to 50%, and also choose to display the names of the Management Procedures:
-```{r}
-TradePlot(BSharkMSE, XThresh=c(50, 50), ShowLabs=TRUE)
-```
+<!-- The acceptable level of risk can be changed using the `XThresh` and `YThresh` arguments.  For example, here we set the risk threshold for both not overfishing and not being in an overfished state to 50%, and also choose to display the names of the Management Procedures: -->
+<!-- ```{r} -->
+<!-- TradePlot(BSharkMSE, XThresh=c(50, 50), ShowLabs=TRUE) -->
+<!-- ``` -->
 
-The `Tradeplot` function returns a list of the performance of the Management Procedures that meet the requirements specified in the risk thresholds (the green space in the plots).
+<!-- The `Tradeplot` function returns a list of the performance of the Management Procedures that meet the requirements specified in the risk thresholds (the green space in the plots). -->
 
-Like all methods in the DLMtool, the help page for the `TradePlot` can be accessed by typing `?TradePlot` into the R console.
+<!-- Like all methods in the DLMtool, the help page for the `TradePlot` can be accessed by typing `?TradePlot` into the R console. -->
 
 ### Boxplot 
 The distribution of various statistics can be examined for the Management Procedures using the `boxplot` function:
@@ -283,17 +283,17 @@ By default, the `Pplot` function shows the individual trajectories of $B/B_{MSY}
 Pplot(BSharkMSE)
 ```
 
-The `YVar` argument can be used to specify additional variables of interest. For example, here we have included the projections of yield relative to the long-term optimum yield:
+The `Pplot2` function has several additional arguments. The `YVar` argument can be used to specify additional variables of interest. For example, here we have included the projections of yield relative to the long-term optimum yield:
 ```{r, projection-plot2, cache=TRUE}
-Pplot(BSharkMSE, YVar=c("B_BMSY", "F_FMSY", "Yield"))
+Pplot2(BSharkMSE, YVar=c("B_BMSY", "F_FMSY", "Yield"))
 ```
 
 The `traj` argument can be used to summarize the projections into quarantines. Here we show the 20th and 80th percentiles of the distributions (the median (50th percentile) is included by default):
 ```{r, projection-plot3, cache=TRUE}
-Pplot(BSharkMSE, traj="quant", quants=c(0.2, 0.8))
+Pplot2(BSharkMSE, traj="quant", quants=c(0.2, 0.8))
 ```
 
-Details on additional controls for the `Pplot` function can be found in the help documentation associated with this function.
+Details on additional controls for the `Pplot` and `Pplot2` functions can be found in the help documentation associated with this function.
 
 ### Kobe Plots
 Kobe plots are often used in stock assessment and MSE to examine the proportion of time the stock spends in different states.  A Kobe plot of the MSE results can be produced with the `Kplot` function:

@@ -13,46 +13,16 @@ At the beginning of every session you must load the DLMtool library:
 library(DLMtool)
 ```
 
-## Unpack the Data
-A list object `DLMdat` is unpacked which puts all objects and data in the current workspace: 
-```{r assignObjs}
-for(i in 1:length(DLMdat)) assign(DLMdat[[i]]@Name, DLMdat[[i]])
+## Set up parallel processing 
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+setup()
 ```
 
-## Initiate the Cluster
-Note that most computers make use of hyperthreading technology so a quad-core PC has 8 threads.  Here we are using the `detectCores` function to calculate the number of available cores on the machine:
-
-```{r sfinit, warning=FALSE}
-sfInit(parallel=TRUE, cpus=detectCores()) 
-
-```
-
-## Export all Data and Objects to the Cluster 
-In order to make all DLMtool functions and objects available for parallel processing we must export them to the cluster: 
-
-```{r, eval}
-sfExportAll()
-```
-
-## Set a Random Seed
-In order to make results presented here reproducible, we set a random seed for this R session:
-```{r seed}
-set.seed(101) 
+```{r setup2, eval=FALSE}
+setup()
 ```
 
 ## Summary
 The above steps need to be done each time you start a new instance of R/RStudio and use the DLMtool.  It is recommended that you start a new instance of R (by restarting RStudio) each time you begin a new analysis.
-
-The code in the sections above is spread out and interspersed with explanation, which may make it appear much longer and more complicated than it really is.  There are five lines of code that need to be run each time you begin using the DLMtool:
-
-```{r, eval=FALSE}
-library(DLMtool)
-for(i in 1:length(DLMdat)) assign(DLMdat[[i]]@Name, DLMdat[[i]])
-sfInit(parallel=TRUE, cpus=detectCores())
-sfExportAll()
-set.seed(101) 
-```
-
-These lines can be copy-pasted into your R script, and should appear at the top so that they are run before anything else.
 
 
