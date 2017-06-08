@@ -288,7 +288,7 @@ The `Pplot2` function has several additional arguments. The `YVar` argument can 
 Pplot2(BSharkMSE, YVar=c("B_BMSY", "F_FMSY", "Yield"))
 ```
 
-The `traj` argument can be used to summarize the projections into quarantines. Here we show the 20th and 80th percentiles of the distributions (the median (50th percentile) is included by default):
+The `traj` argument can be used to summarize the projections into quantiles. Here we show the 20th and 80th percentiles of the distributions (the median (50th percentile) is included by default):
 ```{r, projection-plot3, cache=TRUE}
 Pplot2(BSharkMSE, traj="quant", quants=c(0.2, 0.8))
 ```
