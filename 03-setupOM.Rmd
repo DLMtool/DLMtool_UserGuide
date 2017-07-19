@@ -146,7 +146,7 @@ class?Obs
 ```
 
 ### Implementation Object
-The final component for the *Operating Model* is the *Imp* object.  This object contains all the information relating to how the management recommendation is actually implemented in the fishery, i.e., the implementation error. The `Imp` object includes slots for the over or under catch of TAC, implementation error in total allowable effort, variability in size limits, and discard mortality. 
+The final component for the *Operating Model* is the *Imp* object.  This object contains all the information relating to how the management recommendation is actually implemented in the fishery, i.e., the implementation error. The `Imp` object includes slots for the over or under catch of TAC, implementation error in total allowable effort, and variability in size limits. 
 
 The `Imp` object is a recent addition to DLMtool and may be expanded in future developments. 
 
@@ -162,7 +162,7 @@ As mentioned earlier, there are several *Stock*, *Fleet*, *Obs* and *Imp* object
 nstocks <- length(avail("Stock"))
 nfleet <- length(avail("Fleet"))
 nobs <- length(avail("Obs"))
-# nimp <- length(avail("Imp"))
+nimp <- length(avail("Imp"))
 ```
 
 For example, here we will print out a list of the `r nstocks` *Stock* objects that are built into the DLMtool:
@@ -170,7 +170,7 @@ For example, here we will print out a list of the `r nstocks` *Stock* objects th
 avail("Stock")
 ```
 
-We can do the same thing for the *Fleet* objects (`avail("Fleet")`) and the *Obs* objects (`avail("Obs")`).
+We can do the same thing for the *Fleet* objects (`avail("Fleet")`), the *Obs* objects (`avail("Obs")`), and the *Imp* objects (`avail("Imp")`).
 
 ## Creating the Operating Model Object
 The built-in *Stock*, *Fleet*, *Obs*, and *Imp* objects means that it is straightforward to create an *Operating Model* and run the MSE using the DLMtool.  
@@ -183,11 +183,10 @@ Here we will create a Operating Model object called `myOM`, and use the `Blue_sh
 myOM <- new('OM', Blue_shark, Generic_fleet, Imprecise_Biased, Perfect_Imp)
 ```
 
-If you use the `slotNames` function on the `myOM` object that was just created, you will see that it contains all of the information from the *Stock*, *Fleet*, and *Observation* objects.
+If you use the `slotNames` function on the `myOM` object that was just created, you will see that it contains all of the information from the *Stock*, *Fleet*, *Obs*, and *Imp* objects.
 
 ### Important changes - DLMtool V4.1 and greater
-DLMtool V4.1 introduced some important changes to the Operating Model object. The number of simulations (`nsim`)
-and the number of projection years (`proyears`) are now slots in the `OM` object, rather than arguments to `runMSE` (see [Management Strategy Evaluation]). This change was required to allow users to specify their own custom futures for parameters like *M*, growth, etc. The `OM` object also now has a new random seed slot in the operating model, which ensures that the MSE results are now exactly reproducible.
+DLMtool V4.1 introduced some important changes to the Operating Model object. The number of simulations (`nsim`) and the number of projection years (`proyears`) are now slots in the `OM` object, rather than arguments to `runMSE` (see [Management Strategy Evaluation]). This change was required to allow users to specify their own custom futures for parameters like *M*, growth, etc. The `OM` object also now has a new random seed slot in the operating model, which ensures that the MSE results are now exactly reproducible.
 
 You can modify the number of simulations, the number of projection years, or the value of the random seed by modifiying the relevant slots in the `OM` object:
 ```{r}
@@ -295,30 +294,26 @@ myOM <- new("OM", myStock, myFleet, myObs, myImp)
 
 In this example we did not include our newly made *Imp* object. By default the `new("OM")` command includes the `Perfect_Imp` Imp object.
 
-<!-- #### Creating an Operating Model from an Excel File -->
-<!-- Sometimes, especially if you are conducting MSEs on a number of species, it is easier to have all of the parameters stored in a single Excel file.  This file can be imported directly as a *Operating Model* object. -->
+#### Creating an Operating Model from an Excel File
+Sometimes, especially if you are conducting MSEs on a number of species, it is easier to have all of the parameters stored in a single Excel file.  This file can be imported directly as a *Operating Model* object.
 
-<!-- The *Stock*, *Fleet*, and *Obs* parameters are structured exactly the same as described above, but here they are in separate tabs of a single spreadsheet rather than separate CSV files. -->
+The *Stock*, *Fleet*, *Obs*, and *Imp* parameters are structured exactly the same as described above, but here they are in separate tabs of a single spreadsheet rather than separate CSV files.
 
-<!-- The naming of the tabs for the Excel file is important.  The names of the three tabs relating to the *Stock*, *Fleet*, and *Obs* parameters must share a prefix followed by "Stock", "Fleet", or "Obs" respectively.  See the image below for an example.    -->
+The naming of the tabs for the Excel file is important.  The names of the three tabs relating to the *Stock*, *Fleet*, *Obs*, "*Imp* parameters must share a prefix followed by "Stock", "Fleet", "Obs", "Imp" respectively.  See the image below for an example.
 
-<!-- ```{r, echo=FALSE} -->
-<!-- knitr::include_graphics("images/XL2.png") -->
-<!-- ``` -->
+```{r, echo=FALSE}
+knitr::include_graphics("images/XL2.png")
+```
 
-<!-- Click [here](images/XL.png) for a larger version of the image. -->
+Click [here](images/XL.png) for a larger version of the image.
 
-<!-- In this example we have two sets of parameters, imaginatively named "Example1" and "Example2". -->
+In this example we have two sets of parameters, imaginatively named "Example1" and "Example2".
 
-<!-- To create *Operating Model* objects from this file we use the following command: -->
-<!-- ```{r} -->
-<!-- Example1OM <- OM_xl("CSVs/myXL.xlsx", "Example1") -->
-<!-- Example2OM <- OM_xl("CSVs/myXL.xlsx", "Example2") -->
-<!-- ``` -->
-
-<!-- The `OM_xl` function is essentially a wrapper for the `new` function, but allow you store all operating model tables in a single spreadsheet rather than several CSVs.  This is mainly useful if you are working on multiple species/stocks. -->
-
-<!-- Currently the `OM_xl` function does not support the *Imp* object. This must be edited manually. -->
+To create *Operating Model* objects from this file we use the following command:
+```{r}
+Example1OM <- OM_xl("CSVs/myXL.xlsx", "Example1")
+Example2OM <- OM_xl("CSVs/myXL.xlsx", "Example2")
+```
 
 ## Modifying Existing Objects
 Often the simplest way to creating a custom *Operating Model* object is to modify the existing objects in the DLMtool.  

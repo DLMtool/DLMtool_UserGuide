@@ -1,0 +1,22 @@
+
+```{r setup, include=FALSE}
+library(DLMtool)
+```
+
+
+```{r}
+nsim <- 5 
+OM <- testOM 
+OM@nsim <- nsim
+OM@Fdisc <- c(0.5, 0.5)
+OM@DiscMort <- c(0.9, 0.9)
+OM@LR5 <- c(1,1)
+OM@LFR <- c(1.2, 1.2)
+plotSelect(OM)
+
+
+
+
+
+
+```

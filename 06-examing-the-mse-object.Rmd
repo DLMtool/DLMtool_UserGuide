@@ -4,15 +4,16 @@ In the Chapter \@ref(MSE) we used the DLMtool to run a Management Strategy Evalu
 
 The output of the MSE was saved to an object, of the class `MSE`, called `BSharkMSE`.  You should be able to create the `BSharkMSE` object following the steps outlined in the previous chapters.
 
-Alternatively you can [download](https://github.com/DLMtool/DLMtool_Data/raw/master/bluesharkMSE.rdata) the 'BSharkMSE' `MSE` object and save to your working directory.
+<!-- Alternatively you can [download](https://github.com/DLMtool/DLMtool_Data/raw/master/bluesharkMSE.rdata) the 'BSharkMSE' `MSE` object and save to your working directory. -->
 
-You may be able to import the MSE data file directly into R by executing the following command, although this may only working on some operating systems:
+<!-- You may be able to import the MSE data file directly into R by executing the following command, although this may only working on some operating systems: -->
 
-```{r, eval=FALSE}
-BSharkMSE <- readRDS(gzcon(url("https://github.com/DLMtool/DLMtool_Data/raw/master/bluesharkMSE.rdata")))
-```
+<!-- ```{r, eval=FALSE} -->
+<!-- BSharkMSE <- readRDS(gzcon(url("https://github.com/DLMtool/DLMtool_Data/raw/master/bluesharkMSE.rdata"))) -->
+<!-- ``` -->
 
-Note that objects of class `MSE` contain a lot of information and can be quite large in size. Downloading from the above link may take some time, depending on the speed of your internet connection.
+<!-- Note that objects of class `MSE` contain a lot of information and can be quite large in size. Downloading from the above link may take some time, depending on the speed of your internet connection. -->
+
 ```{r, include=FALSE}
 library(DLMtool)
 BSharkMSE <- readRDS("bluesharkMSE.rdata")

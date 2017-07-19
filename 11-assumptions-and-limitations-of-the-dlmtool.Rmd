@@ -17,13 +17,14 @@ Technically, you could just divide all temporal parameters by a subyear resoluti
 A MSE model with monthly or weekly time-steps for the population dynamics is required for short-lived species, and may be developed in the future.
 
 ### Density-Dependent Compensation
-DLMtool assumes there is no density-dependent compensation in the population dynamics, and fish growth, maturity, and mortality does not change directly in response to changes in stock size.
+DLMtool assumes that, with the exception of the stock-recruitment relationship, there is no density-dependent compensation in the population dynamics, and fish growth, maturity, and mortality does not change directly in response to changes in stock size.
 
 ### von Bertalanffy Growth
-Growth model in DLMtool is modelled using the von Bertalanffy growth curve. While this is the most commonly applied model to describe fish growth, it may not be the preferred growth model for some species. The consequences of assuming the von Bertalanffy growth model should be considered when using the DLMtool for species with alternative growth patterns.
+Growth model in DLMtool is modelled using the von Bertalanffy growth curve. While this is the most commonly applied model to describe fish growth, it may not be the preferred growth model for some species. The consequences of assuming the von Bertalanffy growth model should be considered when using the DLMtool for species with alternative growth patterns. Since DLMtool V4.4 it is possible to use alternative length-at-age models by using `cpars`. See the [Custom Parameters] chapter for more information. 
 
 ### Natural Mortality Rate at Age
-DLMtool currently assumes that natural mortality (*M*) is constant with age. Age-specific M may be added in a future developments.
+By default DLMtool assumes that natural mortality (*M*) is constant with age and size. Since DLMtool V4.4 size or age-specific M can be specified. See the [Size-Specific Natural Mortality] chapter for more information.
+
 
 ## MSE Model Assumptions
 ### Idealised Observation Models for Catch Composition Data
@@ -33,7 +34,7 @@ Currently, DLMtool simulates catch-composition data from the true simulated catc
 <!-- In this edition of DLMtool there is no implementation error. The only imperfection between a management recommendation and the simulated TAC comes in the form of the MaxF argument that limits the maximum fishing mortality rate on any given age-class in the operating model. The default is 0.8 which is high for all but the shortest living fish species. -->
 
 ### Discard Mortality
-Related to the previous point, DLMtool assumes that there is no discard mortality or fishing mortality for fish that are below the length of selectivity. This can be an important assumption, particularly when evaluating the impact of size-selectivity management methods such as a minimum legal length.
+Since DLMtool V4.4 DLMtool can account for discarding of fish that are smaller than the size of retention by the fishery. See the [Discard Mortality] chapter for more information.
 
 ### Two-Box Model
 DLMtool uses a two-box spatial model and assumes homogeneous fishing, and distribution of the fish stock. That is, growth and other life-history characteristics do not vary across the two spatial areas. Spatial targeting of the fishing fleet is currently being developed in the model.
@@ -47,7 +48,7 @@ DLMtool assumes that the population being modelled is in a closed system. There 
 Although a unit stock is a central assumption of many modeling and assessment approaches, it may be possible to further develop DLMtool to account for stocks that cross management boundaries.
 
 ### Marine Protected Areas (MPA)
-MPAs can be evaluated as management action in DLMtool by closing one area to fishing in the future projections. Currently, it is not possible to include MPAs in future projections alongside other management methods such as TAC or effort controls. Similarly, further development of DLMtool is required to fully incorporate existing MPA networks into the MSE simulations
+MPAs can be evaluated as management action in DLMtool by closing one area to fishing in the future projections. Currently, it is not possible to include new MPAs in future projections alongside output management methods (TACs). Similarly, further development of DLMtool is required to fully incorporate existing MPA networks into the MSE simulations
 
 ## Management Procedures
 ### Harvest Control Rules Must be Integrated into Data-Limited MPs

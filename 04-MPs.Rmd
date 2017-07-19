@@ -106,38 +106,26 @@ and - if we are using parallel computing - exported to the cluster:
 sfExport("AvC")
 ```
 
-<!--
-### Third-highest catch
-In some data-limited settings third highest historical catch has been suggested as a possible catch-limit. Here we use a similar approach to the average catch MP above (`AvC`) and take draws from a log-normal distribution with CV of 10 per cent:
 
-```{r}
-THC <- function(x,DLM_data, reps){
-  rlnorm(reps,log(DLM_data@Cat[x,order(DLM_data@Cat[x,],decreasing=T)[3]]),0.1)
-}
-class(THC)<-"DLM_output"
-environment(THC) <- asNamespace('DLMtool')
+### Length-at-Retention Set Equal to Length-at-Maturity
 
-```
-and again export to cluster (if we are using parallel computing):
-```{r, eval=FALSE}
-sfExport("THC")
-```
--->
+**Note: In DLMtool V4.4+ the structure of Input control methods has changed**
 
-### Length-at-Selection Set Equal to Length-at-Maturity
-To simulate input controls that aim to alter the length-vulnerability to fishing it is possible to design a Management Procedure of class `Input`. 
+To simulate input controls that aim to alter the length-retention to fishing it is possible to design a Management Procedure of class `Input`. 
 
-In this example we set selectivity equal to the maturity curve, while the spatial and effort regulations remain constant:
+In this example we set the retention equal to the maturity curve, while the spatial and effort regulations remain constant:
 
 ```{r}
 matlenlim <- function (x, Data, ...) {
-    Allocate <- 1
-    Effort <- 1
-    Spatial <- c(1, 1)
-    newLFC <- Data@L50[x] * 0.95
-    newLFS <- Data@L50[x]
-    Vuln <- c(newLFC, newLFS)
-    c(Allocate, Effort, Spatial, Vuln)
+  # Knife-edge vulnerability at estimated length-at-maturity  
+  dependencies = "Data@L50"
+  
+  rec <- new("InputRec") # create a input recommendation object
+  rec@LR5 <- Data@L50[x] * 0.95 # new length at 5% retention  
+  rec@LFR <-  Data@L50[x] # new length at full retention   
+
+  # other slots aren't specified so remain unchanged
+  return(rec)
 }
 class(matlenlim) <- "Input"
 environment(matlenlim) <- asNamespace("DLMtool")
@@ -149,17 +137,17 @@ sfExport("matlenlim")
 ```
 
 ### Harvest Slot Limit 
-We can also choose to create a Management Procedure with a harvest slot limit.  This example sets a minimum legal length at 1.1 times the size of maturity, and a maximum size limit at 75% of the distance between the minimum legal length and the estimate of asymptotic length recorded in the fishery data object:
+We can also choose to create a Management Procedure with a harvest slot limit.  This example sets a minimum legal length at 1.1 times the size of maturity, and a maximum size limit (completely arbitrarily!) at 75% of the distance between the minimum legal length and the estimate of asymptotic length recorded in the fishery data object:
 ```{r}
 slotlim <- function (x, Data, ...) {
-    Allocate <- 1
-    Effort <- 1
-    Spatial <- c(1, 1)
-    newLFS <- 1.1 * Data@L50[x]
-    newLFC <- 0.95 * newLFS
-    UppLim <- as.numeric(quantile(c(newLFS, Data@vbLinf[x]), 0.75))
-    Vuln <- c(newLFC, newLFS, UppLim)
-    c(Allocate, Effort, Spatial, Vuln)
+  dependencies = "Data@L50, Data@vbLinf"
+  
+  rec <- new("InputRec") # create input recommendation object
+  rec@LFR <- 14 + 1.1 * Data@L50[x] # new length at full retention   
+  rec@LR5 <- 0.95 * rec@LFR  # new length at 5% retention 
+  rec@HS <- as.numeric(quantile(c(rec@LFR , Data@vbLinf[x]), 0.75)) # upper harvest slot limit
+  
+  rec
 }
 class(slotlim) <- "Input"
 environment(slotlim) <- asNamespace("DLMtool")
@@ -177,11 +165,12 @@ Spatial controls operate similarly to the age/size based controls: a vector of l
 
 ```{r}
 area1_50 <- function(x,Data, ...){ 
-  Allocate <- 0 # Fraction of effort reallocated to open area
-  Effort <- 1  # Fraction of effort in last historical year
-  Spatial <- c(0.5,1) # Fraction of effort found in each area
-  Vuln <- rep(NA,2) # Length vulnerability is not specified   
-  c(Allocate, Effort, Spatial, Vuln) # Input controls stitched togther
+  rec <- new("InputRec") # create recommendation object
+  rec@Allocate <- 0 # Fraction of effort reallocated to open area
+  rec@Spatial <- c(0.5,1) # Fraction of effort found in each area
+  
+  # other slots aren't specified so remain unchanged
+  return(rec)
 }
 class(area1_50)<-"Input"
 environment(area1_50) <- asNamespace('DLMtool')

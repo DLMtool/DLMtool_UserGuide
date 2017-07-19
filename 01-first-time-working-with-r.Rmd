@@ -110,6 +110,11 @@ Information on the DLMtool classes can be found by first typing ```class``` foll
 class?Data
 ```
 
+You can access this user guide at any time from the R console:
+```{r, eval=FALSE}
+userguide()
+```
+
 <!--See [Frequently Asked Questions] for tips on common issues and questions. -->
 
 ### Questions on R-related Problems

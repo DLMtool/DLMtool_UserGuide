@@ -105,7 +105,7 @@ This User Guide has been developed with the [bookdown](https://bookdown.org/) pa
 -	Resources Legacy Fund
 
 ## Bug Reports
-The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) so that it can be fixed!
+The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) or [report an issue on GitHub](https://github.com/DLMtool/DLMtool/issues/new) so that it can be fixed!
 
 Fundamentally, the package is stochastic so if you run into problems with the code, please report it (along with a random seed) and, in the meantime, simply try running it again: the problem may be attributable to a rare combination of sampled parameters.
 
