@@ -97,7 +97,8 @@ summary(Atlantic_mackerel)
 
 You can see what Management Procedures can and can't be applied given your data and also what data are needed to get them working: 
 
-```{r}
+```{r Canfunctions}
+
 Can(Atlantic_mackerel)
 Cant(Atlantic_mackerel)
 Needed(Atlantic_mackerel)
@@ -110,7 +111,7 @@ Spatial and length-vulnerability Management Procedures (class `Input`) can be MS
 
 The `Input` function can be used to apply an input control method. For example, here we apply the `matlenlim` method to the `Atlantic_mackerel` data object:
 
-```{r}
+```{r applyInput}
 Input(Atlantic_mackerel, "matlenlim")
 ```
 

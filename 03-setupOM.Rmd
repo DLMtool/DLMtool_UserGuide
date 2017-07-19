@@ -288,7 +288,7 @@ myObs <- new("Obs", "CSVs/myObs.csv")
 
 Note, however, that the *Obs* object is large (`r length(slotNames(myObs))` parameters) and it is often easiest to modify an existing *Obs* object.
 
-We can now stitch the three objects together into a new Operating Model:
+We can now stitch the four objects together into a new Operating Model:
 ```{r}
 myOM <- new("OM", myStock, myFleet, myObs, myImp)
 ```

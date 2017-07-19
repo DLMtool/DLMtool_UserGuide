@@ -10,7 +10,7 @@ library(DLMtool)
 setup() 
 ```
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, message=FALSE, warning=FALSE, include=FALSE, eval=FALSE}
 library(DLMtool)
 setup()
 ```
