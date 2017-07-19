@@ -1,0 +1,90 @@
+---
+title: "Size or Age Specific Natural Mortality"
+author: "Adrian Hordyk"
+date: "June 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DLMtool)
+```
+
+# Size or Age Specific Natural Mortality 
+
+
+
+## Constant M at age/size 
+
+
+## Lorenzen function of weight
+
+
+- note gradients in Linf, K etc affect this
+- look at gradients in M as well
+- how is M defined? mean over mature ages/sizes
+
+
+## Map Age-Specifc M
+
+- map out using plotting function
+- add this to cpars and replace the lorenzen function
+- add plots to show M at age, size and year
+- should maturity at age or size also vary by year - i.e increase with increasing Linf?
+- should M and growth parameters be re-estimated in the future?
+
+## Map Length-Specific M
+
+
+
+
+Marray - search for all places this is used 
+does R0 need to be increased?
+
+CPP - fix equilibirum calculations!
+also survival!
+
+Checks - run both models with constant M 
+
+
+## Things to do
+
+
+- add warning message if Lorezen parameters outside that typically observed
+- define how mean M is used and maybe update description in stock object
+- update checks for Marray - must now be 3 dimensions - nsim, age, nyears+proyears - if no age dimension make constant across ages?
+- check cpars with M and Mage and Marray
+
+
+
+Lorenzen - assume an inverse relationship between size and natural mortality (M) 
+
+http://sedarweb.org/docs/wpapers/S18-DW07%20RD%20Natural%20Mortality.pdf
+
+SEDAR approach - When applying the method of Lorenzen (1996),
+estimates of M are scaled such that cumulative survival from age 1 to the maximum age is equal to 1.5%. This cumulative survival value comes from the fixed M method of Hoenig (1983) as described in Hewitt and Hoenig (2004).
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
