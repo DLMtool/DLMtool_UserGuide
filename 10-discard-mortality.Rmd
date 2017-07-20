@@ -1,22 +1,79 @@
-# Discard Mortality
+# Selection, Retention and Discard Mortality
 
 
+## Fishery Selection Curve
+The fishery selection or vulnerability to the fishing gear in DLMtool is modelled using a double-normal curve and the parameters in the `Fleet` object: `L5` - smallest length at 5% selection, `LFS` - smallest length at full selection, and `Vmaxlen` the vulnerability of the largest length class (defined as expected length at maximum age `Stock@maxage`).
 
-
-
+Here we set up a Operating Model with dome-shaped selectivity and plot a sample of the selectivity-at-age and -length using the `plotSelect` function:
 
 ```{r}
-nsim <- 5 
-OM <- testOM 
-OM@nsim <- nsim
-OM@Fdisc <- c(0.5, 0.5)
-OM@LR5 <- c(1,1)
-OM@LFR <- c(1.2, 1.2)
-plotSelect(OM)
-
-
-
-
-
-
+OM <- new("OM", Albacore, FlatE_Dom, Generic_obs, Perfect_Imp, nsim=5)
+plotSelect(OM, sim=1)
 ```
+
+The plot shows three curves - vulnerability, realized selection and retention - in each panel. In this case they are all the same, because the default setting of DLMtool is to assume that all selected fish are retained in the catch. 
+
+## Fishery Retention Curve
+In some cases the fishing gear selects fish (often small sizes) that are not retained in the catch and are discarded at sea. The fishery-retention curve can be specified following the same approach as selectivity, using the following slots in the `Fleet` or `OM` object:
+
+- `LR5` - the smallest length at 5% retention
+- `LFR` - the smallest length at full selection
+- `Rmaxlen` - the retention of the largest size class (defined as expected length at maximum age `Stock@maxage`).  
+
+The default values for these parameters are:
+```{r}
+OM@LR5
+OM@LFR
+OM@Rmaxlen
+```
+meaning that the default assumption is that all size classes are fully retained by the fishery. 
+
+The retention curve can be modified by providing values for these slots:
+
+```{r}
+OM@LR5 <- c(0.6, 0.7)
+OM@LFR <- c(0.9, 1)
+```
+
+Note that the values in the `LR5` and `LFR` slots must be in the same units as those in the `L5` and `LFS` slots. Here we are specifying the values relative to the size of maturity, and assuming that the fishery discards the smaller sized fish:
+```{r}
+plotSelect(OM, sim=1)
+```
+
+The plot shows that the retention curve for the fishery has shifted to the right, towards larger and older fish, while the vulnerability of the fishing gear remains the same.
+
+Because we are assuming no discard mortality in this case, the realized selection and retention curves are equivalent. This means that although fish of age/length between the vulnerability and retention curves are selected by the fishery, they are discarded with 100% survival and therefore are not removed from the population.
+
+## Discard Mortality 
+The assumption of 100% survival of discarded fish may be unrealistic in many situations. Discard mortality can be specified by the `Fdisc` slot in the `Stock` or `OM` object. The `Fdisc` slot represents the fraction of discarded fish that die, or $1-\text{survival}$. Here we assume that between 30 and 50% of discarded fish suffer fishing mortality:
+
+```{r}
+OM@Fdisc <- c(0.3, 0.5)
+plotSelect(OM, sim=1)
+```
+
+We can see now that the realized selection and the retention curves are different for the age/size classes that are discarded by the fishery. The realized selection curve (dashed red line) represents the actual selectivity of the fish removed from the population. 
+
+The retention curve (dotted blue line) shows the age/size classes that are retained by the fishery and appear in the total cathc, catch-at-age, and catch-at-length fishery data. 
+
+The shaded gray area between these two curves represents that age/size classes that are caught and killed by the fishery but are discarded and do not appear in the catch statistics. 
+
+The gear vulnerability curve remains unchanged, and shows that some individuals in the smaller age/size classes are caught and discarded alive back into the population.
+
+## General Discarding
+General discarding across all age or size classes can be included using the discarding rate slot `DR` in the `Fleet` or `OM` object. 
+
+For example, here we assume that between 10 and 20% of all age/size classes are discarded by the fishery:
+
+```{r}
+OM@DR <- c(0.1, 0.2)
+```
+Plotting the selectivity and retention curves shows that a proportion of all age and size classes are now discarded, with the survival rate determined by the `Fdisc` parameter:
+
+```{r}
+plotSelect(OM, sim=1)
+```
+
+
+
+

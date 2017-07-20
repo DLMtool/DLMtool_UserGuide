@@ -34,7 +34,7 @@ Currently, DLMtool simulates catch-composition data from the true simulated catc
 <!-- In this edition of DLMtool there is no implementation error. The only imperfection between a management recommendation and the simulated TAC comes in the form of the MaxF argument that limits the maximum fishing mortality rate on any given age-class in the operating model. The default is 0.8 which is high for all but the shortest living fish species. -->
 
 ### Discard Mortality
-Since DLMtool V4.4 DLMtool can account for discarding of fish that are smaller than the size of retention by the fishery. See the [Discard Mortality] chapter for more information.
+Since DLMtool V4.4 DLMtool can account for discarding of fish that are smaller than the size of retention by the fishery. See the [Selection, Retention and Discard Mortality] chapter for more information.
 
 ### Two-Box Model
 DLMtool uses a two-box spatial model and assumes homogeneous fishing, and distribution of the fish stock. That is, growth and other life-history characteristics do not vary across the two spatial areas. Spatial targeting of the fishing fleet is currently being developed in the model.

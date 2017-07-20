@@ -1,5 +1,5 @@
-# Custom Parameters (cpars)
-By default, DLMtool samples the operating model parameters from a uniform distribution. Because the parameters are sampled independently, it is not possible to generate correlated samples. However, the `cpars` slot in the `OM` object can be used to pass correlated samples into the MSE.
+# Custom Parameters 
+By default, DLMtool samples the operating model parameters from a uniform distribution. Because the parameters are sampled independently, it is not possible to generate correlated samples. However, the `cpars` slot in the `OM` object can be used to pass custom samples into the MSE.
 
 The addition of the `cpars` slot provides a lot of flexibility to the DLMtool, and allows users full control of all parameters used in the model. For example, it is possible to generate operating models directly from the output of common stock assessment packages using functions in DLMtool (e.g `SS2DLM` for Stock Synthesis 3, and `iSCAM2DLM` for a iSCAM model). These functions take the correlated parameter values from the output of the stock assessment and provide them to DLMtool via the `cpars` slot, resulting in an operating model that is conditioned on the stock assessment. 
 
