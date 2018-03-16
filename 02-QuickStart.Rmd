@@ -1,0 +1,633 @@
+
+# (PART\*) Getting Started with DLMtool {-}
+
+# Getting Started 
+
+
+
+## Required Software
+To get started with the DLMtool you will need at least two things:
+
+ 1. A current version of the R software installed on your machine.
+ 2. The latest version of the DLMtool package. 
+ 
+### The R Software  
+The R software can be freely downloaded from the [CRAN website](https://cran.r-project.org/) and is available for all operating systems.  Updated versions of R are released frequently, and it is recommended that you have the latest version installed. 
+
+If you are using Windows OS, you can uses the ```installr``` package and the ```updateR()``` function to update and install the latest version.  Alternatively, head to the [CRAN website](https://cran.r-project.org/) to download the latest version of R. 
+
+
+You can check your version of R by typing ```version``` into the R console:
+```{r RVersion}
+version
+```
+
+
+### RStudio  
+[RStudio](https://www.rstudio.com/products/RStudio/) is a freely available integrated development environment (IDE) for R.  It is not essential that you use RStudio, but it can make things a lot easier, especially if you are new to R.  This User Guide assumes that you are using RStudio to operate the DLMtool.  
+
+It is important to be aware that RStudio and R are two different pieces of software that must be installed separately.  We recommend installing the R software before downloading and installing RStudio. 
+
+
+## Installing DLMtool
+If this is the first time you are using DLMtool, you will need to install the DLMtool package from CRAN.
+
+### Installing DLMtool using R Console  
+This can be done by running the command:
+```{r eval=FALSE}
+install.packages("DLMtool")
+```
+A prompt may appear asking you to select a CRAN mirror. It is best to pick the mirror that is the closest geographical distance. 
+
+### Installing DLMtool in RStudio  
+An alternative method to install the DLMtool package is to click the *Packages* tab in the lower right panel in RStudio, and click *Install*.  Check that *Repository (CRAN, CRANextra)* is selected in the *Install from:* drop-down menu, type **DLMtool** into the *packages* dialog box, and click *Install*. 
+
+The DLMtool package relies on a number of other R packages, which the installation process will automatically install.  The number of packages that are installed, and the time it takes, will depend on what packages you already have installed on your system (and your download speed).
+
+```{r RStudioImage, echo=FALSE, out.width='50%'}
+knitr::include_graphics("images/RStudioInstallPackage.png")
+```
+
+### Updating the DLMtool Package  
+You will only need to install the DLMtool package once. However, the DLMtool package is updated from time to time, and you will need to re-install from CRAN for each new version. 
+
+This can be done by using the `update.packages` command: 
+```{r eval=FALSE}
+update.packages("DLMtool")
+```
+
+### Checking DLMtool version
+
+You can confirm the version of DLMtool by typing:
+```{r PackageVersion}
+packageVersion('DLMtool')
+```
+
+
+## Loading DLMtool
+
+Once installed, the DLMtool package can be loaded into R by typing in the command line:
+```{r LoadLibrary}
+library(DLMtool)
+```
+or locating the *DLMtool* package in the list of packages in RStudio and checking the box.
+
+You need to load the DLMtool package each time you start a new instance of R.
+
+# A Very Quick Demo
+Running an MSE with DLMtool is quite straightforward and only requires a single line of code:
+```{r demoRun, cache=TRUE}
+myMSE <- runMSE()
+```
+
+If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here then DLMtool is successfully working on your system! 
+
+If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please visit the DLMtool forum (XXX) or [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
+
+Once an MSE is run, the results can be examined visually using plotting functions, for example:
+```{r}
+Pplot(myMSE)
+```
+
+Or quantified in various ways, for example:
+```{r}
+summary(myMSE)
+```
+
+
+
+# The Operating Model
+The Operating Model (OM) is the main component of the MSE framework.  The OM is used to describe the characterstics of a fishery system and contains all the parameters required to simulate the population and fleet dynamics, the collection of data, and the application of a management procedure (e.g., implement a size regulation, effort control, spatial closure, or catch limit).
+
+## OM Components
+An OM is built from four separate components, each containing a set of parameter values for different aspects of the simulation:
+
+1. Stock - parameters describing the stock dynamics
+2. Fleet - parameters describing the fishing fleet dynamics
+3. Obs (Observation) - parameters describing the observation processes (how the observed fishery data is generated from the simulated data)
+4. Imp (Implementation) - parameters describing the management implemetation (how well the management regulations are implemented)
+
+There are a number of example Stock, Fleet, Obs, and Imp parameter sets built into DLMtool which make it easy to quickly construct an OM and run an MSE. 
+
+These parameter sets are referred to as *Objects* and have an associated *Class*. 
+
+### Stock Object
+The `avail` function can be used to examine the available Objects of a particular Class.
+
+For example, to see the available objects of class *Stock*:
+```{r avail_n, include=FALSE}
+n <- length(avail('Stock'))
+```
+```{r avail}
+avail('Stock')
+```
+This shows that there are `r n` objects of class *Stock*. We can confirm the class of this object by using the `class` function. For example, to examine the class of the object `Albacore`:
+```{r}
+class(Albacore)
+```
+
+As expected, the `Albacore` object is class *Stock*. 
+
+Let's take a quick look at the contents of the Albacore Stock object:
+```{r}
+slotNames(Albacore)
+```
+
+```{r, include=FALSE}
+Sslots <- slotNames(Albacore)
+SnSlot <- length(Sslots)
+```
+
+The output tells us that there are `r SnSlot` slots in the `Albacore` Stock object.  Each of these slots contains information relating to stock that is used in the MSE.
+
+
+We can examine the information that is stored in the slots using the @ symbol. For example, the name of the species in the Stock object is:
+```{r}
+Albacore@Name
+```
+The maximum age parameter is:
+```{r}
+Albacore@maxage 
+```
+
+The values for the natural mortality (*M*) parameter for this stock are:
+```{r}
+Albacore@M
+```
+
+Note that the natural mortality parameter (*M*) has two values, while the maximum age (*maxage*) only has one value.  
+
+The MSE in the DLMtool is a stochastic model, and almost all parameters are drawn from a distribution.  By default this distribution is assumed to be uniform, and the two values for the *M* parameter represent the lower and upper bounds of this uniform distribution.
+
+Some parameters, such as maximum age (*maxage*), species name (*Name*), or initial recruitment (*R0*) have only a single value and are fixed in the MSE.
+
+You can see more information on the content of the *Stock* object by using the help function:
+```{r, eval=FALSE}
+class?Stock
+```
+
+### Fleet Object  
+While the *Stock* object contains all the information relating to the fish stock that is being modeled, the *Fleet* object is populated with information relating to the fishing fleet and historical pattern of exploitation.
+
+Like the *Stock* objects, there are a number of *Fleet* objects that are built into the DLMtoo:
+```{r}
+avail('Fleet')
+
+```
+
+Here we will look at the `Generic_Fleet` object.
+```{r}
+class(Generic_Fleet)
+slotNames(Generic_Fleet)
+```
+
+```{r, include=FALSE}
+Fslots <- slotNames(Generic_Fleet)
+FnSlot <- length(Fslots)
+```
+
+There are `r FnSlot` slots in the *Fleet* object. The parameters in the *Fleet* object relate to the exploitation pattern of the stock.
+
+For example, the number of years that the stock has been exploited is specified in the `nyears` slot:
+```{r}
+Generic_Fleet@nyears
+```
+
+As another example, the smallest length at full selection is specified in the `LFS` slot:
+```{r}
+Generic_Fleet@LFS
+```
+
+Note that by default the values in the `LFS` (and the `L5` [smallest length at 5% selectivity]) slots are specified as multiples of the length of maturity (e.g., `Albacore@L50`).  This is necessary because the *Fleet* objects built into the DLMtool are all generic, in the sense that they can be used with any *Stock* object.  
+
+You will notice that the `isRel` slot in the `Generic_Fleet` object is set to "TRUE".  This means that the selectivity parameters are relative to the length of maturity in the *Stock* object.  Absolute values for the selectivity parameters can be used, for example by specifying `LFS` and `L5` to, say, 100 - 150 and 50 - 70 respectively. The `isRel` parameter must then be set to "FALSE", so that the Operating Model knows that these selectivity values are in absolute terms, and does not multiply them by the length of maturity (strange things may happen if the model assumes that the size of first capture is 50 to 70 times greater than the size of maturity!).
+
+Note that all the parameters in the *Fleet* object have two values, representing the minimum and maximum bounds of a uniform distribution (with some exceptions that will be discussed in more detail later).
+
+More information on the *Fleet* object can be found by typing:
+```{r, eval=FALSE}
+class?Fleet
+```
+
+### Obs Object  
+
+The third component for the *Operating Model* is the *Obs* object.  This object contains all the information relating to how the fishery information is generated inside the model.
+
+Why do we need a *Obs* object?
+
+Although the MSE may be conditioned on real data and information about the fishery, all *data* is generated inside the model.  Because it is a simulation model and the data was generated by a computer, rather than some unobserved real world process, the *fishery data* is known perfectly. In the real world, however, all data sources and parameter estimates are subject to some observation error. The degree of uncertainty may vary between different data types, and between fisheries. 
+
+The advantage of the MSE process is that the performance of a management procedure using the realistically noisy simulated data can be compared to the performance under conditions of perfect knowledge.  This comparison, which unfortunately is never possible in the real world, can reveal important information about the robustness (or sensitivity) of certain methods to variability and error in particular data types.  This knowledge can help to prioritize research to reduce uncertainty in the parameters and data sets that are most crucial to the performance of the method.  
+
+Like the other two objects, there are a number of built-in *Obs* objects in the DLMtool.  
+
+```{r}
+avail('Obs')
+```
+
+Let's take a look at the `Imprecise_Unbiased` object:
+```{r}
+class(Imprecise_Unbiased)
+slotNames(Imprecise_Unbiased)
+```
+```{r, include=FALSE}
+Oslots <- slotNames(Imprecise_Unbiased)
+OnSlot <- length(Oslots)
+```
+
+There are `r OnSlot` slots in *Obs* objects, each with information relating to the uncertainty of a data type.  
+
+For example, the `LenMbiascv` slot defines the bias (coefficient of variability) in the length of maturity: 
+
+```{r}
+Imprecise_Biased@LenMbiascv
+```
+
+This means that the assumed length of maturity that is generated by the Operating Model, and used in the simulated application of a management procedure, is not the 'true' value set in the *Stock* object, but a value sampled with a `r paste0(Imprecise_Biased@LenMbiascv * 100, "%")` coefficient of variation. 
+
+
+More information on the *Obs* object can be found by typing:
+```{r, eval=FALSE}
+class?Obs
+```
+
+### Imp Object  
+
+The final component for the *Operating Model* is the *Imp* object.  This object contains all the information relating to how the management recommendation is actually implemented in the fishery, i.e., the implementation error. The `Imp` object includes slots for the over or under catch of TAC, implementation error in total allowable effort, and variability in size regulations. 
+
+```{r}
+avail('Imp')
+class(Overages)
+```
+
+More information on the *Imp* object can be found by typing:
+```{r, eval=FALSE}
+class?Imp
+```
+
+
+## Building an OM from Component Objects
+We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual (XXX) we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
+
+
+Objects of class *Stock*, *Fleet*, *Obs* and *Imp* are used to create an Operating Model object (class `OM`). The simplest way to do this is to use `new` command. 
+
+For example, here we are building a OM using the `Rockfish` Stock object, `Generic_Fleet` Fleet object, `Generic_Obs` Obs object, and `Perfect_Imp` Imp object and assigning it the name `myOM`:
+
+```{r buildOM}
+myOM <- new("OM", Rockfish, Generic_Fleet, Generic_Obs, Perfect_Imp)
+```
+
+What is the class of our newly created objects `myOM`? 
+
+```{r classOM}
+class(myOM)
+```
+
+If you use the `slotNames` function on the `myOM` object that was just created, you will see that it contains all of the information from the *Stock*, *Fleet*, *Obs*, and *Imp* objects:
+
+```{r slotNames_OM}
+slotNames(myOM)
+```
+
+You can access individual slots in the OM object using the @ symbol and confirm that these values are the same as those in the Stock object used to create the OM:
+```{r}
+Rockfish@M
+myOM@M
+```
+
+
+In addition to the information from the Stock, Fleet, Obs, and Imp objects, the OM object also contains other values relating to the MSE, including the number of simulations to run (`nsim`), the number of projection years (`proyears`), and the management interval (`interval`):
+
+```{r}
+myOM@nsim 
+myOM@proyears
+myOM@interval
+```
+
+These slots all have default values that can be modified easily, for example:
+```{r}
+myOM@proyears <- 60
+myOM@proyears
+```
+
+
+Remember, you can access the help information for objects by typing ? followed by the class name, for example:
+```{r, eval=FALSE}
+class?OM
+```
+
+In later chapters we will cover a range of methods to build new Stock, Fleet, Obs, and Imp objects and constructing OMs that characterise your fishery. 
+
+
+## Visualizing an OM 
+The newly created OM object `myOM` contains all the parameters that will be used to simulate our fishery, both the historical conditions and the future projections. The OM can visualized with the `plot` function (plots not shown here):
+```{r plotOM_fun, eval=FALSE}
+plot(myOM)
+```
+
+
+# Management Procedures
+The purpose of an MSE is to compare the performance of alternative management approaches, or ***Management Procedures*** to identify the method that is most likely to meet the management objectives for the fishery.
+
+## What is a Management Procedure?
+In essence, a Management Procedure is simply a set of rules which define how a fishery will be managed.  These rules can range from simple harvest policies to more complex arrangements.  
+
+For example, a simple Management Procedure may be a constant catch policy, where the annual total allowable catch (TAC) is set a some fixed value.  Alternatively, a more complex Management Procedure may involve multiple data sources, with rules that increase or reduce the TAC in response to trends in one or several indicators.
+
+Management Procedures can differ in data requirements and complexity.  However, all Management Procedures have one thing in common.  They take fishery information and return a management recommendation.
+
+To be included in an MSE, a Management Procedure must be reproducible and able to be coded in a set of instructions.  While fisheries are sometimes managed by expert judgment, it is difficult to reproduce the subjective decision-making process in a computer simulation and include such methods in an MSE.
+
+## Available Management Procedure 
+All management procedures in DLMtool are objects (actually functions in this case) of class `MP`. There are a number of MPs built into DLMtool. The `avail` function can be used to provide a list of MPs that can be included in the MSE:
+
+```{r include=FALSE}
+nMP <- length(avail('MP'))
+```
+
+```{r}
+avail('MP')
+```
+
+As you can see, there are `r nMP` MPs built into the DLMtool.
+
+DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in XXX. 
+
+## Types of Management Procedure 
+In previous versions of DLMtool, the MPs were divided into two classes: Output controls which returned a total allowable catch (**TAC**) and Input controls which allow regulation of **fishing effort**, **size selecitivty**, or **spatial area**. 
+
+Since DLMtool V5.1 it is possible to include MPs that provide a combination of input and output controls. 
+
+All MPs in DLMtool are now class `MP`, but the MPs are divided into four types: **Input** which allow regulation offishing effort, size selectivity, or spatial area but not a TAC, **Output** which return only a TAC recommendation, **Mixed** which return a combination of one or several input controls *and* a TAC, and **Reference** which are MPs that have been designed to be used as reference management procedures (e.g `FMSYref` which uses perfect information of FMSY and abundance). 
+
+
+The `MPtype` function can be used to display the type for a particular MP, for example:
+```{r}
+MPtype("DCAC")
+```
+
+Or for all available MPs:
+```{r MPtype-all, cache=TRUE}
+MPtype(avail('MP'))
+```
+
+You can access help documentation for the MPs in the usual fashion, for example:
+```{r eval=FALSE}
+?DCAC
+```
+
+### Input Control MPs
+Input controls allow some combination of adjustments to **fishing effort**, **size selecitivty**, or **spatial area**.
+
+The available input control MPs are:
+```{r avail-input}
+avail("Input")
+```
+
+Remember, to access help documentation:
+```{r, eval=FALSE}
+?matlenlim
+```
+
+More information on input control MPs can be found in XXX.
+
+### Output Control MPs 
+The output control methods in the DLMtool provide a management recommendation in the form of a TAC.  Some output controls are stochastic, allowing for uncertainty in the data or input parameters, and return a distribution of recommended TACs.
+
+Output control methods are very common in fisheries management, especially in regions which have a tradition of managing fisheries by regulating the total amount of catch.
+
+The available output controls are:
+
+```{r, avail-output}
+avail('Output')
+```
+
+### Mixed MPs 
+Mixed MPs return a combination of input and output controls. Currently there are only a few mixed MPs in DLMtool, and these were developed simply for demonstration purposes. They may not work very well! See XXX for more information on developing your own mixed MPs. And please [share](http://www.datalimitedtoolkit.org/contact) them with us, we'd love to add them to DLMtool!
+
+```{r, avail-mixed}
+avail('Mixed')
+```
+
+### Reference MPs
+The final type is the reference MPs. These MPs are not designed to be used in practice, but are useful for providing a reference for comparing for the performance of other MPs. For example, the `FMSYref` and `NFref` methods (fishing perfectedly at F[MSY] and no fishing at all) can be useful for framing realistic performance with respect to a set of management objectives.
+
+The available reference MPs are:
+
+```{r, avail-reference}
+avail('Reference')
+```
+
+
+# Running the MSE 
+We have now covered the two main components of the MSE: the Operating Model (OM) and the Management Procedures (MPs). To run a MSE we need to specify the OM and the set of MPs that we wish to test. 
+
+Here we will create an OM from the built-in objects and choose 2 MPs of each type to test in our demonstration MSE.
+
+## Specify an Operating Model
+First, we will construct the OM using a different set of built-in Stock, Fleet, Obs, and Imp objects:
+```{r}
+myOM <- new("OM", Albacore, DecE_Dom, Imprecise_Unbiased, Overages)
+```
+
+## Choose the Management Procedures
+Next, we'll select 8 MPs to test in our MSE:
+
+```{r}
+myMPs <- c('AvC', 'Itarget1', 
+           'matlenlim', 'ITe10',
+           'AvC_MLL', 'Itarget1_MPA',
+           'FMSYref', 'NFref')
+
+MPtype(myMPs)
+```
+
+## Run the MSE 
+Now that we have specified an OM and chosen a set of management procedures we are ready to run the MSE:
+
+```{r MSErun, cache=TRUE}
+myMSE <- runMSE(OM=myOM, MPs=myMPs)
+```
+
+
+# Checking Convergence
+It is important to ensure that we have included enough simulations in the MSE for the results to be stable. 
+
+The `Converge` function can be used to confirm that the number of simulations is sufficient and the MSE model has converged, by which we mean that the relative position of the Management Procedures are stable with respect to different performance metrics and the performance statistics have stablized, i.e., they won't change significantly if the model was run with more simulations.
+
+The purpose of the `Converge` function is to answer the question: have I run enough simulations?
+
+By default the `Converge` function includes three commonly used performance metrics, and plots the performance statistics against the number of simulations. The convergence diagnostics are:
+
+1. Does the order of the MPs change as more simulations are added? By default this is calculated over the last 20 simulations.
+2. Is the average difference in the performance statistic over the last 20 simulations changing by more than 2%? 
+
+The number of simulations to calculate the convergence statistics, the minimum change threshold, and the performance metrics to use can be specified as arguments to the function. See the help documentation for more details (`?Converge`).
+
+```{r converge}
+Converge(myMSE)
+```
+
+Have we run enough simulations?
+
+The convergence plot reveals that both the order of the MPs and the performance statistics are not stable. This suggests that `r myOM@nsim` simulations is not enough to produce reliable results.
+
+Let's increase the number of simulations and try again:
+
+```{r}
+myOM@nsim <- 200
+```
+
+```{r startTimer1, include=FALSE, cache=TRUE, warning=FALSE}
+st <- Sys.time()
+```
+
+```{r MSErun2, cache=TRUE}
+myMSE_200 <- runMSE(OM=myOM, MPs=myMPs)
+```
+
+```{r endstartTimer1, include=FALSE, cache=TRUE, warning=FALSE}
+elapse1 <- Sys.time() - st
+```
+
+Is `r myOM@nsim` simulations enough?
+
+```{r converge2}
+Converge(myMSE_200)
+```
+
+
+# Plotting the MSE Results
+The DLMtool has many built-in plotting functions which can be used to examine the performance of the Management Procedures. Advanced users can also develop their own plotting and summary functions. See the [Performance Metrics] chapter for more details.
+
+Here we demonstrate a few of the plotting function. You can see a list of all the plotting functions in the DLMtool for `MSE` objects using the `plotFun` function:
+```{r}
+plotFun()
+```
+
+## Trade-Off Plots
+
+The `Tplot` function creates four plots that show the trade-off between the expected relative yield and the probability of overfishing and the probability of the biomass being below three different reference points:
+```{r}
+Tplot(myMSE_200)
+```
+
+In this case, the plot shows that the `matlenlim` method results in the highest long-term yield, and also one of the lower probabilities that the biomass will fall below $0.5B_{MSY}$.
+
+The `Tplot2` function shows the trade-off between long-term and short-term yield, and the trade-off between biomass being above $0.1B_{MSY}$ and the expected variability in the yield:
+```{r}
+Tplot2(myMSE_200)
+```
+
+
+The `NOAA_plot` function was developed from applications of the DLMtool to fisheries in the Caribbean. This plot shows the trade-offs between the probability of not overfishing and long-term yield, and the probability of not being in an overfished state versus the probability of the annual variation in yield being less than 15%:
+```{r}
+NOAA_plot(myMSE_200)
+```
+
+The `Tplot3` function has been designed to take a list of Performance Metrics objects, plot the performance metric against each other, and report if an MP has met the minimum conditions for all performance metrics:
+
+```{r}
+Tplot3(myMSE_200)
+```
+
+## Joint Probability Plot
+The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.  
+
+An alternative is to calculate the probability that a Management Procedure will simultaneously meet all of the performance criteria. The `Jplot` function has been designed to calculate and display the joint probability of meeting multiple criteria.  
+
+For example, the plot below calculates the probability that the biomass in the last 10 years of the projection period is above $0.5B_{MSY}$ and $0.2B_0$ for each of the `r myMSE_200@nMPs` Management Procedures included in the MSE:
+
+```{r}
+Jplot(myMSE_200)
+```
+
+The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function.
+
+
+## Wormplot
+The `wormplot` function plots the likelihood of meeting biomass targets in future years:
+```{r}
+wormplot(myMSE_200)
+```
+
+The arguments to the `wormplot` function allow you to choose the reference level for the biomass relative to $B_{MSY}$, as well as the upper and lower bounds of the colored bands.
+
+## Projection Plots
+The `Pplot` function plots the trajectories of biomass, fishing mortality, and relative yield for the Management Procedures.
+
+By default, the `Pplot` function shows the individual trajectories of $B/B_{MSY}$ and $F/F_{MSY}$ for each simulation:
+```{r, projection-plot, cache=TRUE}
+Pplot(myMSE_200)
+```
+
+The `Pplot2` function has several additional arguments. The `YVar` argument can be used to specify additional variables of interest. For example, here we have included the projections of yield relative to the long-term optimum yield:
+```{r, projection-plot2, cache=TRUE}
+Pplot2(myMSE_200, YVar=c("B_BMSY", "F_FMSY", "Yield"))
+```
+
+The `traj` argument can be used to summarize the projections into quantiles. Here we show the 20th and 80th percentiles of the distributions (the median (50th percentile) is included by default):
+```{r, projection-plot3, cache=TRUE}
+Pplot2(myMSE_200, traj="quant", quants=c(0.2, 0.8))
+```
+
+Details on additional controls for the `Pplot` and `Pplot2` functions can be found in the help documentation associated with this function.
+
+## Kobe Plots
+Kobe plots are often used in stock assessment and MSE to examine the proportion of time the stock spends in different states.  A Kobe plot of the MSE results can be produced with the `Kplot` function:
+```{r kobe-plot, cache=TRUE}
+Kplot(myMSE_200)
+```
+
+## Compare to Current Conditions
+The `Cplot` shows a scatter plot of the median biomass and median yield over the last five years of the projection relative to the current conditions (the last year in the historical period):
+
+```{r}
+Cplot(myMSE_200, ShowLabs=TRUE)
+```
+
+# Parallel Processing
+
+Parallel processing increases the speed of running the MSE in DLMtool significantly. The use of parallel processing in DLMtool has changed slightly from previous versions of the package. 
+
+By default the MSE runs without using parallel processing. We recommend running a few test runs of your MSE with a low number of simulations and without parallel processing. Once you are satisfied the model is running correctly for your operating model, you can increase the number of simulations and use parallel processing.
+
+## Setting up Parallel Processing  
+The `setup` function is used to set up parallel processing.
+```{r setup, warning=FALSE}
+setup()
+```
+
+
+By default the `setup` function initializes 4 processors as we have found this to be the most efficient for most systems. You can change the number of processors by specifying the `cpu` argument, e.g., `setup(cpu=6)`. 
+
+See [Determining Optimal Number of Processors] for more details on calculating the optimal number of processors to use on your system. 
+
+## Running MSE with Parallel Processing  
+Use the `parallel=TRUE` argument in `runMSE` to use parallel processing. Note that you must run `setup()` first.
+
+You will notice that the usual update messages are not printed to the console when parallel processing is used. This is why it is important to initially test your MSE with a small number of simulations without parallel processing. 
+
+```{r startTimer2, include=FALSE, cache=TRUE}
+st2 <- Sys.time()
+```
+
+```{r TestRun_parallel, cache=TRUE} 
+myMSE_200P <- runMSE(myOM, parallel = TRUE)
+```
+
+```{r endTimer2, include=FALSE, cache=TRUE}
+elapse2 <- Sys.time() - st2
+```
+
+Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations (`nsim=48`), run time decreased from `r round(elapse1,0)` to `r round(elapse2,0)` seconds when using parallel processing on 4 processors.
+
+
+## Determining Optimal Number of Processors  
+The `optCPU` function can be used to evaluate the relationship between number of processors and run time:
+
+```{r optCPU, cache=TRUE, warning=FALSE}
+optCPU()
+```
+

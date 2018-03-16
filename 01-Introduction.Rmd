@@ -1,0 +1,88 @@
+
+# (PART\*) Introduction {-}   
+
+# Introduction 
+As many as 90% of the world's fish populations have insufficient data to conduct a conventional stock assessment (Costello et al. 2012). Although a wide range of data-limited management procedures (MPs; stock assessments, harvest control rules) have been described in the primary and gray literature (Newman et al. 2015), they have not been readily available or easily tested to determine their efficacy for specific fisheries. 
+
+For many fishery managers and stakeholders, the path forward has been unclear and laden with myriad questions, such as: How do these MPs perform comparatively? What are the performance trade-offs? What MPs are appropriate for a given fishery? What is the value of collecting additional data? What is an appropriate stop-gap management approach as more data are collected?
+
+## Data-Limited Methods Toolkit  
+The Data-Limited Methods Toolkit (DLMtool), a collaboration between the University of British Columbia's (UBC) Institute for Oceans and Fisheries and the Natural Resources Defense Council (NRDC), is aimed at addressing these questions by offering a powerful, transparent approach to comparing, selecting, and applying various data-limited management methods. DLMtool uses management strategy evaluation (MSE) and parallel computing to make powerful diagnostics accessible.
+
+A streamlined command structure and operating model builder allow for rapid simulation testing and graphing of results. The package is relatively easy to use for those inexperienced in R, however, complete access and control is available to more experienced users.
+
+```{r getMPs, include=FALSE, cache=TRUE}
+library(DLMtool)
+curVer <- packageVersion("DLMtool")
+MPs <- avail("MP")
+nMPs <- length(MPs)
+```
+
+While DLMtool includes over `r nMPs` management procedures it is also designed to be extensible in order to encourage the development and testing of new methods. The package is structured such that the same management methods that are tested by the MSE can be applied to provide management recommendations from real data.
+
+Easy incorporation of real data is a central advantage of the software. A set of related functions automatically detect what management procedures can be applied with currently available data, and what additional data are needed to use currently unavailable methods.
+
+The Toolkit has been developed in collaboration with fisheries scientists around the globe. New features and functions have been added to the software package to meet the needs or the particular fisheries and management contexts where it has been applied. To date, the Toolkit has been used for management or academic research in over 25 fisheries, including by the National Marine Fisheries Service in the U.S. Mid-Atlantic and Caribbean regions, and by the California Department of Fish & Wildlife.  
+
+## Management Strategy Evaluation  
+At the core of the Data-Limited Methods Toolkit is an integrated management strategy evaluation (MSE) function. Management strategy evaluation is a computer simulation approach for testing prospective management options over a wide range of possible realities for the fishery and the population. Ideally, management options can be identified that are robust and perform well over all credible scenarios for the fishery.
+
+It is extremely difficult, perhaps impossible, to conduct large-scale experiments to evaluate directly the trade-offs associated with fisheries management. Even among well-studied fisheries, considerable uncertainty often exists regarding stock status and the dynamics of the fishery, and it can be difficult to attribute particular outcomes to distinct management actions. The mathematical description of fish population dynamics and the interaction with different exploitation patterns, first developed by Beverton and Holt (1957), together with the advent of powerful and affordable computers, has allowed the development of the MSE approach (Butterworth, 2007; Punt et al. 2014).
+
+Management strategy evaluation was originally developed by the International Whaling Commission as a tool to evaluate the various trade-offs involved the management of marine mammals, and to guide the decision-making process for selecting an appropriate management strategy. Since its development in the mid-1970s, MSE has become widely used in fisheries science and is routinely applied to evaluate the trade-offs in alternative management strategies of many of the world's fisheries.
+
+An MSE is usually comprised of three key components: 
+
+1. an ***operating model*** that is used to simulate the stock and fleet dynamics, 
+2. an assessment method and harvest control rule model (interchangeably referred to as ***management procedures***, or ***management strategies***) that use the simulated fishery data from the operating model to estimate the status of the (simulated) stock and provide management recommendations (e.g., a total allowable catch (TAC) or effort control), and 
+3. an ***observation model*** that is used to generate the simulated observed data that would typically be used in management (i.e., with realistic imprecision and bias).  
+
+The management recommendations by each management procedure are then fed-back into the operating model and projected forward one-time step. The process of simulating the population dynamics of the fishery along with the management process that feeds back and impacts the simulated fish population is known as ***closed-loop simulation***. 
+
+A benefit of closed-loop simulation is that it allows the direct comparison and evaluation of alternative management strategies against perfect knowledge of the simulated system; something that is impossible in the real world (Walters and Martell, 2004). With the aid of computer simulation, it is possible to run many hundreds of simulation runs for each management procedure being evaluated - each representing a different possible simulated future of what could happen to the fishery under various management strategies - and to take into account the uncertainty in knowledge of the stock and fishery (i.e., errors in observation), as well as the uncertainty in future environmental and ecological conditions that are likely to affect the stock dynamics.
+
+Through these simulations, MSE reveals the relative impacts of specified management approaches to their fishery decades into the future and enables managers to choose the approach that best achieves their management objectives, as articulated through a set of well-defined performance metrics.
+
+## How does Management Strategy Evaluation Differ from Stock Assessment?  
+Stock assessments are intended to provide one-off management advice, such as a catch limit (e.g. 20,000 tonnes), based on historical data. However, a stock assessment on its own provides no knowledge of the expected performance of the assessment, harvest control rule, or management system in general.
+
+In an assessment setting there is no way to know whether a simpler assessment using other data might provide more robust performance (e.g. less overfishing, more yield) over a time horizon that managers are considering (e.g. the next 30 years).
+Management strategy evaluation tests a range of management approaches (of which an assessment linked to a harvest control rule is one such approach) and offers a scientific basis for selecting a management approach. MSE does not provide a catch-limit in tonnes, it identifies a modus operandi that will provide the desired management performance (it is analogous to selecting a suitable airplane via flight simulation testing rather than actually flying a plane to a specific destination).
+
+The advantage of MSE over stock assessment is that it is possible to consider a much wider range of uncertainty in stock dynamics, fleet dynamics, and data collection, which often better represents the state of knowledge (particularly for data-limited stocks). No matter how much uncertainty is factored into the MSE, a single management approach may be selected that can provide management advice.
+
+MSE was specifically introduced in controversial fishery settings where it was not possible to decide the 'best' representation of the state of nature. In the end, MSE was used to circumvent this problem by including all possible states of nature, often revealing that the disputes were in fact inconsequential all along.
+
+## Assumed Knowledge
+This User Guide assumes that you are using RStudio with an up-to-date version of R and the latest version of the DLMtool installed.  
+
+You can check your version of R by typing ```version``` into the R console:
+```{r}
+version
+```
+
+You can also find the version of DLMtool (or any other package) by typing:
+```{r}
+packageVersion('DLMtool')
+```
+
+The DLMtool package has been designed so that it is accessible for all users and does not assume a high level of knowledge of R.  The functions and User Guide have been constructed in such a way that a user with little experience with R should be able to run the MSE and apply the methods to their data.
+
+No programming experience is required to use the package. However, users of the DLMtool should have some familiarity with R, and be comfortable with using the command line. The User Guide attempts to explain the use of the DLMtool in easy to follow steps, but familiarity with the most common R functions is assumed. 
+
+The package is fully extensible, and more experienced R users are able to design their own management procedures, develop new plotting functions, and other customizations. 
+
+## The Use Manual
+This user manual has been designed to introduce users to DLMtool and does not assume prior knowledge of DLMtool or extensive knowledge of R. Some familiarity with the concept of Management Strategy Evaluation and the commonly used parameters and data types is assumed. 
+
+link to github issues - pull requests, etc
+
+
+## DLMtool Bug Reports  
+The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) or [report an issue on GitHub](https://github.com/DLMtool/DLMtool/issues/new) so that it can be fixed. If possible, please provide a minimal reproducible example so that we can recreate the problem and fit it.
+
+## Version Notes  
+The current version of the DLMtool package, available for download from [CRAN](https://CRAN.R-project.org/package=DLMtool), is `r curVer`.
+
+Version notes for previous versions of DLMtool can be found at [DLMtool News](https://github.com/DLMtool/DLMtool/blob/master/NEWS.md)
+

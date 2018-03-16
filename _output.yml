@@ -1,13 +1,15 @@
 bookdown::gitbook:
+  split_by: chapter
   css: style.css
   config:
     sharing: null
     toc:
       collapse: section
+      scroll_highlight: yes
       before: |
-        <li><a href="./index.html">DLMtool User Guide</a></li>
+        <li><a href="./introduction.html">DLMtool User Guide</a></li>
       after: |
-        <li><a href="http://www.datalimitedfisheries.com" target="blank">DLMtool Website</a></li>
+        <li><a href="http://www.datalimitedtoolkit.com" target="blank">DLMtool Website</a></li>
         <li><a href="../index.html">DLMtool Documentation</a></li>
     download: [pdf]
     <!--edit: https://github.com/DLMtool/DLMtool_UserGuide/edit/master/%s-->

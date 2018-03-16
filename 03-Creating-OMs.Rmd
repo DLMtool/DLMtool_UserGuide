@@ -1,0 +1,173 @@
+# (PART\*) Creating an Operating Model  {-}
+
+# Creating a New Operating Model
+
+## An Example WorkFlow
+The figure below shows our recommended workflow creating a new Operating Model (OM) in DLMtool.
+
+```{r echo=FALSE, out.width = "600px"}
+knitr::include_graphics("images/NewOMWorkflow.png")
+```
+
+## Create a New Project
+We recommend creating a new directory for each OM. Each new R session should start by setting the working directory to this location. One of the easiest ways to do this is to create a new project in RStudio (File > New Project) and open this each time you revisit the analysis.
+
+Alternatively, you can set the working directory with RStudio (Session > Set Working Directory) or directly in the R console, for example:
+
+```{r , eval=FALSE}
+setwd("C:/MSE/MyOM")
+```
+
+
+## Initialize a New OM
+The `OMinit` function is used to create a blank OM spreadsheet and a skeleton OM documentation file in the working directory. 
+This is only required the first time a new OM is created. 
+
+The `OMinit` function requires one argument, a name for the OM, and wil create two files in the working directory. For example `OMinit('MyOM')` will create **MyOM.xlsx** and **MyOM.rmd** in the working directory.
+
+**MyOM.xlsx** is a spreadsheet with sheets corresponding to the components of an OM: **Stock**, **Fleet**, **Obs**, and **Imp**, and **OM** worksheets. The first column in each sheet is populated with the names of the slots of the respective objects (Stock, Fleet, etc) and all slots are empty (except the OM sheet which has default values). 
+
+The filled grey cells represent optional parameters - these are not required to run the MSE but may be used to further customized the OM (e.g age-dependant M). 
+
+Values are required for all other parameters.
+
+The **MyOM.rmd** file can be opened in any text editor or RStudio, and contains a skeleton for the OM documentation.  
+
+The `OMinit` function also creates several folders in the working directory: data, docs, images, and robustness. These sub-directories can be used to store data, documents, images, and other information that is reference in the OM Report.
+
+### Using Templates 
+
+> **Note:** This feature requires additional software and may not be available on all systems. Specifically, it requires a zip application on the system PATH. Possibly the easiest way for this is to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) on your system. However, please note that this feature is not required to use DLMtool. 
+
+
+Some users may wish to build an operating model based on other pre-existing OM, Stock, Fleet, Obs, or Imp objects. 
+
+For example, `OMinit('Albacore2', Albacore)` will result in a **Albacore2.xlsx** file being created with the **Stock** sheet populated with the values from the **Albacore** Stock object. 
+
+Other examples:
+```{r, eval=FALSE}
+OMinit('StockAndFleet', Albacore, Generic_FlatE) # using existing Stock and Fleet objects
+
+OMinit('ObsAndImp', Generic_Obs, Perfect_Imp) # using existing Obs and Imp objects
+
+OMinit('BorrowOM', OtherOM) # using an existing OM
+```
+
+### An Example
+In this example we are going to create an OM called 'MyOM' using existing OM objects:
+
+```{r, eval=FALSE}
+OMinit('MyOM', Albacore, Generic_FlatE, Imprecise_Unbiased, Perfect_Imp)
+```
+
+We did this so that we can demonstrate the populated Excel and RMarkdown Files.
+
+
+To create a blank OM called 'MyOM' you would simply write:
+```{r, eval=FALSE}
+OMinit('MyOM')
+```
+
+
+```{r, include=FALSE, cache=TRUE}
+if (!dir.exists("ExampleOM")) dir.create("ExampleOM")
+OMinit('MyOM', Albacore, Generic_FlatE, Imprecise_Unbiased, Perfect_Imp, dir='ExampleOM', overwrite = TRUE)
+OMdoc(dir="ExampleOM", overwrite=TRUE, openFile=FALSE)
+```
+
+
+## Populate and Document OM
+Next we open Excel workbook and populate the OM. 
+
+Because we used templates our workbook is already populated. You can [download](docs/ExampleOM/MyOM.xlsx) and inspect the populated OM workbook we created in the previous step.
+
+To assist in documenting the rationale for the OM parameters, we recommended adding a short but informative description or rationale for the OM values in the RMarkdown file while the OM Excel file is being populated (open the RMarkdown file and edit with any text editor or RStudio). 
+
+Once complete, the RMarkdown file can be compiled into a HTML report and provides a complete documentation for the OM.  
+
+The RMarkdown file we created earlier can be accessed [here](docs/ExampleOM/MyOM.rmd) and opened in RStudio. 
+
+You will see that the RMarkdown file has a series of headings (marked by #, ##, and ### for first, second and third level respectively) followed by some text, in this case default text is mainly instructions on how to fill the document.
+
+The instruction text should be deleted and replaced with the relevant information for your operating model. For example, below the line "# Introduction" you would delete the instructions and provide a brief introduction to your fishery and the purpose of the OM and MSE. 
+
+It is important not to delete any of the headings.
+
+After the Introduction section, the document has four first level headings corresponding to the Stock, Fleet, Obs and Imp components of the operating model. 
+
+Each section has a series of second level headings (e.g., ## M) which correspond to the slots of that object. In this example, the text below these headings indicates that this parameter was borrowed from another object (e.g 'Borrowd from: Albacore'). 
+
+If the parameters in the OM workbook are modified from those borrowed from the existing object (in this case 'Albacore'), you would delete this text and replace it will your own justification. 
+
+If you did not initialize your OM using existing objects as templates, it will say something like 'No justification provided'. 
+
+It is not neccessary to include the actual values in the justification text. The RMarkdown file containing the justifications/rationale will be compiled together with the OM Excel workbook containing the OM parameter values into a OM Report that contains both the justification text, the OM values, and a series of plots to visualize the OM parameters and properties.
+
+The OM documentation file should be updated whenever values in the OM are changed.
+
+## Compile the OM Report
+Once the OM has been specified in the spreadsheet and documented in the RMarkdown file, it can be compiled into a OM Report using the `OMdoc` function. 
+
+The `OMdoc` function 
+
+```{r, eval=FALSE}
+OMdoc('MyOM')
+```
+
+In most cases it is not neccessary to provide the name of the RMarkdown file to `OMdoc`. By default the `OMdoc` function will look for a file with the extension '.rmd' in working directory. For example, if the Excel file is named *MyOM* then `OMdoc` will look for *MyOM.rmd*, which is default name created by  `OMinit`.
+
+Additionally, if there is only one *xlsx* file in the working directory the name of the OM is not required, i.e., `OMdoc()`.
+
+The resulting [MyOM.html](docs/ExampleOM/MyOM.html) can opened in any web browser. Because we have not replaced any of the default text in the RMarkdown file, the resulting OM Report contains the same text. In your case, this default text should be replaced with information relevant to your OM.
+
+It is also be possible to compile the OM report into a pdf using `OMdoc('MyOM', output="pdf_document")`, although this may require the installation of additional software on your system.
+
+
+## Import the OM into R 
+The OM can be imported from the Excel file using the `XL2OM` function. 
+
+For example, to import the example OM created in the previous section:
+
+```{r, eval=FALSE}
+OM <- XL2OM('MyOM')
+```
+
+The OM is now ready to be used for analysis, for example:
+```{r, eval=FALSE}
+# Plot the OM
+plot(OM) 
+
+# Run an MSE using default MPs
+MyMSE <- runMSE(OM)
+```
+
+
+## Documenting an Existing OM
+
+To document existing OMs that don't use the Excel workbook the `OMinit` function can be used to create just the RMarkdown documentation file in the working directory.
+
+The `OMdoc` function can be used to generate an OM report directly from an OM object and a RMarkdown file. In this case it is necessary to provide the name of the Rmarkdown file to `OMdoc`. 
+
+For example, here we create an OM using existing objects from DLMtool, generate the RMarkdown documentation skeleton (only required once), and compile the OM report:
+
+```{r, eval=FALSE}
+BlueSharkOM <- new('OM', Blue_shark, Generic_Fleet, Imprecise_Biased, Perfect_Imp) 
+OMinit('BlueSharkOM', files='rmd', BlueSharkOM)
+
+# - Enter OM details in BlueSharkOM.rmd - 
+OMdoc(BlueSharkOM, 'BlueSharkOM.rmd')
+```
+
+The same process is used if you are using the `cpars` feature to provide custom parameters to the MSE (see [Custom Parameters] section for more details).
+
+
+# Operating Model Library
+We are in the process of developing an online [library](http://www.datalimitedtoolkit.org/fishery_library) of DLMtool Operating Models. 
+
+This library includes the OM Report, the OM Excel workbook, and the OM R Data file for many of the fisheries where DLMtool OMs have been built. The idea behind the OM library is to develop a resource for DLMtool users to learn from other applications as well as to provide OM templates which users can borrow and modify to suit their own fishery.
+
+The OM library is still being developed and we are continuing to add OMs that we have constructed. If you have built a DLMtool OM and are happy to make it public, please [contact us](http://www.datalimitedtoolkit.org/contact/) through the website or email us directly, we would love to include it on our website.
+
+
+
+
