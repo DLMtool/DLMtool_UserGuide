@@ -58,3 +58,6 @@ _userguide_files/
 .Rhistory
 .Rproj.user/
 .Rproj.user
+
+userguide_files/
+userguide_cache/
