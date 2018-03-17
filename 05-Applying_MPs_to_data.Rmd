@@ -43,8 +43,6 @@ avail("Data")
 ndat <- length(avail("Data"))
 ```
 
-This shows us that there is `r ndat` example Fishery Data objects in the DLMtool.
-
 # Creating Your Own Data Object
 DLMtool has a series of functions to make importing data and applying data-limited Management Procedures relatively straightforward. 
 
@@ -55,9 +53,8 @@ There are two approaches:
 
 ## Creating a Data File in Excel
 ```{r, include=FALSE}
-if (!dir.exists("ExampleData") dir.create("ExampleData")
+if (!dir.exists("ExampleData")) dir.create("ExampleData")
 DataInit("MyData", dir="ExampleData", overwrite = TRUE)
-MyData <- XL2Data('MyData', dir="ExampleData")
 ```
 
 Probably the easiest way to get your data into the DLMtool is to populate a data table in an Excel workbook. 

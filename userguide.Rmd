@@ -90,10 +90,16 @@ No programming experience is required to use the package. However, users of the 
 
 The package is fully extensible, and more experienced R users are able to design their own management procedures, develop new plotting functions, and other customizations. 
 
-## The Use Manual
+## The User Manual
+This user manual has been designed to introduce users to DLMtool and does not assume prior knowledge of DLMtool or extensive knowledge of R. Some familiarity with the concept of Management Strategy Evaluation and the commonly used parameters and data types is assumed. 
 
-##### XXXXXXXXXXXXXXXXXXXXXXX
-link to github issues - pull requests, etc
+The user manual is continually being developed and we could use your help!
+
+We've tried to design it from the perspective of someone who is brand new to DLMtool. But there are undoubtedly many ways in which it can be improve. Please [contact us](http://www.datalimitedtoolkit.org/contact) through our website or email us directly if you have any questions or suggestions for improvement.
+
+Bug or typos can be reported on the userguide [GitHub](https://github.com/DLMtool/DLMtool_Userguide/issues/new) issues page. 
+
+[Pull requests](https://github.com/DLMtool/DLMtool_Userguide/pulls) with edits are most welcome.
 
 
 ## DLMtool Bug Reports  
@@ -189,9 +195,9 @@ Running an MSE with DLMtool is quite straightforward and only requires a single 
 myMSE <- runMSE()
 ```
 
-If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here then DLMtool is successfully working on your system! 
+If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here, then DLMtool is successfully working on your system! 
 
-If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please visit the DLMtool forum (XXX) or [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
+If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
 
 Once an MSE is run, the results can be examined visually using plotting functions, for example:
 ```{r}
@@ -376,7 +382,7 @@ class?Imp
 
 
 ## Building an OM from Component Objects
-We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual (XXX) we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
+We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
 
 
 Objects of class *Stock*, *Fleet*, *Obs* and *Imp* are used to create an Operating Model object (class `OM`). The simplest way to do this is to use `new` command. 
@@ -461,7 +467,7 @@ avail('MP')
 
 As you can see, there are `r nMP` MPs built into the DLMtool.
 
-DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in XXX. 
+DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in [Developing Custom Management Procedures]. 
 
 ## Types of Management Procedure 
 In previous versions of DLMtool, the MPs were divided into two classes: Output controls which returned a total allowable catch (**TAC**) and Input controls which allow regulation of **fishing effort**, **size selecitivty**, or **spatial area**. 
@@ -499,7 +505,7 @@ Remember, to access help documentation:
 ?matlenlim
 ```
 
-More information on input control MPs can be found in XXX.
+More information on input control MPs can be found in [Beyond the Catch Limit].
 
 ### Output Control MPs 
 The output control methods in the DLMtool provide a management recommendation in the form of a TAC.  Some output controls are stochastic, allowing for uncertainty in the data or input parameters, and return a distribution of recommended TACs.
@@ -513,7 +519,7 @@ avail('Output')
 ```
 
 ### Mixed MPs 
-Mixed MPs return a combination of input and output controls. Currently there are only a few mixed MPs in DLMtool, and these were developed simply for demonstration purposes. They may not work very well! See XXX for more information on developing your own mixed MPs. And please [share](http://www.datalimitedtoolkit.org/contact) them with us, we'd love to add them to DLMtool!
+Mixed MPs return a combination of input and output controls. Currently there are only a few mixed MPs in DLMtool, and these were developed simply for demonstration purposes. They may not work very well! See [Developing Custom Management Procedures] for more information on developing your own mixed MPs. And please [share](http://www.datalimitedtoolkit.org/contact) them with us, we'd love to add them to DLMtool!
 
 ```{r, avail-mixed}
 avail('Mixed')
@@ -622,7 +628,6 @@ The `Tplot` function creates four plots that show the trade-off between the expe
 Tplot(myMSE_200)
 ```
 
-In this case, the plot shows that the `matlenlim` method results in the highest long-term yield, and also one of the lower probabilities that the biomass will fall below $0.5B_{MSY}$.
 
 The `Tplot2` function shows the trade-off between long-term and short-term yield, and the trade-off between biomass being above $0.1B_{MSY}$ and the expected variability in the yield:
 ```{r}
@@ -641,18 +646,18 @@ The `Tplot3` function has been designed to take a list of Performance Metrics ob
 Tplot3(myMSE_200)
 ```
 
-## Joint Probability Plot
-The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.  
+<!-- ## Joint Probability Plot -->
+<!-- The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.   -->
 
-An alternative is to calculate the probability that a Management Procedure will simultaneously meet all of the performance criteria. The `Jplot` function has been designed to calculate and display the joint probability of meeting multiple criteria.  
+<!-- An alternative is to calculate the probability that a Management Procedure will simultaneously meet all of the performance criteria. The `Jplot` function has been designed to calculate and display the joint probability of meeting multiple criteria.   -->
 
-For example, the plot below calculates the probability that the biomass in the last 10 years of the projection period is above $0.5B_{MSY}$ and $0.2B_0$ for each of the `r myMSE_200@nMPs` Management Procedures included in the MSE:
+<!-- For example, the plot below calculates the probability that the biomass in the last 10 years of the projection period is above $0.5B_{MSY}$ and $0.2B_0$ for each of the `r myMSE_200@nMPs` Management Procedures included in the MSE: -->
 
-```{r}
-Jplot(myMSE_200)
-```
+<!-- ```{r} -->
+<!-- Jplot(myMSE_200) -->
+<!-- ``` -->
 
-The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function.
+<!-- The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function. -->
 
 
 ## Wormplot
@@ -1208,8 +1213,6 @@ avail("Data")
 ndat <- length(avail("Data"))
 ```
 
-This shows us that there is `r ndat` example Fishery Data objects in the DLMtool.
-
 # Creating Your Own Data Object
 DLMtool has a series of functions to make importing data and applying data-limited Management Procedures relatively straightforward. 
 
@@ -1220,9 +1223,8 @@ There are two approaches:
 
 ## Creating a Data File in Excel
 ```{r, include=FALSE}
-dir.create("ExampleData")
-DataInit("MyData", dir="ExampleData")
-MyData <- XL2Data('MyData', dir="ExampleData")
+if (!dir.exists("ExampleData")) dir.create("ExampleData")
+DataInit("MyData", dir="ExampleData", overwrite = TRUE)
 ```
 
 Probably the easiest way to get your data into the DLMtool is to populate a data table in an Excel workbook. 
@@ -1389,11 +1391,12 @@ A second optional argument can be used to specify the historical years. If used,
 MyFleet <- ChooseEffort(MyFleet, Years=1950:2016)
 ```
 
-```{r, include=FALSE}
-MyFleet@EffYears <- c(1950, 1960, 1970, 1978, 1998, 2016)
-MyFleet@EffLower <- c(0, 0.15, 0.15, 0.75, 0.85, 0.65)
-MyFleet@EffUpper <- c(0, 0.3, 0.3, 1, 1, 0.8)
-```
+<!-- ```{r, include=FALSE} -->
+<!-- MyFleet@EffYears <- c(1950, 1960, 1970, 1978, 1998, 2016) -->
+<!-- MyFleet@EffLower <- c(0, 0.15, 0.15, 0.75, 0.85, 0.65) -->
+<!-- MyFleet@EffUpper <- c(0, 0.3, 0.3, 1, 1, 0.8) -->
+<!-- ``` -->
+
 ```{r, echo=FALSE}
 knitr::include_graphics("images/EffortTraj.png")
 ```
@@ -1405,7 +1408,7 @@ Note that the trajectory that is mapped out here represents the bounds on the re
 ### Historical Trends in Selectivity Pattern
 Suppose that we may knew there had been changes in the selectivity pattern of the fishery over time. This information can be included in the Operating Model by using the `ChooseSelect` function.
 
-Like the `ChooseEffort` function described above, the `ChooseSelection` function takes a *Fleet* objects as it's first argument, and returns an updated Fleet object.
+Like the `ChooseEffort` function described above, the `ChooseSelection` function takes a Fleet object as it's first argument, and returns an updated Fleet object.
 
 Suppose the selectivity pattern changed in 1970 and then again in 1990, perhaps because of changes in fishing regulations.  These change points in the selectivity curve can be mapped by the following command:
 ```{r, eval=FALSE}
@@ -1469,8 +1472,8 @@ where $M_a$ is natural mortality at age $a$ and $W_a$ is the mean weight at age 
 The `plotM` function can be used to visually inspect samples of the *M*-at-age, -length, and -weight that are generated by the model:
 
 ```{r}
-Albacore@Mexp <- c(-0.315, -0.261)
-plotM(Albacore)
+Mackerel@Mexp <- c(-0.315, -0.261)
+plotM(Mackerel)
 ```
 
 
@@ -1490,15 +1493,15 @@ Click [here](images/chooseM_age.png) for a larger version of the image.
 
 Alternatively, users can input the values directly into the `M` and `M2` slots (must be length `maxage`):
 
-```{r}
-OM <- new("OM", Blue_shark, Generic_FlatE, Generic_Obs, Perfect_Imp)
+```{r setM2}
+OM <- new("OM", Albacore, Generic_FlatE, Generic_Obs, Perfect_Imp)
 OM@M <- c(0.7, 0.65, 0.60, 0.55, 0.61, 0.68, 0.75, 0.63, 0.51, 0.39, 0.27, 0.15, 0.15, 0.15, 0.15)
 OM@M2 <- c(0.85, 0.8, 0.75, 0.7, 0.76, 0.83, 0.9, 0.78, 0.66, 0.54, 0.42, 0.3, 0.3, 0.3, 0.3)
 ```
 
 The `plotM` function can then be used to visually display samples of the resulting *M* at age and size:
 
-```{r}
+```{r plotM1}
 plotM(OM)
 ```
 
@@ -1506,7 +1509,7 @@ plotM(OM)
 There is also the option to map length-specific *M* using the plotting tool:
 
 ```{r, eval=FALSE}
-OM <- new("OM", Blue_shark, Generic_FlatE, Generic_Obs, Perfect_Imp)
+OM <- new("OM", Albacore, Generic_FlatE, Generic_Obs, Perfect_Imp)
 OM <- ChooseM(OM, "length")
 ```
 
@@ -1518,7 +1521,7 @@ knitr::include_graphics("images/chooseM_length.png")
 Click [here](images/chooseM_length.png) for a larger version of the image.
 
 ```{r, include=FALSE}
-OM <- new("OM", Blue_shark, Generic_FlatE, Generic_Obs, Perfect_Imp)
+OM <- new("OM", Albacore, Generic_FlatE, Generic_Obs, Perfect_Imp)
 M_at_Length <- read.csv("CSVs/OMcparslength.csv")
 OM@cpars$M_at_Length <- M_at_Length
 ```
@@ -1646,7 +1649,7 @@ We can even see all the code for this MP by simply typing the name of the MP int
 DCAC
 ```
 
-"Crikey that looks complicated"! might be your first reaction. However this output MP function is easily demystified. 
+"Crikey that looks complicated!" might be your first reaction. However this output MP function is easily demystified. 
 
 Like all MPs it has three arguments: `x`, `Data` and `reps`.
 
@@ -1792,7 +1795,7 @@ sfExport("TCPUE")
 ```
 
 
-# Beyond the Catch Limit
+## Beyond the Catch Limit
 All management procedures return an object of class 'Rec' that contains 13 slots:
 
 ```{r}
@@ -1838,7 +1841,7 @@ The MP `matlenlim` only specifies the parameters of length retention using an es
 matlenlim
 ```
 
-## An Example Effort Control
+### An Example Effort Control
 Here we will copy and modify the MP we developed earlier to specify a new version of the target catch per unit effort MP (`TCPUE`) that provides effort recommendations:
 
 ```{r}
@@ -1929,7 +1932,7 @@ str(OM@cpars)
 ## Custom time-varying parameters
 It is also possible to supply custom generated time-varing values for some parameters using the `cpars` slot. For example, time-varying natural mortality or selectivity patterns.
 
-Additional details on using the `cpars` slot for this will be added to the userguide soon. If you find that this is a feature you wish to use but are unclear how to do it bug us with an email!
+Additional details on using the `cpars` slot for this will be added to the userguide soon. If you find that this is a feature you wish to use but are unclear how to do it, bug us with an email!
 
 
 
@@ -2002,7 +2005,7 @@ The help documentation for the `PM` objects is still under development:
 The `PM` objects are designed to be applied to an object of class `MSE`: 
 
 ```{r}
-P100(BlueSharkMSE)
+P100(BSharkMSE)
 ```
 
 ## Developing Custom PMs
@@ -2013,36 +2016,6 @@ Users can develop their own `PM` objects.
 
 
 <!--chapter:end:06-Advanced-DLMtool.Rmd-->
-
-
-# (PART\*) Creating an Operating Model  {-}
-
-# Operating Models
-
-OM arguments - details
-
-
-add links every where it says cover or Section XXX. 
-
-# Management Procedures
-
-# The MSE Object 
-
-# Creating New Operating Models
-
-# Performance Metrics 
-
-# The MSE Object
-
-# Subsetting MSE 
-
-
-assumptions - MP TAC recs if NA then uses last catch 
-
-
-Objects of class *OM* contain all of the parameters required to run the MSE.  Because this is a simulation, there must be values for all parameters.
-
-<!--chapter:end:98-MSE_with_DLMtool.Rmd-->
 
 
 # (APPENDIX) Appendix {-}
@@ -2244,14 +2217,14 @@ By default DLMtool assumes that natural mortality (*M*) is constant with age and
 
 ## MSE Model Assumptions 
 
-### Retention and Selectivity
+### Retention and Selectivity {-}
 The OM has slots for both gear selectivity and retention by size. If the retention slots are not populated, it is assumed that retention = selectivity, that is, all fish that are captured by the gear are retained by the fishers. 
 
 Most size-regulation MPs (e.g., `matlenlim`) change the retention pattern and leave the selectivity pattern unchanged. For example, if a size limited is regulated well above the current size of selection, fish smaller than the size limit are still caught by the gear but are discarded and may suffer some fishing mortality (Stock@Fdisc). 
 
 MPs can be designed to modify gear selectivity instead of, or in addition to, the retention-at-size. 
 
-### Non-Convergence of Management Procedure
+### Non-Convergence of Management Procedure {-}
 In some cases during the MSE Management Procedure may not be able to successfully calculate a management recommendation from the simulated data. For example, a catch-curve may used to estimate $Z$, and $F$ is calculated as $F=Z-M$. Because of process and observation error, it is possible that the estimated $F$ is negative, in which case the MP may fail to calculate a recommended catch limit. 
 
 The Management Procedures have been designed to return `NA` if they fail to calculate a management recommendation for any reason. In this case, the management recommendations from the previous year are used in the simulation, e.g., $\text{TAC}_y = \text{TAC}_{y-1}$.

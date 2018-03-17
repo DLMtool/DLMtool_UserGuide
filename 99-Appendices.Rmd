@@ -198,14 +198,14 @@ By default DLMtool assumes that natural mortality (*M*) is constant with age and
 
 ## MSE Model Assumptions 
 
-### Retention and Selectivity
+### Retention and Selectivity {-}
 The OM has slots for both gear selectivity and retention by size. If the retention slots are not populated, it is assumed that retention = selectivity, that is, all fish that are captured by the gear are retained by the fishers. 
 
 Most size-regulation MPs (e.g., `matlenlim`) change the retention pattern and leave the selectivity pattern unchanged. For example, if a size limited is regulated well above the current size of selection, fish smaller than the size limit are still caught by the gear but are discarded and may suffer some fishing mortality (Stock@Fdisc). 
 
 MPs can be designed to modify gear selectivity instead of, or in addition to, the retention-at-size. 
 
-### Non-Convergence of Management Procedure
+### Non-Convergence of Management Procedure {-}
 In some cases during the MSE Management Procedure may not be able to successfully calculate a management recommendation from the simulated data. For example, a catch-curve may used to estimate $Z$, and $F$ is calculated as $F=Z-M$. Because of process and observation error, it is possible that the estimated $F$ is negative, in which case the MP may fail to calculate a recommended catch limit. 
 
 The Management Procedures have been designed to return `NA` if they fail to calculate a management recommendation for any reason. In this case, the management recommendations from the previous year are used in the simulation, e.g., $\text{TAC}_y = \text{TAC}_{y-1}$.

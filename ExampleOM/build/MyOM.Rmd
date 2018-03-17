@@ -4,7 +4,7 @@ subtitle: 'Subtitle. One line only.'
 author:
 - Name and contact details (e.g email, affiliation) for each author.
 - One line per author.
-date: 16 March 2018
+date: 17 March 2018
 output: 
    html_document:
      toc: true
@@ -212,7 +212,7 @@ Slot not used.
 
 **Mexp**: Exponent of the Lorenzen function assuming an inverse relationship between M and weight. Uniform distribution lower and upper bounds. Real numbers <= 0.
 
-Specified Value(s): <span style='color:blue'> -0.31, -0.26</span>
+Specified Value(s): <span style='color:blue'> 0, 0</span>
 
 Borrowed from: Albacore 
 
@@ -264,7 +264,7 @@ Borrowed from: Albacore
 
 **Perr**: Process error, the CV of lognormal recruitment deviations. Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.33, 2.23</span>
+Specified Value(s): <span style='color:blue'> 0.37, 2.29</span>
 
 Borrowed from: Albacore 
 
@@ -273,7 +273,7 @@ Borrowed from: Albacore
 
 **AC**: Autocorrelation in recruitment deviations rec(t)=AC*rec(t-1)+(1-AC)*sigma(t). Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.15, 0.89</span>
+Specified Value(s): <span style='color:blue'> 0.14, 0.9</span>
 
 Borrowed from: Albacore 
 
@@ -299,7 +299,7 @@ Slot not used.
 
 **Linf**: Maximum length. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 121.32, 134.75</span>
+Specified Value(s): <span style='color:blue'> 121.01, 134.95</span>
 
 Borrowed from: Albacore 
 
@@ -317,7 +317,7 @@ Borrowed from: Albacore
 
 **t0**: von Bertalanffy theoretical age at length zero. Uniform distribution lower and upper bounds. Non-positive real numbers
 
-Specified Value(s): <span style='color:blue'> -1.86, -1.41</span>
+Specified Value(s): <span style='color:blue'> -1.85, -1.44</span>
 
 Borrowed from: Albacore 
 
@@ -344,7 +344,7 @@ Borrowed from: Albacore
 
 **Kgrad**: Mean temporal trend in growth parameter k, expressed as a percentage change in k per year. Uniform distribution lower and upper bounds. Real numbers
 
-Specified Value(s): <span style='color:blue'> -0.24, 0.21</span>
+Specified Value(s): <span style='color:blue'> -0.24, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -362,7 +362,7 @@ Borrowed from: Albacore
 
 **Linfgrad**: Mean temporal trend in maximum length, expressed as a percentage change in Linf per year. Uniform distribution lower and upper bounds. Real numbers
 
-Specified Value(s): <span style='color:blue'> -0.24, 0.24</span>
+Specified Value(s): <span style='color:blue'> -0.24, 0.23</span>
 
 Borrowed from: Albacore 
 
@@ -378,7 +378,7 @@ plotSlot(OM, Pars, slot='Linf')
 
 **L50**: Length at 50 percent maturity. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 81.11, 90.67</span>
+Specified Value(s): <span style='color:blue'> 81.01, 90.93</span>
 
 Borrowed from: Albacore 
 
@@ -387,7 +387,7 @@ Borrowed from: Albacore
 
 **L50_95**: Length increment from 50 percent to 95 percent maturity. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 10.14, 12.91</span>
+Specified Value(s): <span style='color:blue'> 10, 12.9</span>
 
 Borrowed from: Albacore 
 
@@ -403,7 +403,7 @@ plotSlot(OM, Pars, slot='L50')
 
 **D**: Current level of stock depletion SSB(current)/SSB(unfished). Uniform distribution lower and upper bounds. Fraction
 
-Specified Value(s): <span style='color:blue'> 0.08, 0.58</span>
+Specified Value(s): <span style='color:blue'> 0.09, 0.57</span>
 
 Borrowed from: Albacore 
 
@@ -547,7 +547,7 @@ plotSlot(OM, Pars, slot='EffUpper')
 
 **qinc**: Average percentage change in fishing efficiency (applicable only to forward projection and input controls). Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> -1.93, 1.94</span>
+Specified Value(s): <span style='color:blue'> -2, 1.91</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -556,7 +556,7 @@ Borrowed from: Generic_Flat effort
 
 **qcv**: Inter-annual variability in fishing efficiency (applicable only to forward projection and input controls). Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.1, 0.29</span>
+Specified Value(s): <span style='color:blue'> 0.1, 0.3</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -572,7 +572,7 @@ plotSlot(OM, Pars, slot='qcv')
 
 **L5**: Shortest length corresponding to 5 percent vulnerability. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 16.94, 34.69</span>
+Specified Value(s): <span style='color:blue'> 17.16, 34.72</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -581,7 +581,7 @@ Borrowed from: Generic_Flat effort
 
 **LFS**: Shortest length that is fully vulnerable to fishing. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 62.74, 96.14</span>
+Specified Value(s): <span style='color:blue'> 62.08, 97.71</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -590,7 +590,7 @@ Borrowed from: Generic_Flat effort
 
 **Vmaxlen**: The vulnerability of fish at Stock@Linf. Uniform distribution lower and upper bounds. Fraction
 
-Specified Value(s): <span style='color:blue'> 0.02, 0.98</span>
+Specified Value(s): <span style='color:blue'> 0.01, 1</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -729,7 +729,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAA_nsamp**: Number of catch-at-age observation per time step. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 51, 100</span>
+Specified Value(s): <span style='color:blue'> 53, 100</span>
 
 Borrowed from: Imprecise-Unbiased 
 
@@ -747,7 +747,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAL_nsamp**: Number of catch-at-length observation per time step. Uniform distribution lower and upper bounds. Positive integers
 
-Specified Value(s): <span style='color:blue'> 51, 99</span>
+Specified Value(s): <span style='color:blue'> 51, 100</span>
 
 Borrowed from: Imprecise-Unbiased 
 

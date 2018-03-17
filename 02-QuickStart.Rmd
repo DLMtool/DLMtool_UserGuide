@@ -80,9 +80,9 @@ Running an MSE with DLMtool is quite straightforward and only requires a single 
 myMSE <- runMSE()
 ```
 
-If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here then DLMtool is successfully working on your system! 
+If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here, then DLMtool is successfully working on your system! 
 
-If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please visit the DLMtool forum (XXX) or [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
+If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
 
 Once an MSE is run, the results can be examined visually using plotting functions, for example:
 ```{r}
@@ -267,7 +267,7 @@ class?Imp
 
 
 ## Building an OM from Component Objects
-We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual (XXX) we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
+We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
 
 
 Objects of class *Stock*, *Fleet*, *Obs* and *Imp* are used to create an Operating Model object (class `OM`). The simplest way to do this is to use `new` command. 
@@ -352,7 +352,7 @@ avail('MP')
 
 As you can see, there are `r nMP` MPs built into the DLMtool.
 
-DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in XXX. 
+DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in [Developing Custom Management Procedures]. 
 
 ## Types of Management Procedure 
 In previous versions of DLMtool, the MPs were divided into two classes: Output controls which returned a total allowable catch (**TAC**) and Input controls which allow regulation of **fishing effort**, **size selecitivty**, or **spatial area**. 
@@ -390,7 +390,7 @@ Remember, to access help documentation:
 ?matlenlim
 ```
 
-More information on input control MPs can be found in XXX.
+More information on input control MPs can be found in [Beyond the Catch Limit].
 
 ### Output Control MPs 
 The output control methods in the DLMtool provide a management recommendation in the form of a TAC.  Some output controls are stochastic, allowing for uncertainty in the data or input parameters, and return a distribution of recommended TACs.
@@ -404,7 +404,7 @@ avail('Output')
 ```
 
 ### Mixed MPs 
-Mixed MPs return a combination of input and output controls. Currently there are only a few mixed MPs in DLMtool, and these were developed simply for demonstration purposes. They may not work very well! See XXX for more information on developing your own mixed MPs. And please [share](http://www.datalimitedtoolkit.org/contact) them with us, we'd love to add them to DLMtool!
+Mixed MPs return a combination of input and output controls. Currently there are only a few mixed MPs in DLMtool, and these were developed simply for demonstration purposes. They may not work very well! See [Developing Custom Management Procedures] for more information on developing your own mixed MPs. And please [share](http://www.datalimitedtoolkit.org/contact) them with us, we'd love to add them to DLMtool!
 
 ```{r, avail-mixed}
 avail('Mixed')
@@ -513,7 +513,6 @@ The `Tplot` function creates four plots that show the trade-off between the expe
 Tplot(myMSE_200)
 ```
 
-In this case, the plot shows that the `matlenlim` method results in the highest long-term yield, and also one of the lower probabilities that the biomass will fall below $0.5B_{MSY}$.
 
 The `Tplot2` function shows the trade-off between long-term and short-term yield, and the trade-off between biomass being above $0.1B_{MSY}$ and the expected variability in the yield:
 ```{r}
@@ -532,18 +531,18 @@ The `Tplot3` function has been designed to take a list of Performance Metrics ob
 Tplot3(myMSE_200)
 ```
 
-## Joint Probability Plot
-The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.  
+<!-- ## Joint Probability Plot -->
+<!-- The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.   -->
 
-An alternative is to calculate the probability that a Management Procedure will simultaneously meet all of the performance criteria. The `Jplot` function has been designed to calculate and display the joint probability of meeting multiple criteria.  
+<!-- An alternative is to calculate the probability that a Management Procedure will simultaneously meet all of the performance criteria. The `Jplot` function has been designed to calculate and display the joint probability of meeting multiple criteria.   -->
 
-For example, the plot below calculates the probability that the biomass in the last 10 years of the projection period is above $0.5B_{MSY}$ and $0.2B_0$ for each of the `r myMSE_200@nMPs` Management Procedures included in the MSE:
+<!-- For example, the plot below calculates the probability that the biomass in the last 10 years of the projection period is above $0.5B_{MSY}$ and $0.2B_0$ for each of the `r myMSE_200@nMPs` Management Procedures included in the MSE: -->
 
-```{r}
-Jplot(myMSE_200)
-```
+<!-- ```{r} -->
+<!-- Jplot(myMSE_200) -->
+<!-- ``` -->
 
-The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function.
+<!-- The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function. -->
 
 
 ## Wormplot
