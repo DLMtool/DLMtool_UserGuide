@@ -4,7 +4,7 @@ subtitle: 'Subtitle. One line only.'
 author:
 - Name and contact details (e.g email, affiliation) for each author.
 - One line per author.
-date: 17 March 2018
+date: 26 April 2018
 output: 
    html_document:
      toc: true
@@ -181,7 +181,7 @@ using Latex (see [here](https://www.sharelatex.com/learn/Mathematical_expression
 
 **maxage**: The maximum age of individuals that is simulated (there is no plus group ). Single value. Positive integer
 
-Specified Value(s): <span style='color:blue'> 15, 15</span>
+Specified Value(s): <span style='color:blue'> 15</span>
 
 Borrowed from: Albacore 
 
@@ -190,7 +190,7 @@ Borrowed from: Albacore
 
 **R0**: The magnitude of unfished recruitment. Single value. Positive real number
 
-Specified Value(s): <span style='color:blue'> 1000, 1000</span>
+Specified Value(s): <span style='color:blue'> 1000</span>
 
 Borrowed from: Albacore 
 
@@ -221,7 +221,7 @@ Borrowed from: Albacore
 
 **Msd**: Inter-annual variability in natural mortality rate expressed as a coefficient of variation. Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.01, 0.1</span>
+Specified Value(s): <span style='color:blue'> 0, 0.1</span>
 
 Borrowed from: Albacore 
 
@@ -230,7 +230,7 @@ Borrowed from: Albacore
 
 **Mgrad**: Mean temporal trend in natural mortality rate, expressed as a percentage change in M per year. Uniform distribution lower and upper bounds. Real numbers
 
-Specified Value(s): <span style='color:blue'> -0.24, 0.25</span>
+Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -255,7 +255,7 @@ Borrowed from: Albacore
 
 **SRrel**: Type of stock-recruit relationship. Single value, switch (1) Beverton-Holt (2) Ricker. Integer
 
-Specified Value(s): <span style='color:blue'> 1, 1</span>
+Specified Value(s): <span style='color:blue'> 1</span>
 
 Borrowed from: Albacore 
 
@@ -264,7 +264,7 @@ Borrowed from: Albacore
 
 **Perr**: Process error, the CV of lognormal recruitment deviations. Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.37, 2.29</span>
+Specified Value(s): <span style='color:blue'> 0.15, 0.3</span>
 
 Borrowed from: Albacore 
 
@@ -273,7 +273,7 @@ Borrowed from: Albacore
 
 **AC**: Autocorrelation in recruitment deviations rec(t)=AC*rec(t-1)+(1-AC)*sigma(t). Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.14, 0.9</span>
+Specified Value(s): <span style='color:blue'> 0.1, 0.9</span>
 
 Borrowed from: Albacore 
 
@@ -299,7 +299,7 @@ Slot not used.
 
 **Linf**: Maximum length. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 121.01, 134.95</span>
+Specified Value(s): <span style='color:blue'> 121, 135</span>
 
 Borrowed from: Albacore 
 
@@ -317,7 +317,7 @@ Borrowed from: Albacore
 
 **t0**: von Bertalanffy theoretical age at length zero. Uniform distribution lower and upper bounds. Non-positive real numbers
 
-Specified Value(s): <span style='color:blue'> -1.85, -1.44</span>
+Specified Value(s): <span style='color:blue'> -1.86, -1.41</span>
 
 Borrowed from: Albacore 
 
@@ -344,7 +344,7 @@ Borrowed from: Albacore
 
 **Kgrad**: Mean temporal trend in growth parameter k, expressed as a percentage change in k per year. Uniform distribution lower and upper bounds. Real numbers
 
-Specified Value(s): <span style='color:blue'> -0.24, 0.25</span>
+Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -362,7 +362,7 @@ Borrowed from: Albacore
 
 **Linfgrad**: Mean temporal trend in maximum length, expressed as a percentage change in Linf per year. Uniform distribution lower and upper bounds. Real numbers
 
-Specified Value(s): <span style='color:blue'> -0.24, 0.23</span>
+Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -378,7 +378,7 @@ plotSlot(OM, Pars, slot='Linf')
 
 **L50**: Length at 50 percent maturity. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 81.01, 90.93</span>
+Specified Value(s): <span style='color:blue'> 81, 91</span>
 
 Borrowed from: Albacore 
 
@@ -387,7 +387,7 @@ Borrowed from: Albacore
 
 **L50_95**: Length increment from 50 percent to 95 percent maturity. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 10, 12.9</span>
+Specified Value(s): <span style='color:blue'> 10, 13</span>
 
 Borrowed from: Albacore 
 
@@ -403,7 +403,7 @@ plotSlot(OM, Pars, slot='L50')
 
 **D**: Current level of stock depletion SSB(current)/SSB(unfished). Uniform distribution lower and upper bounds. Fraction
 
-Specified Value(s): <span style='color:blue'> 0.09, 0.57</span>
+Specified Value(s): <span style='color:blue'> 0.05, 0.6</span>
 
 Borrowed from: Albacore 
 
@@ -419,7 +419,7 @@ plotSlot(OM, Pars, slot='D')
 
 **a**: Length-weight parameter alpha. Single value. Positive real number
 
-Specified Value(s): <span style='color:blue'> 0, 0</span>
+Specified Value(s): <span style='color:blue'> 0</span>
 
 Borrowed from: Albacore 
 
@@ -428,7 +428,7 @@ Borrowed from: Albacore
 
 **b**: Length-weight parameter beta. Single value. Positive real number
 
-Specified Value(s): <span style='color:blue'> 3.11, 3.11</span>
+Specified Value(s): <span style='color:blue'> 3.11</span>
 
 Borrowed from: Albacore 
 
@@ -526,12 +526,12 @@ Borrowed from: Generic_Flat effort
 }
 </style>
 ```{r, echo=FALSE, results='asis'}
-knitr::kable(round(Effvals,2), format='markdown', caption='')
+knitr::kable(Effvals, format='markdown', caption='')
 ```
 
 **Esd**: Additional inter-annual variability in fishing mortality rate. Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> 0.11, 0.39</span>
+Specified Value(s): <span style='color:blue'> 0.1, 0.4</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -547,7 +547,7 @@ plotSlot(OM, Pars, slot='EffUpper')
 
 **qinc**: Average percentage change in fishing efficiency (applicable only to forward projection and input controls). Uniform distribution lower and upper bounds. Non-negative real numbers
 
-Specified Value(s): <span style='color:blue'> -2, 1.91</span>
+Specified Value(s): <span style='color:blue'> -2, 2</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -572,7 +572,7 @@ plotSlot(OM, Pars, slot='qcv')
 
 **L5**: Shortest length corresponding to 5 percent vulnerability. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 17.16, 34.72</span>
+Specified Value(s): <span style='color:blue'> 0.2, 0.4</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -581,7 +581,7 @@ Borrowed from: Generic_Flat effort
 
 **LFS**: Shortest length that is fully vulnerable to fishing. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 62.08, 97.71</span>
+Specified Value(s): <span style='color:blue'> 0.75, 1.1</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -590,7 +590,7 @@ Borrowed from: Generic_Flat effort
 
 **Vmaxlen**: The vulnerability of fish at Stock@Linf. Uniform distribution lower and upper bounds. Fraction
 
-Specified Value(s): <span style='color:blue'> 0.01, 1</span>
+Specified Value(s): <span style='color:blue'> 0, 1</span>
 
 Borrowed from: Generic_Flat effort 
 
@@ -642,12 +642,7 @@ Borrowed from: Generic_Flat effort
 
 **DR**: Discard rate - the fraction of caught fish that are discarded. Uniform distribution lower and upper bounds. Fraction
 
-Specified Value(s): <span style='color:blue'> 0, 0</span>
-
-Borrowed from: Generic_Flat effort 
-
-
-
+Slot not used.
 
 ```{r plot.DR, echo=FALSE, fig.asp=0.75}
 plotSlot(OM, Pars, slot='DR')
@@ -701,7 +696,7 @@ Borrowed from: Generic_Flat effort
 
 ### Existing Spatial Closures: MPA
 
-**MPA**: (Optional) Matrix specifying spatial closures for historical years. Each row should contain year index (e.g 10 for 10th historical year) followed by fraction of area closed to fishing for each area. i.e. each row represents a change and the number of columns is nareas + 1. The spatial closures are assumed to remain in place for the future projections unless changed by a MP. Default (if left blank) is all areas are open to fishing in historical period.
+**MPA**: (Optional) Matrix specifying spatial closures for historical years.
 
 Slot not used.
 
@@ -729,7 +724,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAA_nsamp**: Number of catch-at-age observation per time step. Uniform distribution lower and upper bounds. Positive real numbers
 
-Specified Value(s): <span style='color:blue'> 53, 100</span>
+Specified Value(s): <span style='color:blue'> 50, 100</span>
 
 Borrowed from: Imprecise-Unbiased 
 
@@ -738,7 +733,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAA_ESS**: Effective sample size (independent age draws) of the multinomial catch-at-age observation error model. Uniform distribution lower and upper bounds. Positive integers
 
-Specified Value(s): <span style='color:blue'> 11, 20</span>
+Specified Value(s): <span style='color:blue'> 10, 20</span>
 
 Borrowed from: Imprecise-Unbiased 
 
@@ -747,7 +742,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAL_nsamp**: Number of catch-at-length observation per time step. Uniform distribution lower and upper bounds. Positive integers
 
-Specified Value(s): <span style='color:blue'> 51, 100</span>
+Specified Value(s): <span style='color:blue'> 50, 100</span>
 
 Borrowed from: Imprecise-Unbiased 
 
@@ -756,7 +751,7 @@ Borrowed from: Imprecise-Unbiased
 
 **CAL_ESS**: Effective sample size (independent length draws) of the multinomial catch-at-length observation error model. Uniform distribution lower and upper bounds. Positive integers
 
-Specified Value(s): <span style='color:blue'> 11, 20</span>
+Specified Value(s): <span style='color:blue'> 10, 20</span>
 
 Borrowed from: Imprecise-Unbiased 
 

@@ -443,6 +443,8 @@ myMPs <- c('AvC', 'Itarget1',
 MPtype(myMPs)
 ```
 
+See [Determining Feasible and Available Management Procedures] for information on how to identify management procedures that are potentially suitable for your fishery.
+
 ## Run the MSE 
 Now that we have specified an OM and chosen a set of management procedures we are ready to run the MSE:
 
@@ -599,7 +601,7 @@ setup()
 ```
 
 
-By default the `setup` function initializes 4 processors as we have found this to be the most efficient for most systems. You can change the number of processors by specifying the `cpu` argument, e.g., `setup(cpu=6)`. 
+By default the `setup` function initializes half of the available processors as we have found this to be the most efficient for most systems. You can change the number of processors by specifying the `cpu` argument, e.g., `setup(cpu=6)`. 
 
 See [Determining Optimal Number of Processors] for more details on calculating the optimal number of processors to use on your system. 
 
@@ -620,13 +622,17 @@ myMSE_200P <- runMSE(myOM, parallel = TRUE)
 elapse2 <- Sys.time() - st2
 ```
 
-Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations (`nsim=48`), run time decreased from `r round(elapse1,0)` to `r round(elapse2,0)` seconds when using parallel processing on 4 processors.
+Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations (`nsim=48`), run time decreased from `r round(elapse1,0)` to `r round(elapse2,0)` seconds when using parallel processing on `r parallel::detectCores()*0.5` processors.
 
 
 ## Determining Optimal Number of Processors  
 The `optCPU` function can be used to evaluate the relationship between number of processors and run time:
 
-```{r optCPU, cache=TRUE, warning=FALSE}
+```{r, eval=FALSE}
 optCPU()
+```
+
+```{r optCPU, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+optCPU(msg=FALSE, maxn=12)
 ```
 

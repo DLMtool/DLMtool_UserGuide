@@ -140,23 +140,52 @@ summary(Atlantic_mackerel)
 This feature is currently being developed.
 
 
-# Determining Which MPs Can Be Applied
-You can see what Management Procedures can and can't be applied given your data and also what data are needed to get them working: 
+# Determining Feasible and Available Management Procedures 
 
+Although all management procedures can be tested in the simulation, it is often the case that not all MPs can actually be applied in a fishery. This can happen for two reasons:
+
+1. Insufficient data exists to use an MP, for example, a MP may use catch-at-age data which does not exist for the fishery
+2. Management constraints such as issues with enforcement or legal requirements may mean some management options are not possible.
+
+Management procedures which can be applied given the current fishery data are referred to as *Available*. 
+
+Management procedures that return management recommendations that are, at least in theory, applicable to the fishery are referred to as *Feasible*.
+
+DLMtool has functions to identify MPs that are *Available* and *Feasible*, and also provides information for what additional data are required to allow *Not Available* MPs to be used.
+
+## Feasible MPs
+The `Fease` function can be used to determine which MPs are *Feasible*. 
+
+For example, if only TAC management is feasible in a fishery, the feasible MPs are:
+```{r}
+Fease(TAC=TRUE, TAE=FALSE, SL=FALSE, Spatial=FALSE)
+```
+We can confirm that all of these MPs are output controls (return a TAC) by using the `MPtype` function:
+```{r}
+feaseMPs <- Fease(TAC=TRUE, TAE=FALSE, SL=FALSE, Spatial=FALSE)
+MPtype(feaseMPs)
+```
+
+If a `Data` object is provided to `Fease`, the function will return the names of MPs that are both feasible in terms of management methods, and available in terms of the fishery data:
+```{r}
+feaseMPs <- Fease(Atlantic_mackerel, TAC=FALSE, TAE=TRUE, SL=TRUE, Spatial=FALSE)
+MPtype(feaseMPs)
+```
+
+
+## Available MPs
 The `Can` function generates a list of the MPs that are available to be applied to the Data object:
 ```{r Can}
 Can(Atlantic_mackerel)
 ```
 
+If all management methods are feasible, the list of MPs returned by the `Can` function will be the same as those returned by the `Fease` function when the `Data` object is provided.
+
+## Unavailable MPs
 The `Cant` function displays a list of the MPs that cannot be applied to the Data object together with the reason why:
 ```{r Cant}
 Cant(Atlantic_mackerel)
 ```
-
-Finally, the `Needed` function displays the additional data slots that must be populated for the unavailable MPs to work:
-```{r Needed}
-Needed(Atlantic_mackerel)
-````
 
 
 # Applying Management Procedures
