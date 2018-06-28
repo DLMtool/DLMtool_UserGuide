@@ -76,7 +76,11 @@ You need to load the DLMtool package each time you start a new instance of R.
 
 # A Very Quick Demo
 Running an MSE with DLMtool is quite straightforward and only requires a single line of code:
-```{r demoRun, cache=TRUE}
+```{r demoRun, cache=TRUE, include=FALSE}
+myMSE <- runMSE(silent=TRUE)
+```
+
+```{r, eval=FALSE}
 myMSE <- runMSE()
 ```
 
@@ -94,6 +98,7 @@ Or quantified in various ways, for example:
 summary(myMSE)
 ```
 
+Later sections of the user manual will describe more ways to evaluate the outputs of the `runMSE` function.  
 
 
 # The Operating Model
@@ -211,7 +216,7 @@ class?Fleet
 
 ### Obs Object  
 
-The third component for the *Operating Model* is the *Obs* object.  This object contains all the information relating to how the fishery information is generated inside the model.
+The third component for the *Operating Model* is the *Obs* (Observation) object.  This object contains all the information relating to how the fishery information is generated inside the model.
 
 Why do we need a *Obs* object?
 
@@ -253,7 +258,7 @@ class?Obs
 
 ### Imp Object  
 
-The final component for the *Operating Model* is the *Imp* object.  This object contains all the information relating to how the management recommendation is actually implemented in the fishery, i.e., the implementation error. The `Imp` object includes slots for the over or under catch of TAC, implementation error in total allowable effort, and variability in size regulations. 
+The final component for the *Operating Model* is the *Imp* (Implementation) object.  This object contains all the information relating to how the management recommendation is actually implemented in the fishery, i.e., the implementation error. The `Imp` object includes slots for the over or under catch of TAC, implementation error in total allowable effort, and variability in size regulations. 
 
 ```{r}
 avail('Imp')
@@ -265,6 +270,24 @@ More information on the *Imp* object can be found by typing:
 class?Imp
 ```
 
+## Plotting OM Components
+The OM Components *Stock*, *Fleet*, *Obs*, and *Imp* can be plotted to visually examine the contents.
+
+For example, to plot a *Stock* object (note that the figures may not appear correctly in this document, but are easy to re-size in R Studio):
+```{r}
+plot(Albacore)
+```
+
+To plot a *Fleet* object you must also provide an object of class *Stock*, for example:
+```{r}
+plot(FlatE_Dom, Albacore)
+```
+
+The *Obs* and *Imp* objects can also be plotted:
+```{r}
+plot(Generic_Obs)
+plot(Overages)
+```
 
 ## Building an OM from Component Objects
 We will now look at how to combine objects of the four classes into an OM. For now we will work with the OM components that are built into DLMtool. In later sections of the user manual we will cover how to build your own Stock, Fleet, Obs, and Imp objects that characterises your fishery.  
@@ -308,7 +331,6 @@ myOM@interval
 These slots all have default values that can be modified easily, for example:
 ```{r}
 myOM@proyears <- 60
-myOM@proyears
 ```
 
 
@@ -339,7 +361,7 @@ Management Procedures can differ in data requirements and complexity.  However, 
 
 To be included in an MSE, a Management Procedure must be reproducible and able to be coded in a set of instructions.  While fisheries are sometimes managed by expert judgment, it is difficult to reproduce the subjective decision-making process in a computer simulation and include such methods in an MSE.
 
-## Available Management Procedure 
+## Available Management Procedures
 All management procedures in DLMtool are objects (actually functions in this case) of class `MP`. There are a number of MPs built into DLMtool. The `avail` function can be used to provide a list of MPs that can be included in the MSE:
 
 ```{r include=FALSE}
@@ -367,7 +389,9 @@ The `MPtype` function can be used to display the type for a particular MP, for e
 MPtype("DCAC")
 ```
 
-Or for all available MPs:
+This tells us that `DCAC` is an Output control MP and returns a management recommendation in the form of a total allowable catch limit (TAC).
+
+Here we list all available MPs:
 ```{r MPtype-all, cache=TRUE}
 MPtype(avail('MP'))
 ```
@@ -435,10 +459,8 @@ myOM <- new("OM", Albacore, DecE_Dom, Imprecise_Unbiased, Overages)
 Next, we'll select 8 MPs to test in our MSE:
 
 ```{r}
-myMPs <- c('AvC', 'Itarget1', 
-           'matlenlim', 'ITe10',
-           'AvC_MLL', 'Itarget1_MPA',
-           'FMSYref', 'NFref')
+myMPs <- c('AvC', 'Itarget1', 'matlenlim', 'ITe10',
+           'AvC_MLL', 'Itarget1_MPA', 'FMSYref', 'NFref')
 
 MPtype(myMPs)
 ```
@@ -448,9 +470,15 @@ See [Determining Feasible and Available Management Procedures] for information o
 ## Run the MSE 
 Now that we have specified an OM and chosen a set of management procedures we are ready to run the MSE:
 
-```{r MSErun, cache=TRUE}
+```{r MSErun, cache=TRUE, include=FALSE}
+myMSE <- runMSE(OM=myOM, MPs=myMPs, silent=TRUE)
+```
+
+```{r eval=FALSE}
 myMSE <- runMSE(OM=myOM, MPs=myMPs)
 ```
+
+This may take a minute or two to run. We have now conducted a Management Strategy Evaluation for our fishery described in the Operating Model with 8 Management Procedures. Next we will evaluate whether the model has converged and then look at the MSE results.
 
 
 # Checking Convergence
@@ -467,7 +495,7 @@ By default the `Converge` function includes three commonly used performance metr
 
 The number of simulations to calculate the convergence statistics, the minimum change threshold, and the performance metrics to use can be specified as arguments to the function. See the help documentation for more details (`?Converge`).
 
-```{r converge}
+```{r converge, fig.asp=1.5}
 Converge(myMSE)
 ```
 
@@ -485,19 +513,25 @@ myOM@nsim <- 200
 st <- Sys.time()
 ```
 
-```{r MSErun2, cache=TRUE}
-myMSE_200 <- runMSE(OM=myOM, MPs=myMPs)
+```{r MSErun2, cache=TRUE, include=FALSE}
+myMSE_200 <- runMSE(OM=myOM, MPs=myMPs, silent=TRUE)
 ```
 
 ```{r endstartTimer1, include=FALSE, cache=TRUE, warning=FALSE}
 elapse1 <- Sys.time() - st
 ```
 
+```{r eval=FALSE}
+myMSE_200 <- runMSE(OM=myOM, MPs=myMPs)
+```
+
+
 Is `r myOM@nsim` simulations enough?
 
-```{r converge2}
+```{r converge2, fig.asp=1.5}
 Converge(myMSE_200)
 ```
+
 
 
 # Plotting the MSE Results
@@ -510,28 +544,31 @@ plotFun()
 
 ## Trade-Off Plots
 
-The `Tplot` function creates four plots that show the trade-off between the expected relative yield and the probability of overfishing and the probability of the biomass being below three different reference points:
-```{r}
+The `Tplot` function creates four plots that show the trade-off between the probability that the long-term expected yield is greater than half of the highest obtainable yield at a fixed *F* (reference yield) against the probability of:
+
+1. Not overfishing in all projection years ($F/F_\text{MSY} < 1$)
+2. Spawning biomass ($\text{SB}$) above $\text{SB}_\text{MSY}$ in all projection years ($\text{SB} > \text{SB}_\text{MSY}$)
+3. Spawning biomass above $0.5 \text{SB}_\text{MSY}$  ($\text{SB} > 0.5 \text{SB}_\text{MSY}$)
+4. Spawning biomass above $0.1 \text{SB}_\text{MSY}$  ($\text{SB} > 0.1 \text{SB}_\text{MSY}$)
+ 
+The `Tplot` function includes minimum acceptable risk thresholds indicated by the horizontal and vertical gray shading. These thresholds can be adjusted be the `Lims` argument to the `Tplot` function. See `?Tplot` for more information on adjusting the risk thresholds.
+
+MPs that fail to meet one or both of the risk thresholds for each axis are shown in *italics* text. The `Tplot` function returns a data frame showing the performance of each MP with respect to the 5 performance metrics, and whether the MP is *Satisificed*, i.e., if it meets the minimum performance criteria for **all** performance metrics.
+
+ 
+```{r, fig.width=8, fig.height=7}
 Tplot(myMSE_200)
 ```
 
 
 The `Tplot2` function shows the trade-off between long-term and short-term yield, and the trade-off between biomass being above $0.1B_{MSY}$ and the expected variability in the yield:
-```{r}
+```{r, fig.width=8, fig.height=3.5}
 Tplot2(myMSE_200)
 ```
 
 
-The `NOAA_plot` function was developed from applications of the DLMtool to fisheries in the Caribbean. This plot shows the trade-offs between the probability of not overfishing and long-term yield, and the probability of not being in an overfished state versus the probability of the annual variation in yield being less than 15%:
-```{r}
-NOAA_plot(myMSE_200)
-```
+The `Tplot`, `Tplot2` and `Tplot3` functions are part of a family of plotting functions that are fully customizable, and designed to work with Performance Metrics objects. See `?Tplot` and the [Developing Custom PMs] chapter for more information.
 
-The `Tplot3` function has been designed to take a list of Performance Metrics objects, plot the performance metric against each other, and report if an MP has met the minimum conditions for all performance metrics:
-
-```{r}
-Tplot3(myMSE_200)
-```
 
 <!-- ## Joint Probability Plot -->
 <!-- The previous plots calculate the probability of that Management Procedure will meet individual performance criteria.   -->
@@ -585,7 +622,7 @@ Kplot(myMSE_200)
 The `Cplot` shows a scatter plot of the median biomass and median yield over the last five years of the projection relative to the current conditions (the last year in the historical period):
 
 ```{r}
-Cplot(myMSE_200, ShowLabs=TRUE)
+Cplot(myMSE_200)
 ```
 
 # Parallel Processing

@@ -1,7 +1,7 @@
 
 # (PART\*) Using Fishery Data  {-}
 
-# The Fishery Data Object (Data)
+# The Fishery Data Object 
 
 `Data` is an object class in the DLMtool that contains all of the fishery information that can be used by the Management Procedure.  You find the documentation for the `Data` class by typing:
 ```{r, eval=FALSE}
@@ -42,6 +42,8 @@ avail("Data")
 ```{r, include=FALSE}
 ndat <- length(avail("Data"))
 ```
+
+
 
 # Creating Your Own Data Object
 DLMtool has a series of functions to make importing data and applying data-limited Management Procedures relatively straightforward. 
@@ -132,6 +134,10 @@ Madeup@BMSY_B0 <- 0.35                                #  BMSY relative to unfish
 ```
 
 # Plotting Data Objects
+
+
+TO DO 
+
 A generic summary function is available to visualize the data in a `Data` object:
 ```{r, fig.width=7, fig.height=3.5}
 summary(Atlantic_mackerel)
@@ -219,5 +225,4 @@ The TAC recommendations from each Output control can be plotted:
 ```{r, fig.height=7, fig.width=6}
 boxplot(Atlantic_mackerel)
 ```
-
 

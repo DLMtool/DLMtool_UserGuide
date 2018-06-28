@@ -4,6 +4,22 @@
 setup()
 ```
 
+# Averaging MPs
+In some cases users may wish to provide management advice by averaging the recommendations from several different well-performing management procedures. This of course is a new management procedure in itself, and should be tested in MSE before being adopted for use in a fishery.
+
+The `makeMeanMP` function can be used to create a new MP that averages the results of several MPs. 
+
+For example, suppose we wished to develop an MP that averages the results of 4 output control MPs: `BK`, `DBSRA`, `Fadapt` and `Rcontrol`
+
+More information on creating your own MPs can be found in the [Developing Custom Management Procedures] chapter.
+
+
+TO DO 
+
+# Evaluating OM 
+TO DO 
+`Turing` 
+
 # Customizing the Operating Model
 
 ## Accounting for Historical Changes in Fishing
@@ -246,10 +262,14 @@ Plotting the selectivity and retention curves shows that a proportion of all age
 plotSelect(OM, sim=1)
 ```
 
-
+## Variable Management Interval
+TO DO 
 
 
 # Developing Custom Management Procedures
+
+TODO - revise and check still right with new versions of MPs 
+
 
 DLMtool was designed to be extensible in order to promote the development of new Management Procedures. In this chapter we design a series of new Management Procedures that include spatial controls and input controls in the form of size limit restrictions. 
 
@@ -647,3 +667,7 @@ Users can develop their own `PM` objects.
 > This section is under development. More detail coming soon.
 > Please bug us with emails if it is taking too long!
 
+
+TO DO 
+
+build DFO and NOAA_plot using new PM method

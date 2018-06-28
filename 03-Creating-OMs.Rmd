@@ -69,7 +69,7 @@ OMinit('MyOM')
 ```
 
 
-```{r, include=FALSE, cache=TRUE}
+```{r OMdoc, include=FALSE, cache=TRUE}
 if (!dir.exists("ExampleOM")) dir.create("ExampleOM")
 OMinit('MyOM', Albacore, Generic_FlatE, Imprecise_Unbiased, Perfect_Imp, dir='ExampleOM', overwrite = TRUE)
 OMdoc(dir="ExampleOM", overwrite=TRUE, openFile=FALSE)
@@ -159,6 +159,17 @@ OMdoc(BlueSharkOM, 'BlueSharkOM.rmd')
 ```
 
 The same process is used if you are using the `cpars` feature to provide custom parameters to the MSE (see [Custom Parameters] section for more details).
+
+# Using Correlated Life-History Parameters
+
+TODO 
+
+# Modifying the OM
+TODO
+## The `tinyerr` function 
+
+## The `Replace` function
+
 
 
 # Operating Model Library
