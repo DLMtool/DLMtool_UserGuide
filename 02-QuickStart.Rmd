@@ -534,15 +534,73 @@ Converge(myMSE_200)
 
 
 
-# Plotting the MSE Results
-The DLMtool has many built-in plotting functions which can be used to examine the performance of the Management Procedures. Advanced users can also develop their own plotting and summary functions. See the [Performance Metrics] chapter for more details.
+# Examining the MSE Results
+Arguably the most important part of the MSE is interpreting the results and identifying a management procedure (MP) that is most suitable for the fishery.
 
-Here we demonstrate a few of the plotting function. You can see a list of all the plotting functions in the DLMtool for `MSE` objects using the `plotFun` function:
+This involves asking several questions: 
+
+1. Which MPs can be excluded from the list of candidates because they perform worst than all other options?
+2. Which MPs are most likely to meet our management objectives?
+3. How do we identify the MP most suited to our fishery?
+4. Which data sources are most critical to the performance of the best performing MP? 
+
+## Introducing Performance Metrics
+To interpret the MSE results it is important that a clear set of performance metrics have been defined. Fisheries managers often have broadly defined policy goals. These conceptual objectives must be translated to quantitative operational objectives so that the MSE results can be used to evaluate performance against the specified management objectives. 
+
+For example, suppose that the fishery managers had stated broad goals to maximize yield from the fishery while minimizing the risk of the stock collapsing to unacceptably low levels. In order to use MSE to determine which MPs are most likely to meet these objectives it is neccessary to be more specific:
+
+- What are *unacceptable low stock levels*? Some fraction of unfished biomass? The lowest observed historical biomass?
+- What is an *acceptable level of risk*? What chance are we willing to tolerate that the stock will fall below that limit?
+- How much yield are we willing to give up in order to increase the probability of the stock staying above unacceptably low limit?
+ 
+It is important to recognize that performance metrics can vary considerably between different fisheries and management structures, but are a crucial component of the MSE and must be carefully defined before the analysis is carried out. The [Performance Metrics] chapter discusses this topic in more detail. 
+
+The DLMtool includes a number of commonly used performance metrics and a series of functions to summarize MP performance. The MSE results can be examined either graphically in a plot or summarized in a table. Advanced users can also develop their own plotting and summary functions (see the [Custom Performance Metrics] chapter for more details).
+
+Here we briefly demonstrate some of the plotting and summary functions in DLMtool. The [Examining the MSE object] chapter and other chapters in that section describe the process of evaluating MSE results in more detail. 
+
+## Summary Table
+
+The `summary` function can be used to generate a table of MP performance with respect to a set of performance metrics:
+
+```{r summary}
+summary(myMSE_200)
+```
+
+By default the `summary` function includes four performance metrics, and displays the probability that: 
+
+1. fishing mortality $\left(F\right)$ is below $F_\text{MSY}$, i.e *Not Overfishing* (`PNOF`)
+2. spawning biomass $\left(\text{SB}\right)$ is above half of biomass at maximum sustainable yield $\left(\text{SB}_{\text{MSY}}\right)$ (`P50`)
+3. average interannual variability in yield is less than 20% (`AAVY`) 
+4. long-term yield (last 10 years of projection period) is above half of the maximum yield obtainable at a constant fishing rate (`LTY`)
+
+
+````{r summary_int, include=FALSE}
+df <- summary(myMSE_200, silent=TRUE)
+```
+
+In this example we can see that probability of $\text{SB} > 0.5\text{SB}_\text{MSY}$ for `r df$MP[1]` is `r df$P50[1]`. 
+
+The performance metrics have been defined in such a way that a higher number is always better (e.g, probability of *Not Overfishing* rather than *Overfishing* where a lower probability would be more desirable).
+
+Help documentation for the peformance metrics can be found in the usual way, for example:
+
+```{r, eval=FALSE}
+?PNOF
+```
+
+The performance metrics in the `summary` function are completely customizable. See the [Performance Metrics] and [Custom Performance Metrics] chapters for more details.
+
+
+## Plotting MSE Results
+DLMtool includes several functions for plotting the MSE results. You can see a list of all the plotting functions in the DLMtool for `MSE` objects using the `plotFun` function:
 ```{r}
 plotFun()
 ```
 
-## Trade-Off Plots
+Here we demonstrate a few of the plotting functions for the MSE results. 
+
+### Trade-Off Plots
 
 The `Tplot` function creates four plots that show the trade-off between the probability that the long-term expected yield is greater than half of the highest obtainable yield at a fixed *F* (reference yield) against the probability of:
 
@@ -567,7 +625,7 @@ Tplot2(myMSE_200)
 ```
 
 
-The `Tplot`, `Tplot2` and `Tplot3` functions are part of a family of plotting functions that are fully customizable, and designed to work with Performance Metrics objects. See `?Tplot` and the [Developing Custom PMs] chapter for more information.
+The `Tplot`, `Tplot2` and `Tplot3` functions are part of a family of plotting functions that are fully customizable, and designed to work with all Performance Metrics objects. See `?Tplot` and the [Performance Metrics] chapter for more information.
 
 
 <!-- ## Joint Probability Plot -->
@@ -584,7 +642,7 @@ The `Tplot`, `Tplot2` and `Tplot3` functions are part of a family of plotting fu
 <!-- The risk threshold and the performance criteria can be adjusted in the arguments to the `Jplot` function. -->
 
 
-## Wormplot
+### Wormplot
 The `wormplot` function plots the likelihood of meeting biomass targets in future years:
 ```{r}
 wormplot(myMSE_200)
@@ -592,7 +650,7 @@ wormplot(myMSE_200)
 
 The arguments to the `wormplot` function allow you to choose the reference level for the biomass relative to $B_{MSY}$, as well as the upper and lower bounds of the colored bands.
 
-## Projection Plots
+### Projection Plots
 The `Pplot` function plots the trajectories of biomass, fishing mortality, and relative yield for the Management Procedures.
 
 By default, the `Pplot` function shows the individual trajectories of $B/B_{MSY}$ and $F/F_{MSY}$ for each simulation:
@@ -612,13 +670,13 @@ Pplot2(myMSE_200, traj="quant", quants=c(0.2, 0.8))
 
 Details on additional controls for the `Pplot` and `Pplot2` functions can be found in the help documentation associated with this function.
 
-## Kobe Plots
+### Kobe Plots
 Kobe plots are often used in stock assessment and MSE to examine the proportion of time the stock spends in different states.  A Kobe plot of the MSE results can be produced with the `Kplot` function:
 ```{r kobe-plot, cache=TRUE}
 Kplot(myMSE_200)
 ```
 
-## Compare to Current Conditions
+### Compare to Current Conditions
 The `Cplot` shows a scatter plot of the median biomass and median yield over the last five years of the projection relative to the current conditions (the last year in the historical period):
 
 ```{r}
@@ -659,7 +717,7 @@ myMSE_200P <- runMSE(myOM, parallel = TRUE)
 elapse2 <- Sys.time() - st2
 ```
 
-Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations (`nsim=48`), run time decreased from `r round(elapse1,0)` to `r round(elapse2,0)` seconds when using parallel processing on `r parallel::detectCores()*0.5` processors.
+Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations, run time decreased from `r round(elapse1,0)` to `r round(elapse2,0)` seconds when using parallel processing on `r parallel::detectCores()*0.5` processors.
 
 
 ## Determining Optimal Number of Processors  

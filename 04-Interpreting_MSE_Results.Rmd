@@ -2,10 +2,10 @@
 # (PART\*) Interpreting MSE Results  {-}
 
 # Examining the MSE object
+The MSE object contains all of the output from the MSE. In this chapter we will examine the MSE object in more detail.
 
-In this chapter we will examine the MSE object in more detail. First we will run an MSE so that we have an MSE object to work with:
+First we will run an MSE so that we have an MSE object to work with. We will then briefly examine some of the contents of the MSE object. The chapters [Performance Metrics] and [Custom Performance Metrics] contain more information on the MSE object.
 
-## Run an MSE
 We create an OM based on the Blue Shark stock object and other built-in objects:
 ```{r}
 OM <- new('OM', Blue_shark, Generic_Fleet, Imprecise_Biased, Perfect_Imp, nsim=200)
@@ -31,8 +31,6 @@ And run the MSE using parallel processing and save the output to an object calle
 BSharkMSE <- runMSE(OM, MPs, parallel = TRUE)
 ```
 
-
-## The MSE Object 
 ```{r, include=FALSE}
 nslots <- length(slotNames(BSharkMSE))
 nnames <- length(names(BSharkMSE@OM))
@@ -43,31 +41,33 @@ slotNames(BSharkMSE)
 ```
 As you can see, `MSE` objects contain all of the information from the MSE, stored in `r nslots` slots.
 
-### The First Six Slots
+## The First Six Slots
 The first six slots contain information on the structure of the MSE.  For example the first slot (`Name`),  is a combination of the names of the `Stock`, `Fleet`, and `Obs` objects that were used in the MSE:
 ```{r}
 BSharkMSE@Name
 ```
 Other information in these first slots includes the number of historical years (`nyears`), the number of projection years (`proyears`), the number of name of the Management Procedures (`nMPs` and `MPs`), and the number of simulations (`nsim`).
 
-### The `OM` Slot
+## The `OM` Slot
 The `OM` slot in the `MSE` object is a data frame that the values of the parameters used in the Operating Model:
 ```{r}
 names(BSharkMSE@OM)
 ```
 If you use the `dim` function to report the dimensions of the `OM` data frame, you'll notice that there are `r nnames` columns, corresponding to the `r nnames` parameters in the Operating Model, and `r BSharkMSE@nsim` rows, each corresponding to a single simulation of the MSE.
 
-### The `Obs` Slot
+More information on the `MSE@OM` slot can be found in the help documentation: `class?MSE`
+
+## The `Obs` Slot
 The `Obs` slot contains another data frame, this one with `r ncol(BSharkMSE@Obs)` columns corresponding to the values drawn from the Observation model:
 ```{r}
 names(BSharkMSE@Obs)
 ```
 
-The `Obs` data frame also has `r BSharkMSE@nsim` rows, each corresponding to a single simulation.  
+The `Obs` data frame also has `r BSharkMSE@nsim` rows, each corresponding to a single simulation.  More information on the `MSE@Obs` slot can be found in the help documentation: `class?MSE`
 
 The information contained in the `OM` and `Obs` slots can be used to examine the sensitivity of the performance of Management Procedures with respect to different operating model and observation parameters.  This is discussed in more detail below. 
 
-### The `B_BMSY` and `F_FMSY` Slots
+## The `B_BMSY` and `F_FMSY` Slots
 The `B_BMSY` and `F_FMSY` are data frames containing the biomass relative to biomass at maximum sustainable yield $\left(\frac{B}{B_{MSY}}\right)$, and fishing mortality relative to the rate corresponding to maximum sustainable yield $\left(\frac{F}{F_{MSY}}\right)$ for each simulation, Management Procedure and projection year.
 
 If we look at the class of the `B_BMSY` slot, we see that it is an `array`:
@@ -92,7 +92,7 @@ This plot shows that the relative biomass for the stock generally increases thro
 However, the distribution appears to have quite high variability, which suggests that although the method works well on average, the final biomass was very low in some simulations.
 
 
-### The `B`, `FM`, `C` and `TAC` Slots
+## The `B`, `FM`, `C` and `TAC` Slots
 The `B`, `FM`, and `C` slots contain the information relating to the stock biomass, the fishing mortality rate, and the catch for each simulation, Management Procedure, and projection year.
 
 Typically, the MSE model in the DLMtool does not include information on the absolute scale of the stock biomass or recruitment, and all results usually must be interpreted in a relativistic context. 
@@ -107,14 +107,14 @@ Alternatively, the catch can be made relative to the catch in last historical ye
 
 The TAC slot contains the TAC recommendation for each simulation, MP, and projection year. In cases where a TAC was not set (e.g for a size limit), the value will be NA. The values in TAC may be different to those in the catch (C) slot due to implementation error of the total catch limit. 
 
-### The `SSB_hist`, `CB_hist`, and `FM_hist` Slots
+## The `SSB_hist`, `CB_hist`, and `FM_hist` Slots
 The `SSB_hist`, `CB_hist`, and `FM_hist` slots contain information on the spawning stock biomass, the catch biomass, and the fishing mortality from the historical period (the `nyears` in the operating model).  
 
 These data frames differ from the previously discussed slots as they are 4-dimensional arrays, with dimensions corresponding to the simulation, the age classes, the historical year, and the spatial areas. 
 
 The `apply` function can be used to aggregate these data over the age-classes or spatial areas.
 
-### The `Effort` Slot
+## The `Effort` Slot
 The `Effort` slot is a 3-dimensional array containing information on the relative fishing effort (relative to last historical year, or current conditions) for each simulation, Management Procedure and projection year.
 
 We can look at the distribution of fishing effort for each Management Procedure in the final year of the projection period:
@@ -157,7 +157,7 @@ However, in order to be included in an MSE, conceptual objectives must be transl
 
 It is not unusual that some of the management objectives are in conflict.  A key benefit of the MSE approach is to highlight these trade-offs among the different management objectives to guide the decision-making process.  However, in order for these trade-offs to be quantified, it is critically important that the performance metrics are quantifiable and thus able to be incorporated into the MSE framework (Punt, 2015). 
 
-## Performance Metrics in the DLMtool
+## Commonly used Performance Metrics 
 Management strategy evaluation is a simulation exercise where the model can track the specific performance with perfect information, so it is possible to state performance objectives in specific terms that are consistent with the typical objectives of fisheries policies, such as: 
 
 *	Biomass relative to unfished biomass $\left(B_0\right)$ or biomass at maximum sustainable yield $\left(B_{MSY}\right)$.
@@ -169,21 +169,40 @@ Because the management strategy evaluation runs many simulations of the fisherie
 
 ### Fishing Mortality
 For example, the management strategies can be ranked by the likelihood of overfishing to occur, where the probability of overfishing is measured by the proportion of simulation runs where the fishing mortality rate (*F*) under a specific management strategy is higher than the *F* that is expected to produce the maximum sustainable yield.  
-
 Management strategies that have a lower probability of overfishing occurring are typically preferable to those that frequently cause excessive fishing mortality rates.  If there are 1,000 simulation runs for each management strategy over a 50-year projection period, then the probability of overfishing could be based on the proportion where *F* is greater than (or less than) $F_{MSY}$ over all years or any subset of years (e.g., probability of overfishing in years 41-50 of the 50-year projection period). 
 
 ### Stock Biomass
-Another performance metric included in DLMtool is the probability that the stock biomass is above or below some biological reference point.  For example, a minimum performance limit may be half the biomass at maximum sustainable yield (0.5 BMSY), and the performance of the management strategies can be ranked by the probability of the stock remaining above this level.  
+Another common performance metric is the probability that the stock biomass is above or below some biological reference point.  For example, a minimum performance limit may be half the biomass at maximum sustainable yield (0.5 BMSY), and the performance of the management strategies can be ranked by the probability of the stock remaining above this level.  
 
 Management strategies that fail to maintain biomass above this limit with a high priority may be considered too risky and therefore excluded from further examination.  
 
-### Developing Additional Performance Metrics
+### Additional Performance Metrics
 There may be other performance metrics that are of interest to fishery managers and stakeholders.  Stakeholder participation is critical when developing performance metrics to evaluate different biological scenarios or management strategies in a MSE.  Furthermore, it is important that the performance metrics, together with any acceptable risk thresholds are identified and agreed upon before the MSE is conducted.
+
+
+## Performance Metrics Objects 
+
+
+### DLMtool PM Objects
+
+
+### Developing Custom PM Objects
+
+
+
 
 The DLMtool can be customized to track and display additional performance metrics as identified by stakeholders.
 
-### Summarizing Management Procedure Performance
+## Summarizing Management Procedure Performance
 The information in the `MSE` object can be summarized in a number of ways.
+
+
+### Summary Table 
+
+
+### Plots
+
+TO DO 
 
 The `summary` function provides information on the performance of the Management Procedures with respect to various metrics, including the probability of overfishing, and the probability that the biomass is below various reference levels: 
 ```{r}
@@ -192,10 +211,13 @@ summary(BSharkMSE)
 
 This information can be used to identify poorly performing methods, and exclude them from further, perhaps more comprehensive, runs of the MSE.
 
+## TO DO PM OBJECTS 
+
 ### Plotting MSE Results 
 The performance of the MPs can also be examined visually. See the [Plotting the MSE Results] section for examples on DLMtool plotting functions for the MSE object. 
 
 Advanced users may wish to develop their own plotting and summary functions. See the [Custom Performance Metrics] section for more details on this. 
+
 
 
 # Value of Information
