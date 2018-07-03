@@ -134,16 +134,11 @@ Madeup@BMSY_B0 <- 0.35                                #  BMSY relative to unfish
 ```
 
 # Plotting Data Objects
+A generic summary function is available to visualize the data in a `Data` object. By default the `summary` function waits for user input before displaying the next plot, this option can be switched off using `wait=FALSE`:
 
-
-TO DO 
-
-A generic summary function is available to visualize the data in a `Data` object:
 ```{r, fig.width=7, fig.height=3.5}
-summary(Atlantic_mackerel)
+summary(Cobia, wait=FALSE)
 ```
-
-This feature is currently being developed.
 
 
 # Determining Feasible and Available Management Procedures 

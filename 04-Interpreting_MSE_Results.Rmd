@@ -180,44 +180,234 @@ Management strategies that fail to maintain biomass above this limit with a high
 There may be other performance metrics that are of interest to fishery managers and stakeholders.  Stakeholder participation is critical when developing performance metrics to evaluate different biological scenarios or management strategies in a MSE.  Furthermore, it is important that the performance metrics, together with any acceptable risk thresholds are identified and agreed upon before the MSE is conducted.
 
 
-## Performance Metrics Objects 
+## Performance Metrics Methods
+DLMtool includes a set of functions, of class `PM`, for calculating Performance Metrics. The available `PM` functions (referred to as PMs) can be found using the `avail` function:
 
-
-### DLMtool PM Objects
-
-
-### Developing Custom PM Objects
-
-
-
-
-The DLMtool can be customized to track and display additional performance metrics as identified by stakeholders.
-
-## Summarizing Management Procedure Performance
-The information in the `MSE` object can be summarized in a number of ways.
-
-
-### Summary Table 
-
-
-### Plots
-
-TO DO 
-
-The `summary` function provides information on the performance of the Management Procedures with respect to various metrics, including the probability of overfishing, and the probability that the biomass is below various reference levels: 
 ```{r}
-summary(BSharkMSE)
+avail("PM")
 ```
 
-This information can be used to identify poorly performing methods, and exclude them from further, perhaps more comprehensive, runs of the MSE.
+The PMs are used for summarizing the performance of the management procedures and plotting the results in trade-off plots. 
 
-## TO DO PM OBJECTS 
+Here we briefly describe the built-in Performance Metrics functions and demonstrate their use. Advanced DLMtool users can develop their own `PM` methods, see the [Custom Performance Metrics] chapter for details.
 
-### Plotting MSE Results 
-The performance of the MPs can also be examined visually. See the [Plotting the MSE Results] section for examples on DLMtool plotting functions for the MSE object. 
+Functions of class `PM` are used on an object of class `MSE` (i.e the object returned by `runMSE`), and return an object of class `PMobj`. Most of the time the `PM` functions are used internally in the `summary` or plotting functions, and it will not be neccessary to acess the `PMobj` directly. 
+
+To demonstrate the `PM` functions we first run a quick example MSE:
+
+```{r, include=FALSE}
+MSE <- runMSE(silent=TRUE)
+```
+
+```{r, eval=FALSE}
+MSE <- runMSE()
+```
+
+
+### Overview of the `PM` Functions
+
+We will use the `P50` function to demonstrate the `PM` methods. Help documentation on the PM methods can be accessed in the usual way: `?P50`.
+
+The `P50` PM method calculates the probability that spawning biomass is above half of the spawning biomass that results in maximum sustainable yield $\left(\text{SB} > 0.5\text{SB}_\text{MSY}\right)$. 
+
+```{r P50int, include=FALSE}
+p50 <- P50(MSE)
+```
+
+Applying the `P50` function to our `MSE` object results in the following output:
+```{r P50}
+P50(MSE)
+```
+
+We can see that the `PM` function calculated, for the 6 MPs in the `MSE` object, the probability $\text{SB} > 0.5\text{SB}_\text{MSY}$ for all `r MSE@proyears` projection years. 
+
+The `PM` function prints out a summary table of the performance metrics statistics for the first 10 simulations and the last simulation (`r MSE@nsim` in this case) for each MP. The final line shows the overall probability of the performance metric, i.e the average performance across all simulations. 
+
+We will look into this output in a little more detail.
+
+We can see that the first MP is `r MSE@MPs[1]` and the performance statistics for the first and second simulations are `r p50@Prob[1,1]` and `r p50@Prob[2,1]`. How have these values been calculated and what do they mean?
+
+Let's first plot the spawning biomass relative to BMSY for the first two simulations of the `AvC` MP:
+
+```{r}
+par(mfrow=c(1,2))
+plot(1:MSE@proyears, MSE@B_BMSY[1,1,], type='l', 
+     xlab="Years", ylab="B/BMSY", lwd=2, bty="l", ylim=c(0,2),
+     main="MP = 'AvC'; Sim =  1")
+abline(h=0.5, lty=3)
+
+plot(1:MSE@proyears, MSE@B_BMSY[2,1,], type='l', 
+     xlab="Years", ylab='', lwd=2, bty="l", ylim=c(0,2),
+     main="MP = 'AvC'; Sim =  2")
+abline(h=0.5, lty=3)
+```
+
+Now we will calculate fraction of years where spawning biomass is above 0.5 $\text{SB}_\text{MSY}$ for the first and second simulations:
+
+```{r}
+mean(MSE@B_BMSY[1,1,] > 0.5) # first simulation
+mean(MSE@B_BMSY[2,1,] > 0.5) # second simulation
+# identical to: 
+# sum(MSE@B_BMSY[1,1,] > 0.5)/MSE@proyears
+# sum(MSE@B_BMSY[2,1,] > 0.5)/MSE@proyears
+```
+
+Notice how the performance statistics for each simulation correspond with the plot shown above? 
+
+The overall performance is then calculated by the probability over all simulations, i.e for the first MP `r MSE@MPs[1]`:
+```{r}
+mean(MSE@B_BMSY[,1,]>0.5)
+```
+
+And for `r MSE@nMPs` MPs:
+```{r}
+round(apply(MSE@B_BMSY >0.5, 2, mean),2)
+```
+which, reassuringly, is the same as the output of the `P50` function.
+
+### Customizing the `PM` Functions
+
+The `PM` functions allow for very quick calculation of performance metrics. For example, suppose that instead of calculating performance over all projection years, we are only interested in the long-term performance, say over the last 10 years. This can be easily achieved using the `Yrs` argument in the `PM` function:
+
+```{r}
+P50(MSE, Yrs=c(41,50))
+```
+
+Or the first 10 years:
+
+```{r}
+P50(MSE, Yrs=c(1,10))
+```
+
+The other biomass Performance Metric functions work in the same way:
+
+```{r}
+P10(MSE) # probability SB > 0.1SB_MSY for all years
+P100(MSE) # probability SB > SB_MSY for all years
+```
+
+Long-term, short-term and overall average yield are calculated using `LTY`, `STY` and `Yield` respectively:
+
+```{r}
+LTY(MSE)
+STY(MSE)
+Yield(MSE)
+```
+
+The `PNOF` PM function calculates the probability of not overfishing:
+```{r }
+PNOF(MSE)
+```
+
+
+Finally, the average annual variability in yield (AAVY) can be calculated with the `AAVY` function:
+
+```{r}
+AAVY(MSE)
+```
+
+By default the `AAVY` PM function calculates the probability that AAVY is less than 20%. This reference level can easily be modified using the `Ref` argument:
+
+```{r}
+AAVY(MSE, Ref=0.15) # prob. AAVY < 15%
+AAVY(MSE, Ref=0.30) # prob. AAVY < 30%
+```
+
+The other `PM` functions also have the `Ref` argument which can be used in the same way. For example, you may notice that the `P50` and `P100` functions are identical except for the value of the `Ref` argument:
+
+```{r}
+args(P50)
+args(P100)
+```
+
+It follows then that it is very simple to calculate a custom performance metric based on the built-in `PM` functions. For example, suppose we wanted to calculate the probability that spawning biomass was above 5% of BMSY. This can be achieved by using any of the biomass-based `PM` functions and modifying the `Ref` argument:
+
+```{r}
+P50(MSE, Ref=0.05)
+P100(MSE, Ref=0.05)
+```
+
+More information on customizing `PM` functions can be found in the [Custom Performance Metrics] chapter.
+
+In the next section we will demonstrate using `PM` functions in summarizing and plotting functions.
+
+## Summarizing Management Procedure Performance
+The [Examining the MSE Results] chapter introduced the `summary` function for `MSE` objects and some of the plotting functions for visualizing the results. Here we demonstrate how the `PM` functions can be used in the `summary` function and the trade-off plots:
+
+### `summary` Table
+The `summary` function provides information on the performance of the Management Procedures with respect to the performance metrics. By default, `summary` includes the `PNOF`, `P50`, `AAVY` and `LTY` performance metrics:
+
+```{r}
+summary(MSE)
+```
+
+It is straightforward to include other `PM` functions by adding the names of the `PM` functions, for example:
+
+```{r}
+summary(MSE, 'P100', 'Yield')
+```
+
+or all available `PM` functions:
+```{r}
+summary(MSE, avail('PM'))
+```
+
+The `summary` function returns a data frame which can be useful for referring to the PM results elsewhere in the analysis. For example,
+```{r}
+Results <- summary(MSE, avail('PM'), silent=TRUE) # silent=TRUE to hide print-out to console
+Results$Yield # access the PM results
+```
+
+
+### Trade-Off Plots 
+
+The `TradePlot` function takes an object of class `MSE` and the names of `PM` functions (at least 2) to produce a trade-off plot. For example:
+
+```{r}
+TradePlot(MSE) # default plot 
+```
+
+The order of the `PM` function names determines plotting on the x and y axes. For example:
+
+```{r}
+TradePlot(MSE, 'P50' ,'LTY')  # x = P50, y  = LTY
+TradePlot(MSE, 'LTY' ,'P50')  # x = LTY, y = P50
+```
+
+The PMs are recylced if an odd number are provided:
+```{r}
+TradePlot(MSE, 'P50' ,'LTY', 'STY') 
+```
+
+The `Lims` argument is used to set the vertical and horizontal acceptable risk thresholds and are interpreted in the same order as the names of the `PM` functions. For example:
+
+```{r}
+TradePlot(MSE, 'P50' ,'LTY', Lims=c(0.8, 0))  # 80% minimum acceptable risk for P50, no minimum for LTY
+TradePlot(MSE, 'P50' ,'STY', 'P100', 'LTY', Lims=c(0.8, 0, 0.5, 0))  # 80% minimum acceptable risk for P50, 50% for P100, no minimum for STY and LTY
+```
+
+```{r include=FALSE}
+res <- TradePlot(MSE, 'P50' ,'STY', 'P100', 'LTY', Lims=c(0.8, 0, 0.5, 0), Show=FALSE)
+```
+The `TradePlot` function returns a data frame with the results of the performance metrics, and a column indicating if an MP has met minimum performance criteria for **all** performance metrics. In the previous example, `r sum(res$Results$Satisificed)` MPs (`r res$Results$MP[res$Results$Satisificed]`) met the minimum performance criteria for all four performance metrics.
+
+The `TradePlot` function can be used to make a variety of custom trade-off plots. For example, the `Tplot`, `Tplot2`, and `Tplot3` functions all use this function to produce different trade-off plots:
+
+```{r}
+Tplot
+Tplot(MSE)
+```
+
+Similarly, we can easily reproduce `NOAA_plot` using the `Tradeplot` function:
+
+```{r}
+NOAA_plot(MSE)
+TradePlot(MSE, Lims=c(0.5, 0, 0.8, 0.5), PMlist=list("PNOF", "LTY", "P50", "AAVY"), Refs=list(AAVY=0.15))
+```
+
+See the [Plotting the MSE Results] section for examples on DLMtool plotting functions for the MSE object. 
 
 Advanced users may wish to develop their own plotting and summary functions. See the [Custom Performance Metrics] section for more details on this. 
-
 
 
 # Value of Information
@@ -227,16 +417,16 @@ There are several VOI functions in DLMtool.
 
 The `VOI` function generates two plots, one corresponding to the operating model parameters, and the other to the observation model parameters, showing the gradient in long-term yield with respect to the individual parameters:
 ```{r, fig.height=9, fig.width=9}
-VOI(BSharkMSE)
+VOI(MSE)
 ```
 
 The `VOIplot` function shows something similar, but has an argument to specify either the Observation or Operating Model parameters:
 ```{r, fig.height=9, fig.width=9}
 # Observation Parameters
-VOIplot(BSharkMSE, nMP=5)
+VOIplot(MSE, nMP=5)
 
 # OM Parameters
-VOIplot(BSharkMSE, Par="OM", nMP=5)
+VOIplot(MSE, Par="OM", nMP=5)
 ```
 
 By default, the `VOIplot` function only shows the four Management Procedures with the greatest sensitivity.  Here we've made it show all five methods using the `nMP` argument.
@@ -245,19 +435,33 @@ In this example we can see that the `Fratio` method is particularly sensitive to
 
 We can also use the `VOIplot` function to look at the sensitivity with respect to the final biomass by specifying the `YVar` argument:
 ```{r, fig.height=9, fig.width=9}
-VOIplot(BSharkMSE, Par="OM", nMP=5, YVar="B")
+VOIplot(MSE, Par="OM", nMP=5, YVar="B")
 ```
 
 This result shows, perhaps unsurprisingly, that the final biomass is often strongly sensitive to the initial depletion, particularly for the DCAC and matlenlim methods.  
+
+The `VOIplot2` function is an updated version of `VOIplot` that uses the `PM` functions and plots the Value of Information for a single MP:
+
+```{r}
+VOIplot2(MSE)
+VOIplot2(MSE, type="OM")
+```
+
+and with a different MP and performance metric:
+```{r}
+VOIplot2(MSE, MP="DCAC", PM="P100")
+VOIplot2(MSE, MP="DCAC", type="OM", PM="P100")
+```
 
 
 The `VOI2` function relates the operating model parameters and parameters of the observation model to relative yield (yield over last 5 years of projection relative to a 'best F' scenario that maximizes yield.
 
 ```{r, fig.height=9, fig.width=9}
-VOI2(BSharkMSE)
+VOI2(MSE)
 ```
 
 `VOI2` assumes that relative cost for each type of improvement in data is linearly related to the number of samples (e.g. nCAAobs) or square function of improved precision and bias e.g.: relative $\text{cost}= \frac{1}{(\text{newCV}/\text{oldCV})^2}$
 
 The VOI features of DLMtool are continuing to be developed and more VOI functions will be added soon. 
+
 
