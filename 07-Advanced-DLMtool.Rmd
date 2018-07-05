@@ -710,7 +710,7 @@ We could then continue our analysis on each subset MSE and determine if the natu
 avail("PM")
 ```
 
-We saw in [Customizing the PM Functions] that it is straightforward to modify the years that the performance statistics are calculated over using the `Yrs` argument, and the reference level using the `Ref` argument. In this section we describe the `PM` functions in more detail for advanced users who wish to develop their own `PM` methods.
+We saw in [Customizing the `PM` Functions] that it is straightforward to modify the years that the performance statistics are calculated over using the `Yrs` argument, and the reference level using the `Ref` argument. In this section we describe the `PM` functions in more detail for advanced users who wish to develop their own `PM` methods.
 
 We will demonstrate this using the `P50` performance metric function as an example.
 
@@ -787,24 +787,20 @@ args(P50)
 
 The first line of a `PM` function must be `Yrs <- ChkYrs(Yrs, MSEobj)`. This line updates the `Yrs` variable and makes sure that the specified year indices are valid. For example:
 
-```{r}
+```{r, eval=FALSE}
 ChkYrs(NULL, MSEobj) # returns all projection years 
-
 ChkYrs(c(1,10), MSEobj) # returns first 10 years 
 ChkYrs(c(60,80), MSEobj) # returns message and last 20 years
-
 ChkYrs(5, MSEobj) # first 5 years
 ChkYrs(-5, MSEobj) # last 5 years
-
 ChkYrs(c(50,10), MSEobj) # returns an error
-
-
 ```
 
-As you can see, when the default value for `Yrs` is `NULL`, the `Yrs` variable is updated to include all projection years:
+When the default value for `Yrs` is `NULL`, the `Yrs` variable is updated to include all projection years:
 
 ```{r}
 Yrs <- ChkYrs(NULL, MSEobj)
+Yrs
 ```
 
 Next we create a new object of class `PMobj`, and populate the `Name` slot with a short but descriptive name:
@@ -824,7 +820,7 @@ PMobj@Ref <- Ref
 PMobj@Ref <- 0.5
 ```
 
-The `Stat` slot is a 3D array that stores the variable which we wish to calculate the performance statistic; an output from the `runMSE` function with dimensions `MSE@nsim`, `MSE@nMPs`, and `MSE@proyears` (or fewer if the argument `Yrs != NULL`). 
+The `Stat` slot is an array that stores the variable which we wish to calculate the performance statistic; an output from the `runMSE` function with dimensions `MSE@nsim`, `MSE@nMPs`, and `MSE@proyears` (or fewer if the argument `Yrs != NULL`). 
 
 In this case we want to calculate a performance statistic related to the biomass relative to BMSY, and so we assign the `Stat` slot as follows:
 ```{r}
@@ -841,7 +837,7 @@ PMobj@Prob <- calcProb(PMobj@Stat > PMobj@Ref)
 
 Note that in order to calculate a probability the argument to the `calcProb` function must be a logical array, which is achieved using the `Ref` slot. 
 
-Also note that in this case `PMobj@Stat > PMobj@Ref` is equivalent to `MSEobj@B_BMSY[, , Yrs[1]:Yrs[2]] > 0.5`. The `PM` functions have been designed this way so that in most cases the `PMobj@Prob <- calcProb(PMobj@Stat > PMobj@Ref)` line is identical in all `PM` functions and does not need to be modified. The exception to this is if we don't want to calculate a probability but the actual mean values of `PMobj@Stat`, demonstrated in the example below.
+Also note that in this case `PMobj@Stat > PMobj@Ref` is equivalent to `MSEobj@B_BMSY[, , Yrs[1]:Yrs[2]] > 0.5`. The `PM` functions have been designed this way so that in most cases the `PMobj@Prob <- calcProb(PMobj@Stat > PMobj@Ref)` line is identical in all `PM` functions and does not need to be modified. The exception to this is if we don't want to calculate a probability but want the actual mean values of `PMobj@Stat`, demonstrated in the example below.
 
 In the next line we calculate the mean of `PMobj@Prob` over simulations using the `calcMean` function:
 
@@ -849,7 +845,7 @@ In the next line we calculate the mean of `PMobj@Prob` over simulations using th
 PMobj@Mean <- calcMean(PMobj@Prob)
 ```
 
-Similiar to the previous line, this line is identical in all `PM` functions and can be simply copy/pasted without being modified. The `Mean` slot contains a numeric vector of length `MSEobj@nMPs` with the overall performance statistic, in this case the probability of $B > 0.5B_\text{MSY}$ across all simulations and years. 
+Similiar to the previous line, this line is identical in all `PM` functions and can be simply copy/pasted from other `PM` functions without being modified. The `Mean` slot is a numeric vector of length `MSEobj@nMPs` with the overall performance statistic, in this case the probability of $B > 0.5B_\text{MSY}$ across all simulations and years. 
 
 Finally, we store the names of the MPs and return the `PMobj`. 
 
@@ -857,7 +853,7 @@ Finally, we store the names of the MPs and return the `PMobj`.
 ## Creating Example `PMs` and Plot
 As an example, we will create another version of `DFO_plot` using some custom `PM` functions and a customized version of `TradePlot`.
 
-First we will apply `DFO_plot` to our MSE object:
+First we create the plot using `DFO_plot`:
 ```{r}
 DFO_plot(MSEobj)
 ```
@@ -919,6 +915,12 @@ data.frame(MP=MeanB(MSEobj)@MPs, B_BMSY=MeanB(MSEobj)@Mean, F_FMSY=MeanF(MSEobj)
 
 How do these results compare to what is shown in `DFO_plot`?
 
+We could also use the `summary` function with our new `PM` functions, but note that these results are not probabilities:
+
+```{r}
+summary(MSEobj, 'MeanB', 'MeanF')
+```
+
 Finally, we will develop a customized plotting function to reproduce the image produced by `DFO_plot`.
 
 We can produced something fairly similar quite quickly using the `TradePlot` function:
@@ -927,21 +929,26 @@ We can produced something fairly similar quite quickly using the `TradePlot` fun
 TradePlot(MSEobj, 'MeanB', 'MeanF', Lims=c(0,0))
 ```
 
-Adding the shaded polygons and text requires a little more tweaking and some knowledge of the `ggplot2` package.
+Adding the shaded polygons and text requires a little more tweaking and some knowledge of the `ggplot2` package. We will wrap up our code in a function:
 
 ```{r}
-P <- TradePlot(MSEobj, 'MeanB', 'MeanF', Lims=c(0,0), Show=FALSE) # create but don't show the plot
-P1 <- P$Plots[[1]]
+NewPlot <- function(MSEobj) {
+  # create but don't show the plot
+  P <- TradePlot(MSEobj, 'MeanB', 'MeanF', Lims=c(0,0), Show=FALSE) 
+  P1 <- P$Plots[[1]] # the ggplot objects are returned as a list
+  
+  # add the shaded regions and the text
+  P1 + ggplot2::geom_rect(ggplot2::aes(xmin=c(0,0,0), xmax=c(0.4, 0.8, Inf), 
+                                       ymin=c(0,0,1), ymax=rep(Inf,3)),
+                          alpha=c(0.8, 0.6, 0.4), fill="grey86") +
+    ggplot2::annotate(geom = "text", x = c(0.25, 0.6, 1.25), y = Inf, 
+                      label = c("Critical", "Cautious", "Healthy") , 
+                      color = c('white', 'darkgray', 'darkgray'), 
+                      size=5, angle = 270, hjust=-0.25)
 
-DF <- data.frame(xmin=c(0, 0.4, 0.6), 
-                 xmax=c(0.4, 0.6, max(P$Results$MeanB)), 
-                 ymin=c(0,0,1) , 
-                 ymax=rep(max(P$Results$MeanF, 3)), 
-                 alpha=0.5, 
-                 color=c('grey86', 'grey94', 'grey97'))
+}
 
-# P1 + ggplot2::geom_rect(ggplot2::aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), color='grey', data=DF)
-
+NewPlot(MSEobj)
 
 ```
 
