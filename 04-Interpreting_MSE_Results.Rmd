@@ -374,7 +374,7 @@ TradePlot(MSE, 'P50' ,'LTY')  # x = P50, y  = LTY
 TradePlot(MSE, 'LTY' ,'P50')  # x = LTY, y = P50
 ```
 
-The PMs are recylced if an odd number are provided:
+The PMs are recycled if an odd number are provided:
 ```{r}
 TradePlot(MSE, 'P50' ,'LTY', 'STY') 
 ```
@@ -402,10 +402,11 @@ Similarly, we can easily reproduce `NOAA_plot` using the `Tradeplot` function:
 
 ```{r}
 NOAA_plot(MSE)
-TradePlot(MSE, Lims=c(0.5, 0, 0.8, 0.5), PMlist=list("PNOF", "LTY", "P50", "AAVY"), Refs=list(AAVY=0.15))
+TradePlot(MSE, Lims=c(0.5, 0, 0.8, 0.5), 
+          PMlist=list("PNOF", "LTY", "P50", "AAVY"), Refs=list(AAVY=0.15))
 ```
 
-See the [Plotting the MSE Results] section for examples on DLMtool plotting functions for the MSE object. 
+See the [Plotting MSE Results] section for examples on DLMtool plotting functions for the MSE object. 
 
 Advanced users may wish to develop their own plotting and summary functions. See the [Custom Performance Metrics] section for more details on this. 
 

@@ -631,9 +631,25 @@ Information on the `M_ageArray` variable in cpars can be found in the output of 
 val_int[15,]
 ```
 
-To generate our own values of the M-at-age array we would populate `OM@cpars$M_ageArray` with an array with dimensions `OM@nsim`, OM@maxage, `OM@nyears+OM@proyears`.
+To generate our own values of the M-at-age array we would populate `OM@cpars$M_ageArray` with an array with dimensions `OM@nsim`, `OM@maxage`, `OM@nyears+OM@proyears`.
 
-The `cpars` feature is very powerful but also somewhat complicated. If you find that this is a feature you wish to use but are unclear how to do it, bug us with an email!
+The `cpars` feature is very powerful but also somewhat complicated, especially if you are using internal custom parameters. For example, by default DLMtool uses the  `OM@L50_95` slot (the increment between length at 50% maturity (`OM@L50`) and length at 95% maturity (`L95`)) to calculate the internal parameter `L95`. This is neccessary to ensure that `L95` is always greater than `L50`. Using internal parameters in `cpars` it is possible to pass values to `L95` directly, however now it is up to you to make sure that the `L95` values are greater than the corresponding `L50` values, otherwise you end up with a species where fraction mature decreases with age/size!  
+
+```{r}
+OM <- testOM 
+OM@cpars$L95 <- rep(80, OM@nsim)
+temp <- runMSE(OM, Hist=TRUE)
+
+data.frame(L50=temp$SampPars$L50, L95=temp$SampPars$L95, diff=temp$SampPars$L95 - temp$SampPars$L50)
+
+plot(1:OM@maxage, temp$AtAge$Mat_age[1,,1], type="l", 
+     xlab="Age", ylab="Maturity")
+
+```
+
+We have tried to include checks to ensure the model is simulating credible population dynamics, but as this somewhat contrived example shows, care is needed when using `OM@cpars` to specify internal parameters. We recommend first running the model with `Hist=TRUE` as in the above example and examining the generated values to ensure the parameters you have added in `OM@cpars` are being used as expected. 
+
+If you find that this is a feature you wish to use but are unclear how to do it, bug us with an email!
 
 
 # Subsetting the MSE Object
@@ -686,35 +702,249 @@ aboveMSE@nsim
 
 We could then continue our analysis on each subset MSE and determine if the natural mortality rate is critical in determining which Management Procedure we would choose as the best option for managing the fishery.
 
-# Custom Performance Metrics 
+# Custom Performance Metrics
 
-## The PM Object
+`PM` methods were introduced in the [Performance Metrics Methods] chapter. DLMtool includes several built-in `PM` methods: 
 
-> This section is under development. More detail coming soon.
-> Please bug us with emails if it is taking too long!
-
-A newly developed feature of DLMtool is the `PM` (performance metric) object. There are several `PM` objects in DLMtool.
 ```{r}
 avail("PM")
 ```
 
-The help documentation for the `PM` objects is still under development:
-```{r, eval=FALSE}
-?P100
-```
-The `PM` objects are designed to be applied to an object of class `MSE`: 
+We saw in [Customizing the PM Functions] that it is straightforward to modify the years that the performance statistics are calculated over using the `Yrs` argument, and the reference level using the `Ref` argument. In this section we describe the `PM` functions in more detail for advanced users who wish to develop their own `PM` methods.
+
+We will demonstrate this using the `P50` performance metric function as an example.
+
+## Necessity of Complexity
+
+While at first glance the `PM` functions may appear overly complicated, they are actually quite straightforward. This level of complexity is required because functions of class `PM` not only return the required performance statistic, but also relevant contextual information. 
+
+Imagine we want to develop a function to calculate the probability that $B > 0.5 B_\text{MSY}$, which we will define as *not overfished*. We could do something like this:
 
 ```{r}
-P100(BSharkMSE)
+P_Noverfished <- function(MSEobj) {
+  round(apply(MSEobj@B_BMSY >0.5, 2, mean),2)
+}
 ```
 
-## Developing Custom PMs
-Users can develop their own `PM` objects.
+We could increase the flexibility of the function by adding additional arguments to specify the years to calculate the statistic over, but for this demonstration we will keep it simple. 
 
-> This section is under development. More detail coming soon.
-> Please bug us with emails if it is taking too long!
+Applying our function to calculate the performance statistic is straightforward:
+
+```{r}
+MSEobj <- runMSE(silent=TRUE) # run an exampe MSE
+p_noverfish <- P_Noverfished(MSEobj) # calculate and store our performance statistic
+p_noverfish
+```
+
+The `p_noverfish` variable now contains our performance statistic, which we could use to plot or tabulate results. However, the numeric vector returned by `P_Noverfished` includes no information on what these numbers represent. This makes it difficult to include the results in generic plotting or summary functions. Furthermore, it is easy to imagine that with several similiar performance metric functions, it will be easy to loose track of the meaning of the results unless an elaborate variable naming system is used.
+
+The `PM` functions have been designed to avoid this problem by returning all information related to the calculation of the performance statistic. Here we calculate the same performance metric using the relevant `PM` function:
+
+```{r}
+p1 <- P50(MSEobj)
+```
+
+Note that we don't need to use a descriptive variable name; the `p1` variable includes relevant information on the performance metric. Note also that `PM` function are most often passed directly to plotting or table functions instead of being called and stored directly.
+
+The `p1` variable is an object of class `r as.character(class(p1))` and includes the following slots:
+```{r}
+slotNames(p1)
+```
+
+The first two slots contain a descriptive name of the performance statistic, and a caption that can be used in plots or summary tables: 
+```{r}
+p1@Name
+p1@Caption
+```
+
+The last two slots contain the results of performance statistic and the names of the MPs:
+```{r}
+p1@Mean
+p1@MPs
+```
+
+We will look at the other 3 slots in detail in the next section. The main point here is to demonstrate the using functions of class `PM` that return objects of class `PMobj` has the advantage that the function output is completely self-contained and can be used elsewhere without requiring any additional information.  
 
 
-TO DO 
+## `PM` Methods in Detail
 
-build DFO and NOAA_plot using new PM method
+Let's go through the `P50` function in detail to see how it works:
+
+```{r}
+P50
+```
+
+Firstly, functions of class `PM` must have three arguments: `MSEobj`, `Ref`, and `Yrs`:
+```{r}
+args(P50)
+```
+
+1. The first argument `MSEobj` is obvious, an object of class `MSE` to calculate the performance statistic. 
+2. The second argument `Ref` must have a default value. This is used as reference for the performance statistic, and will be demonstrated shortly.
+3. The third argument `Yrs` can have a default value of `NULL` or specify a numeric vector of length 2 with the first and last years to calculate the performance statistic, or a numeric vector of length 1 in which case if it is positive it is the first `Yrs` and if negative the last `Yrs` of the projection period. 
+
+
+
+The first line of a `PM` function must be `Yrs <- ChkYrs(Yrs, MSEobj)`. This line updates the `Yrs` variable and makes sure that the specified year indices are valid. For example:
+
+```{r}
+ChkYrs(NULL, MSEobj) # returns all projection years 
+
+ChkYrs(c(1,10), MSEobj) # returns first 10 years 
+ChkYrs(c(60,80), MSEobj) # returns message and last 20 years
+
+ChkYrs(5, MSEobj) # first 5 years
+ChkYrs(-5, MSEobj) # last 5 years
+
+ChkYrs(c(50,10), MSEobj) # returns an error
+
+
+```
+
+As you can see, when the default value for `Yrs` is `NULL`, the `Yrs` variable is updated to include all projection years:
+
+```{r}
+Yrs <- ChkYrs(NULL, MSEobj)
+```
+
+Next we create a new object of class `PMobj`, and populate the `Name` slot with a short but descriptive name:
+```{r}
+PMobj <- new("PMobj")
+PMobj@Name <- "Spawning Biomass relative to SBMSY"
+```
+
+The next line populates the `Caption` slot with a brief caption including the years over which the performance statistic is calculated. The *if* statement is not crucial, but avoids the redundant `SB > 1 SBMSY` in cases where `Ref=1`. 
+
+Next we store the value of the `Ref` argument in the `PMobj@Ref` slot so that information is contained in the function output.
+```{r, eval=FALSE}
+PMobj@Ref <- Ref
+```
+
+```{r, include=FALSE}
+PMobj@Ref <- 0.5
+```
+
+The `Stat` slot is a 3D array that stores the variable which we wish to calculate the performance statistic; an output from the `runMSE` function with dimensions `MSE@nsim`, `MSE@nMPs`, and `MSE@proyears` (or fewer if the argument `Yrs != NULL`). 
+
+In this case we want to calculate a performance statistic related to the biomass relative to BMSY, and so we assign the `Stat` slot as follows:
+```{r}
+PMobj@Stat <- MSEobj@B_BMSY[, , Yrs[1]:Yrs[2]]
+```
+
+Note that we are including all simulations and MPs and indexing the years specified in `Yrs`. 
+
+Next we use the `calcProb` function to calculate the mean of `PMobj@Stat > PMobj@Ref` over the years dimension. This results in a matrix with dimensions `MSE@nsim, MSE@nMPs`:
+
+```{r}
+PMobj@Prob <- calcProb(PMobj@Stat > PMobj@Ref)
+```
+
+Note that in order to calculate a probability the argument to the `calcProb` function must be a logical array, which is achieved using the `Ref` slot. 
+
+Also note that in this case `PMobj@Stat > PMobj@Ref` is equivalent to `MSEobj@B_BMSY[, , Yrs[1]:Yrs[2]] > 0.5`. The `PM` functions have been designed this way so that in most cases the `PMobj@Prob <- calcProb(PMobj@Stat > PMobj@Ref)` line is identical in all `PM` functions and does not need to be modified. The exception to this is if we don't want to calculate a probability but the actual mean values of `PMobj@Stat`, demonstrated in the example below.
+
+In the next line we calculate the mean of `PMobj@Prob` over simulations using the `calcMean` function:
+
+```{r}
+PMobj@Mean <- calcMean(PMobj@Prob)
+```
+
+Similiar to the previous line, this line is identical in all `PM` functions and can be simply copy/pasted without being modified. The `Mean` slot contains a numeric vector of length `MSEobj@nMPs` with the overall performance statistic, in this case the probability of $B > 0.5B_\text{MSY}$ across all simulations and years. 
+
+Finally, we store the names of the MPs and return the `PMobj`. 
+
+
+## Creating Example `PMs` and Plot
+As an example, we will create another version of `DFO_plot` using some custom `PM` functions and a customized version of `TradePlot`.
+
+First we will apply `DFO_plot` to our MSE object:
+```{r}
+DFO_plot(MSEobj)
+```
+
+From the help documentation (`?DFO_plot`) we can see that this function plots mean biomass relative to BMSY and fishing mortality rate relative to FMSY 
+over the final 5 years of the projection. 
+
+First we'll develop a `PM` function to calculate the mean B/BMSY for the last 5 years of the projection period. Notice that this is very similiar to `P50` described above, with the modification of the `Caption` and the `Prob` slots, and the `Yrs` argument. We are calculating a mean here instead of a probability and are not using the `Ref` argument:
+
+```{r}
+MeanB <- function(MSEobj = NULL, Ref = 1, Yrs = -5) {
+    Yrs <- ChkYrs(Yrs, MSEobj)
+    PMobj <- new("PMobj")
+    PMobj@Name <- "Spawning Biomass relative to SBMSY"
+    PMobj@Caption <- paste0("Mean SB/SBMSY (Years ", Yrs[1], " - ", Yrs[2], ")")
+    
+    PMobj@Ref <- Ref
+    PMobj@Stat <- MSEobj@B_BMSY[, , Yrs[1]:Yrs[2]]
+    PMobj@Prob <- calcProb(PMobj@Stat)
+    PMobj@Mean <- calcMean(PMobj@Prob)
+    PMobj@MPs <- MSEobj@MPs
+    PMobj
+}
+
+```
+
+We develop a `PM` function to calculate average F/FMSY in a similar way:
+
+```{r}
+MeanF <- function(MSEobj = NULL, Ref = 1, Yrs = -5) {
+    Yrs <- ChkYrs(Yrs, MSEobj)
+    PMobj <- new("PMobj")
+    PMobj@Name <- "Fishing Mortality relative to FMSY"
+    PMobj@Caption <- paste0("Mean F/FMSY (Years ", Yrs[1], " - ", Yrs[2], ")")
+    
+    PMobj@Ref <- Ref
+    PMobj@Stat <- MSEobj@F_FMSY[, , Yrs[1]:Yrs[2]]
+    PMobj@Prob <- calcProb(PMobj@Stat)
+    PMobj@Mean <- calcMean(PMobj@Prob)
+    PMobj@MPs <- MSEobj@MPs
+    PMobj
+}
+
+```
+
+Similar to developing custom MPs we need to tell R that these new functions are `PM` methods:
+
+```{r}
+class(MeanB) <- "PM"
+class(MeanF) <- "PM"
+```
+
+
+Now we can test our performance metric functions:
+
+```{r}
+data.frame(MP=MeanB(MSEobj)@MPs, B_BMSY=MeanB(MSEobj)@Mean, F_FMSY=MeanF(MSEobj)@Mean)
+```
+
+How do these results compare to what is shown in `DFO_plot`?
+
+Finally, we will develop a customized plotting function to reproduce the image produced by `DFO_plot`.
+
+We can produced something fairly similar quite quickly using the `TradePlot` function:
+
+```{r}
+TradePlot(MSEobj, 'MeanB', 'MeanF', Lims=c(0,0))
+```
+
+Adding the shaded polygons and text requires a little more tweaking and some knowledge of the `ggplot2` package.
+
+```{r}
+P <- TradePlot(MSEobj, 'MeanB', 'MeanF', Lims=c(0,0), Show=FALSE) # create but don't show the plot
+P1 <- P$Plots[[1]]
+
+DF <- data.frame(xmin=c(0, 0.4, 0.6), 
+                 xmax=c(0.4, 0.6, max(P$Results$MeanB)), 
+                 ymin=c(0,0,1) , 
+                 ymax=rep(max(P$Results$MeanF, 3)), 
+                 alpha=0.5, 
+                 color=c('grey86', 'grey94', 'grey97'))
+
+# P1 + ggplot2::geom_rect(ggplot2::aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), color='grey', data=DF)
+
+
+```
+
+
+
+
