@@ -1,0 +1,12 @@
+cp -r ../_book/* ./[0K]0;  - cp  -r ../_book/* ./[?25l
+[0K[?25h]0; cp: cannot stat '../_book/*': No such file or directory[0K[?25l
+[0K
+C:\Users\User\Documents\GitHub\DLMtool_UserGuide>[0K[?25hgit add --all *[0K[?25l
+[0K[?25h[?25l
+C:\Users\User\Documents\GitHub\DLMtool_UserGuide>[0K[?25hgit add --all *[0K[?25l
+[0K[?25h[?25l
+C:\Users\User\Documents\GitHub\DLMtool_UserGuide>[0K[?25hravis encrypt GITHUB_PAT=TOKEN[0K[50G[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=TOKEN[0K[51G[?25h[81G[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=TOKE[0K[?25h[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=TOK[0K[?25h[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=TO[0K[?25h[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=T[0K[?25h[?25lC:\Users\User\Documents\GitHub\DLMtool_UserGuide>travis encrypt GITHUB_PAT=[0K[?25hd27117e478f15bef41e041d3337d72e00a06e461[0K[?25l
+[0K[?25h'travis' is not recognized as an internal or external command,[0K[?25l
+operable program or batch file.[0K
+[0K
+C:\Users\User\Documents\GitHub\DLMtool_UserGuide>[0K[?25h

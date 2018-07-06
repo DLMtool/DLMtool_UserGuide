@@ -1,0 +1,63 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+.Rproj.user/3837C83A/build_options
+.Rproj.user/3837C83A/sdb/s-66556492/lock_file
+.Rproj.user/3837C83A/session-persistent-state
+
+#Bookdown files
+_bookdown_files/
+# _book/
+_userguide_cache/
+_userguide_files/
+*.docx
+.Rhistory
+.Rproj.user/
+.Rproj.user
+
+userguide_files/
+userguide_cache/
