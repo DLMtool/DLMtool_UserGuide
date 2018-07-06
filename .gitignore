@@ -51,7 +51,7 @@ Temporary Items
 
 #Bookdown files
 _bookdown_files/
-_book/
+# _book/
 _userguide_cache/
 _userguide_files/
 *.docx

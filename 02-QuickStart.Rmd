@@ -84,7 +84,7 @@ myMSE <- runMSE(silent=TRUE)
 myMSE <- runMSE()
 ```
 
-If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here, then DLMtool is successfully working on your system! 
+If you run this line (remember, if you haven't already you must first run `library(DLMtool)`) and see something similiar to the output shown here, then DLMtool is successfully working on your system. 
 
 If the MSE did not run successfully, repeat the previous steps, ensuring that you have the latest version of R and the DLMtool package. If still no success, please [contact us](http://www.datalimitedtoolkit.org/contact) with a description of the problem and we will try to help.
 
@@ -98,7 +98,7 @@ Or quantified in various ways, for example:
 summary(myMSE)
 ```
 
-Later sections of the user manual will describe more ways to evaluate the outputs of the `runMSE` function.  
+Later sections of the user manual will describe more ways to evaluate the outputs of the `runMSE` function. But first we will look at the most fundamental part of MSE: the *Operating Model*.
 
 
 # The Operating Model

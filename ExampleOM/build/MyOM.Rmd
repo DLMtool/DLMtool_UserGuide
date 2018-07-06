@@ -4,7 +4,7 @@ subtitle: 'Subtitle. One line only.'
 author:
 - Name and contact details (e.g email, affiliation) for each author.
 - One line per author.
-date: 05 July 2018
+date: 06 July 2018
 output: 
    html_document:
      toc: true
