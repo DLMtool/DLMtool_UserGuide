@@ -273,18 +273,18 @@ class?Imp
 ## Plotting OM Components
 The OM Components *Stock*, *Fleet*, *Obs*, and *Imp* can be plotted to visually examine the contents.
 
-For example, to plot a *Stock* object (note that the figures may not appear correctly in this document, but are easy to re-size in R Studio):
-```{r}
+For example, to plot a *Stock* object (note that the figures are not shown here):
+```{r, eval=FALSE}
 plot(Albacore)
 ```
 
 To plot a *Fleet* object you must also provide an object of class *Stock*, for example:
-```{r}
+```{r, eval=FALSE}
 plot(FlatE_Dom, Albacore)
 ```
 
 The *Obs* and *Imp* objects can also be plotted:
-```{r}
+```{r, eval=FALSE}
 plot(Generic_Obs)
 plot(Overages)
 ```
