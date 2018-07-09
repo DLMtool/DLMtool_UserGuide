@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.1.999)</title>
+  <title>Data-Limited Methods Toolkit (DLMtool 5.2)</title>
   <meta name="description" content="User guide for the DLMtool R package">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.1.999)" />
+  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.1.999)" />
+  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-07-06">
+<meta name="date" content="2018-07-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -289,12 +289,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
-<li class="part"><span><b>Frequently Asked Questions</b></span></li>
-<li class="chapter" data-level="30" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>30</b> TroubleShooting</a><ul>
-<li class="chapter" data-level="30.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>30.1</b> OM Documentation</a><ul>
-<li class="chapter" data-level="30.1.1" data-path="troubleshooting.html"><a href="troubleshooting.html#solution"><i class="fa fa-check"></i><b>30.1.1</b> Solution</a></li>
-</ul></li>
-</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -352,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.1.999)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2)</a>
           </h1>
         </div>
 
@@ -502,17 +496,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="plotting-om-components" class="section level2">
 <h2><span class="header-section-number">4.2</span> Plotting OM Components</h2>
 <p>The OM Components <em>Stock</em>, <em>Fleet</em>, <em>Obs</em>, and <em>Imp</em> can be plotted to visually examine the contents.</p>
-<p>For example, to plot a <em>Stock</em> object (note that the figures may not appear correctly in this document, but are easy to re-size in R Studio):</p>
+<p>For example, to plot a <em>Stock</em> object (note that the figures are not shown here):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Albacore)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-28-1.png" width="672" /><img src="userguide_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
 <p>To plot a <em>Fleet</em> object you must also provide an object of class <em>Stock</em>, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(FlatE_Dom, Albacore)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>The <em>Obs</em> and <em>Imp</em> objects can also be plotted:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Generic_Obs)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-30-1.png" width="672" /><img src="userguide_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Overages)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Generic_Obs)
+<span class="kw">plot</span>(Overages)</code></pre></div>
 </div>
 <div id="building-an-om-from-component-objects" class="section level2">
 <h2><span class="header-section-number">4.3</span> Building an OM from Component Objects</h2>

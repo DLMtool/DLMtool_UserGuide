@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.1.999)</title>
+  <title>Data-Limited Methods Toolkit (DLMtool 5.2)</title>
   <meta name="description" content="User guide for the DLMtool R package">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.1.999)" />
+  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.1.999)" />
+  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-07-06">
+<meta name="date" content="2018-07-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
 <link rel="prev" href="subsetting-the-mse-object.html">
-<link rel="next" href="troubleshooting.html">
+<link rel="next" href="acknowledgements.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -289,12 +289,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
-<li class="part"><span><b>Frequently Asked Questions</b></span></li>
-<li class="chapter" data-level="30" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>30</b> TroubleShooting</a><ul>
-<li class="chapter" data-level="30.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>30.1</b> OM Documentation</a><ul>
-<li class="chapter" data-level="30.1.1" data-path="troubleshooting.html"><a href="troubleshooting.html#solution"><i class="fa fa-check"></i><b>30.1.1</b> Solution</a></li>
-</ul></li>
-</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -352,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.1.999)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2)</a>
           </h1>
         </div>
 
@@ -423,7 +417,7 @@ p_noverfish</code></pre></div>
 ##     PMobj@MPs &lt;- MSEobj@MPs
 ##     PMobj
 ## }
-## &lt;bytecode: 0x0000000020872bb8&gt;
+## &lt;bytecode: 0x0000000010e644c8&gt;
 ## &lt;environment: namespace:DLMtool&gt;
 ## attr(,&quot;class&quot;)
 ## [1] &quot;PM&quot;</code></pre>
@@ -561,6 +555,30 @@ PMobj<span class="op">@</span>Name &lt;-<span class="st"> &quot;Spawning Biomass
 <span class="kw">NewPlot</span>(MSEobj)</code></pre></div>
 <p><img src="userguide_files/figure-html/unnamed-chunk-215-1.png" width="672" /></p>
 
+<!-- # (PART\*) Frequently Asked Questions  {-} -->
+<!-- # TroubleShooting  -->
+<!-- ## OM Documentation  -->
+<!-- I'm getting the following error when I run `OMdoc()` (or something like it): -->
+<!-- ```{} -->
+<!-- Error in yaml::yaml.load(string, ...) :  -->
+<!--   Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 1, column 16 -->
+<!-- ``` -->
+<!-- This is usually caused by a special character in the first few lines of the Rmarkdown file (eg in Title, Subtitle, Author(s), or Date). -->
+<!-- A common culpit is a single apostrophe, usually used to indicate the possessive of a singular noun.   -->
+<!-- Example: -->
+<!-- ### Problem -->
+<!-- Results in an error -->
+<!-- ```{} -->
+<!-- # Title -->
+<!-- Adrian's OM -->
+<!-- ``` -->
+<!-- ### Solution  -->
+<!-- Type two apostrophes in place of one.  -->
+<!-- ```{} -->
+<!-- # Title -->
+<!-- Adrian''s OM -->
+<!-- ``` -->
+
 </div>
 </div>
 
@@ -572,7 +590,7 @@ PMobj<span class="op">@</span>Name &lt;-<span class="st"> &quot;Spawning Biomass
         </div>
       </div>
 <a href="subsetting-the-mse-object.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="troubleshooting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="acknowledgements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
