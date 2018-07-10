@@ -1,6 +1,6 @@
 
 # Run this line if there have been major changes to runMSE:
-#unlink('_bookdown_files', force=TRUE, recursive = TRUE) # delete cached files
+unlink('_bookdown_files', force=TRUE, recursive = TRUE) # delete cached files
 
 unlink('_book', force=TRUE, recursive = TRUE) # delete old book
 
