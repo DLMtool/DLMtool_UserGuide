@@ -611,8 +611,8 @@ OM@cpars$t0 <- runif(OM@cpars, -1, 0)
 str(OM@cpars)
 ```
 
-## Custom time-varying parameters
-It is also possible to supply custom generated time-varing values for some parameters using the `cpars` slot. For example, time-varying natural mortality or selectivity patterns. These are referred to as *internal* custom parameters. 
+## Custom internal parameters
+It is also possible to supply custom generated time-varing values or other values to internal parameters using the `cpars` slot. For example, time-varying natural mortality or selectivity patterns. These are referred to as *internal* custom parameters. 
 
 A list of valid internal cpars can be found by using the `validcpars` function. Here, for presentation purposes, we print just the first two columns:
 
