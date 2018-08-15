@@ -100,7 +100,7 @@ DLMDataDir()
 We can then load one of the example CSV files using the `XL2Data` function:
 
 ```{r}
-China_rockfish2 <- XL2Data("China_rockfish.csv", dir=DLMDataDir())
+China_rockfish2 <- XL2Data(file.path(DLMDataDir(), "China_rockfish.csv"))
 ```
 or the `new` function:
 
@@ -137,7 +137,7 @@ Madeup@BMSY_B0 <- 0.35                                #  BMSY relative to unfish
 A generic summary function is available to visualize the data in a `Data` object. By default the `summary` function waits for user input before displaying the next plot, this option can be switched off using `wait=FALSE`:
 
 ```{r, fig.width=7, fig.height=3.5}
-summary(Cobia, wait=FALSE)
+summary(Cobia, wait=FALSE, rmd=TRUE)
 ```
 
 
