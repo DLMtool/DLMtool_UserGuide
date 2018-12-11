@@ -77,7 +77,7 @@ This user manual has been designed to introduce users to DLMtool and does not as
 
 The user manual is continually being developed and we could use your help!
 
-We've tried to design it from the perspective of someone who is brand new to DLMtool. But there are undoubtedly many ways in which it can be improve. Please [contact us](http://www.datalimitedtoolkit.org/contact) through our website or email us directly if you have any questions or suggestions for improvement.
+We've tried to design it from the perspective of someone who is brand new to DLMtool. But there are undoubtedly many ways in which it can be improved. Please [contact us](http://www.datalimitedtoolkit.org/contact) through our website or email us directly if you have any questions or suggestions for improvement.
 
 Bug or typos can be reported on the userguide [GitHub](https://github.com/DLMtool/DLMtool_Userguide/issues/new) issues page. 
 
