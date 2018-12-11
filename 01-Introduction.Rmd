@@ -85,7 +85,7 @@ Bug or typos can be reported on the userguide [GitHub](https://github.com/DLMtoo
 
 
 ## DLMtool Bug Reports  
-The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) or [report an issue on GitHub](https://github.com/DLMtool/DLMtool/issues/new) so that it can be fixed. If possible, please provide a minimal reproducible example so that we can recreate the problem and fit it.
+The package is subject to ongoing development and testing. If you find a bug or a problem please [contact us](http://www.datalimitedtoolkit.org/contact) or [report an issue on GitHub](https://github.com/DLMtool/DLMtool/issues/new) so that it can be fixed. If possible, please provide a minimal reproducible example so that we can recreate the problem and fix it.
 
 ## Version Notes  
 The current version of the DLMtool package is available for download from [CRAN](https://CRAN.R-project.org/package=DLMtool).
