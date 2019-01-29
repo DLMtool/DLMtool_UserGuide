@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.2.2)</title>
+  <title>Chapter 23 Averaging MPs | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
   <meta name="description" content="User guide for the DLMtool R package">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta property="og:title" content="Chapter 23 Averaging MPs | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta name="twitter:title" content="Chapter 23 Averaging MPs | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-01-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="evaluating-om.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -345,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
           </h1>
         </div>
 
@@ -366,17 +367,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span>DLMtool<span class="op">::</span>testOM
 OM<span class="op">@</span>nsim &lt;-<span class="st"> </span><span class="dv">200</span>
 MSE &lt;-<span class="st"> </span><span class="kw">runMSE</span>(OM, <span class="dt">MPs=</span><span class="kw">c</span>(<span class="st">&quot;avgMP&quot;</span>, <span class="st">&quot;BK&quot;</span>, <span class="st">&quot;DBSRA&quot;</span>, <span class="st">&quot;Fadapt&quot;</span>, <span class="st">&quot;Rcontrol&quot;</span>), <span class="dt">parallel =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Running MSE in parallel on 10 processors</code></pre>
+<pre><code>## Running MSE in parallel on 8 processors</code></pre>
 <pre><code>## MSE completed</code></pre>
 <p>How did our newly created averaging MP perform?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Tplot</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
 <pre><code>##         MP PNOF  LTY P100  P50  P10 Satisificed
-## 1    avgMP 0.31 0.64 0.24 0.46 0.78       FALSE
-## 2       BK 0.18 0.34 0.11 0.23 0.56       FALSE
-## 3    DBSRA 0.67 0.85 0.56 0.82 1.00        TRUE
-## 4   Fadapt 0.40 0.55 0.35 0.51 0.75       FALSE
-## 5 Rcontrol 0.85 0.41 0.81 0.92 0.99       FALSE</code></pre>
+## 1    avgMP 0.41 0.71 0.33 0.57 0.87       FALSE
+## 2       BK 0.33 0.43 0.25 0.39 0.68       FALSE
+## 3    DBSRA 0.65 0.91 0.53 0.84 1.00        TRUE
+## 4   Fadapt 0.40 0.55 0.34 0.52 0.74       FALSE
+## 5 Rcontrol 0.91 0.38 0.88 0.96 0.99       FALSE</code></pre>
 <p>More information on creating your own MPs can be found in the <a href="developing-custom-management-procedures.html#developing-custom-management-procedures">Developing Custom Management Procedures</a> chapter.</p>
 </div>
             </section>
@@ -408,6 +409,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
 "download": ["userguide.pdf"],
 "toc": {
 "collapse": "section",
@@ -424,7 +429,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

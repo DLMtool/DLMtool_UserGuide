@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.2.2)</title>
+  <title>Chapter 9 Parallel Processing | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
   <meta name="description" content="User guide for the DLMtool R package">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta property="og:title" content="Chapter 9 Parallel Processing | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta name="twitter:title" content="Chapter 9 Parallel Processing | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-01-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="creating-a-new-operating-model.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -345,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
           </h1>
         </div>
 
@@ -363,7 +364,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setup</span>()</code></pre></div>
 <pre><code>## 
 ## Stopping cluster</code></pre>
-<pre><code>## snowfall 1.84-6.1 initialized (using snow 0.4-2): parallel execution on 10 CPUs.</code></pre>
+<pre><code>## snowfall 1.84-6.1 initialized (using snow 0.4-3): parallel execution on 8 CPUs.</code></pre>
 <pre><code>## Library DLMtool loaded.</code></pre>
 <pre><code>## Library DLMtool loaded in cluster.</code></pre>
 <p>By default the <code>setup</code> function initializes half of the available processors as we have found this to be the most efficient for most systems. You can change the number of processors by specifying the <code>cpu</code> argument, e.g., <code>setup(cpu=6)</code>.</p>
@@ -374,9 +375,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Use the <code>parallel=TRUE</code> argument in <code>runMSE</code> to use parallel processing. Note that you must run <code>setup()</code> first.</p>
 <p>You will notice that the usual update messages are not printed to the console when parallel processing is used. This is why it is important to initially test your MSE with a small number of simulations without parallel processing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMSE_200P &lt;-<span class="st"> </span><span class="kw">runMSE</span>(myOM, <span class="dt">parallel =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Running MSE in parallel on 10 processors</code></pre>
+<pre><code>## Running MSE in parallel on 8 processors</code></pre>
 <pre><code>## MSE completed</code></pre>
-<p>Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations, run time decreased from 2 to 11 seconds when using parallel processing on 10 processors.</p>
+<p>Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations, run time decreased from 2 to 16 seconds when using parallel processing on 8 processors.</p>
 </div>
 <div id="determining-optimal-number-of-processors" class="section level2">
 <h2><span class="header-section-number">9.3</span> Determining Optimal Number of Processors</h2>
@@ -384,18 +385,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">optCPU</span>()</code></pre></div>
 <p><img src="userguide_files/figure-html/optCPU-1.png" width="672" /></p>
 <pre><code>##    ncpu  time
-## 1     1 35.48
-## 2     2 18.40
-## 3     3 12.37
-## 4     4  9.66
-## 5     5  8.30
-## 6     6  7.18
-## 7     7  6.46
-## 8     8  6.06
-## 9     9  5.73
-## 10   10  5.67
-## 11   11  6.20
-## 12   12  5.94</code></pre>
+## 1     1 42.77
+## 2     2 22.31
+## 3     3 15.33
+## 4     4 12.10
+## 5     5 10.86
+## 6     6  9.26
+## 7     7  8.82
+## 8     8  8.66
+## 9     9  8.73
+## 10   10  8.71
+## 11   11  8.32
+## 12   12  8.36</code></pre>
 
 </div>
 </div>
@@ -431,6 +432,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
 "download": ["userguide.pdf"],
 "toc": {
 "collapse": "section",
@@ -447,7 +452,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

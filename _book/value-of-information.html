@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.2.2)</title>
+  <title>Chapter 16 Value of Information | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
   <meta name="description" content="User guide for the DLMtool R package">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta property="og:title" content="Chapter 16 Value of Information | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta name="twitter:title" content="Chapter 16 Value of Information | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-01-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="the-fishery-data-object.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -345,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
           </h1>
         </div>
 
@@ -359,62 +360,62 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There are several VOI functions in DLMtool.</p>
 <p>The <code>VOI</code> function generates two plots, one corresponding to the operating model parameters, and the other to the observation model parameters, showing the gradient in long-term yield with respect to the individual parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOI</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-104-1.png" width="864" /><img src="userguide_files/figure-html/unnamed-chunk-104-2.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-110-1.png" width="864" /><img src="userguide_files/figure-html/unnamed-chunk-110-2.png" width="864" /></p>
 <pre><code>## [[1]]
-##           MP     1           2      3      4     5       6
-## 1        AvC     M Frac_area_1     AC   ageM    L5    qinc
-## 2            18.72       17.76  17.74  17.61 17.08   16.91
-## 3       DCAC   LFS        qinc FMSY_M procsd  SSB0      hs
-## 4             21.1       20.45  20.34  19.26 18.53   18.47
-## 5    FMSYref    B0          hs   SSB0   BMSY   qcv       K
-## 6             9.34        8.95   8.74   8.58  7.46    7.41
-## 7       curE  FMSY        ageM FMSY_M   qinc  BMSY Vmaxlen
-## 8            15.05        14.3  14.03  13.97 13.92   13.63
-## 9  matlenlim   MGT     Vmaxlen   qinc    Esd Mgrad     Msd
-## 10           23.83       20.71  20.62  19.92 19.13   19.03
-## 11    MRreal  qinc        FMSY    qcv FMSY_M  BMSY    ageM
-## 12           12.06       11.96  11.78  11.76  11.7   11.65
+##           MP           1     2      3       4      5      6
+## 1        AvC           M LenCV      D    SSB0   Blow    Msd
+## 2                  19.73 19.64   18.8   17.43  16.75   16.7
+## 3       DCAC SSBMSY_SSB0  SSB0    L50 BMSY_B0   Blow    Esd
+## 4                  31.33 29.39  28.97   25.61  25.22  24.89
+## 5    FMSYref     BMSY_B0    hs    LFS       M   SSB0  LenCV
+## 6                   4.17  4.12   3.86    3.79   3.73   3.72
+## 7       curE          AC     K procmu  procsd FMSY_M   qinc
+## 8                  16.86 15.61  14.48   14.48  14.25  14.13
+## 9  matlenlim        qinc     D maxlen     MGT      K   UMSY
+## 10                 22.18  20.1  19.97   18.59  18.51  17.31
+## 11    MRreal          AC  qinc      K       D procmu procsd
+## 12                 14.72 14.27  14.03   13.52  12.33  12.33
 ## 
 ## [[2]]
-##           MP        1     2     3     4     5          6
-## 1        AvC      Csd Cbias                             
-## 2               16.84 14.21                             
-## 3       DCAC     Derr Cbias   Csd Dbias Mbias FMSY_Mbias
-## 4               24.47 21.88 20.33 14.29 13.49      13.26
+##           MP        1     2     3     4          5     6
+## 1        AvC    Cbias   Csd                             
+## 2               22.81 15.57                             
+## 3       DCAC    Cbias  Derr Mbias   Csd FMSY_Mbias Dbias
+## 4               42.56 22.24  19.7 16.87       16.7 10.08
 ## 5    FMSYref     &lt;NA&gt;                                   
 ## 6                &lt;NA&gt;                                   
 ## 7       curE     &lt;NA&gt;                                   
 ## 8                &lt;NA&gt;                                   
 ## 9  matlenlim lenMbias                                   
-## 10              15.96                                   
+## 10              19.22                                   
 ## 11    MRreal     &lt;NA&gt;                                   
 ## 12               &lt;NA&gt;</code></pre>
 <p>The <code>VOIplot</code> function shows something similar, but has an argument to specify either the Observation or Operating Model parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Observation Parameters</span>
 <span class="kw">VOIplot</span>(MSE, <span class="dt">nMP=</span><span class="dv">5</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-105-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-111-1.png" width="864" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># OM Parameters</span>
 <span class="kw">VOIplot</span>(MSE, <span class="dt">Par=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">nMP=</span><span class="dv">5</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-105-2.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-111-2.png" width="864" /></p>
 <p>By default, the <code>VOIplot</code> function only shows the four Management Procedures with the greatest sensitivity. Here we’ve made it show all five methods using the <code>nMP</code> argument.</p>
 <p>In this example we can see that the <code>Fratio</code> method is particularly sensitive to bias in the current estimate of abundance, and over-estimates of the current abundance result in very low long-term yield (probably do to collapse of the stock). The DCAC method appears most sensitive to bias in the estimated catch.</p>
 <p>We can also use the <code>VOIplot</code> function to look at the sensitivity with respect to the final biomass by specifying the <code>YVar</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot</span>(MSE, <span class="dt">Par=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">nMP=</span><span class="dv">5</span>, <span class="dt">YVar=</span><span class="st">&quot;B&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-106-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-112-1.png" width="864" /></p>
 <p>This result shows, perhaps unsurprisingly, that the final biomass is often strongly sensitive to the initial depletion, particularly for the DCAC and matlenlim methods.</p>
 <p>The <code>VOIplot2</code> function is an updated version of <code>VOIplot</code> that uses the <code>PM</code> functions and plots the Value of Information for a single MP:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">type=</span><span class="st">&quot;OM&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-107-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
 <p>and with a different MP and performance metric:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">MP=</span><span class="st">&quot;DCAC&quot;</span>, <span class="dt">PM=</span><span class="st">&quot;P100&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">MP=</span><span class="st">&quot;DCAC&quot;</span>, <span class="dt">type=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">PM=</span><span class="st">&quot;P100&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-108-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-114-2.png" width="672" /></p>
 <p>The <code>VOI2</code> function relates the operating model parameters and parameters of the observation model to relative yield (yield over last 5 years of projection relative to a ‘best F’ scenario that maximizes yield.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOI2</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-109-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-115-1.png" width="864" /></p>
 <p><code>VOI2</code> assumes that relative cost for each type of improvement in data is linearly related to the number of samples (e.g. nCAAobs) or square function of improved precision and bias e.g.: relative <span class="math inline">\(\text{cost}= \frac{1}{(\text{newCV}/\text{oldCV})^2}\)</span></p>
 <p>The VOI features of DLMtool are continuing to be developed and more VOI functions will be added soon.</p>
 
@@ -451,6 +452,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
 "download": ["userguide.pdf"],
 "toc": {
 "collapse": "section",
@@ -467,7 +472,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

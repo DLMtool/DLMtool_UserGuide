@@ -643,9 +643,9 @@ OM <- testOM
 OM@cpars$L95 <- rep(80, OM@nsim)
 temp <- runMSE(OM, Hist=TRUE)
 
-data.frame(L50=temp$SampPars$L50, L95=temp$SampPars$L95, diff=temp$SampPars$L95 - temp$SampPars$L50)
+data.frame(L50=temp@SampPars$L50, L95=temp@SampPars$L95, diff=temp@SampPars$L95 - temp@SampPars$L50)
 
-plot(1:OM@maxage, temp$AtAge$Mat_age[1,,1], type="l", 
+plot(1:OM@maxage, temp@AtAge$Maturity[1,,1], type="l", 
      xlab="Age", ylab="Maturity")
 
 ```

@@ -4,7 +4,7 @@ subtitle: 'Subtitle. One line only.'
 author:
 - Name and contact details (e.g email, affiliation) for each author.
 - One line per author.
-date: 15 August 2018
+date: 28 January 2019
 output: 
    html_document:
      toc: true
@@ -177,7 +177,7 @@ using Latex (see [here](https://www.sharelatex.com/learn/Mathematical_expression
 
 # Stock Parameters 
 
-### Mortality and age:  maxage, R0, M, M2, Mexp, Msd, Mgrad
+### Mortality and age:  maxage, R0, M, M2, Mexp, Msd
 
 **maxage**: The maximum age of individuals that is simulated (there is no plus group ). Single value. Positive integer
 
@@ -222,15 +222,6 @@ Borrowed from: Albacore
 **Msd**: Inter-annual variability in natural mortality rate expressed as a coefficient of variation. Uniform distribution lower and upper bounds. Non-negative real numbers
 
 Specified Value(s): <span style='color:blue'> 0, 0.1</span>
-
-Borrowed from: Albacore 
-
-
-
-
-**Mgrad**: Mean temporal trend in natural mortality rate, expressed as a percentage change in M per year. Uniform distribution lower and upper bounds. Real numbers
-
-Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -295,7 +286,7 @@ Slot not used.
 
 Slot not used.
 
-### Growth: Linf, K, t0, LenCV, Ksd, Kgrad, Linfsd, Linfgrad
+### Growth: Linf, K, t0, LenCV, Ksd, Linfsd
 
 **Linf**: Maximum length. Uniform distribution lower and upper bounds. Positive real numbers
 
@@ -333,7 +324,7 @@ Borrowed from: Albacore
 
 
 
-**Ksd**: Inter-annual variability in growth parameter k. Uniform distribution lower and upper bounds. Non-negative real numbers
+**Ksd**: Inter-annual variability in growth parameter k expressed as coefficient of variation. Uniform distribution lower and upper bounds. Non-negative real numbers
 
 Specified Value(s): <span style='color:blue'> 0, 0.02</span>
 
@@ -342,27 +333,9 @@ Borrowed from: Albacore
 
 
 
-**Kgrad**: Mean temporal trend in growth parameter k, expressed as a percentage change in k per year. Uniform distribution lower and upper bounds. Real numbers
-
-Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
-
-Borrowed from: Albacore 
-
-
-
-
-**Linfsd**: Inter-annual variability in maximum length. Uniform distribution lower and upper bounds. Non-negative real numbers
+**Linfsd**: Inter-annual variability in maximum length expressed as a coefficient of variation. Uniform distribution lower and upper bounds. Non-negative real numbers
 
 Specified Value(s): <span style='color:blue'> 0, 0.02</span>
-
-Borrowed from: Albacore 
-
-
-
-
-**Linfgrad**: Mean temporal trend in maximum length, expressed as a percentage change in Linf per year. Uniform distribution lower and upper bounds. Real numbers
-
-Specified Value(s): <span style='color:blue'> -0.25, 0.25</span>
 
 Borrowed from: Albacore 
 
@@ -588,7 +561,7 @@ Borrowed from: Generic_Flat effort
 
 
 
-**Vmaxlen**: The vulnerability of fish at Stock@Linf. Uniform distribution lower and upper bounds. Fraction
+**Vmaxlen**: The vulnerability of fish at Stock@Linf . Uniform distribution lower and upper bounds. Fraction
 
 Specified Value(s): <span style='color:blue'> 0, 1</span>
 
@@ -631,7 +604,7 @@ Borrowed from: Generic_Flat effort
 
 
 
-**Rmaxlen**: The retention of fish at Stock@Linf. Uniform distribution lower and upper bounds. Non-negative real numbers
+**Rmaxlen**: The retention of fish at Stock@Linf . Uniform distribution lower and upper bounds. Non-negative real numbers
 
 Specified Value(s): <span style='color:blue'> 1, 1</span>
 

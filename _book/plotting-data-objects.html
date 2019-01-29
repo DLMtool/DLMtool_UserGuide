@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data-Limited Methods Toolkit (DLMtool 5.2.2)</title>
+  <title>Chapter 20 Plotting Data Objects | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
   <meta name="description" content="User guide for the DLMtool R package">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta property="og:title" content="Chapter 20 Plotting Data Objects | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data-Limited Methods Toolkit (DLMtool 5.2.2)" />
+  <meta name="twitter:title" content="Chapter 20 Plotting Data Objects | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-01-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="determining-feasible-and-available-management-procedures.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -345,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
           </h1>
         </div>
 
@@ -357,14 +358,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 20</span> Plotting Data Objects</h1>
 <p>A generic summary function is available to visualize the data in a <code>Data</code> object. By default the <code>summary</code> function waits for user input before displaying the next plot, this option can be switched off using <code>wait=FALSE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(Cobia, <span class="dt">wait=</span><span class="ot">FALSE</span>, <span class="dt">rmd=</span><span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## ## Time-Series</code></pre>
-<p><img src="userguide_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
-<pre><code>## ## Catch-at-Age</code></pre>
-<p><img src="userguide_files/figure-html/unnamed-chunk-124-2.png" width="672" /></p>
-<pre><code>## ## Catch-at-Length</code></pre>
-<p><img src="userguide_files/figure-html/unnamed-chunk-124-3.png" width="672" /></p>
-<pre><code>## ## Parameter Distributions</code></pre>
-<p><img src="userguide_files/figure-html/unnamed-chunk-124-4.png" width="672" /></p>
+<pre><code>## 
+## 
+## ## Time-Series</code></pre>
+<pre><code>## 
+## 
+## ## Catch-at-Age</code></pre>
+<pre><code>## Plot 1 of 2</code></pre>
+<p><img src="userguide_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<pre><code>## Plot 2 of 2</code></pre>
+<p><img src="userguide_files/figure-html/unnamed-chunk-130-2.png" width="672" /></p>
+<pre><code>## 
+## 
+## ## Catch-at-Length</code></pre>
+<pre><code>## Plot 1 of 2</code></pre>
+<p><img src="userguide_files/figure-html/unnamed-chunk-130-3.png" width="672" /></p>
+<pre><code>## Plot 2 of 2</code></pre>
+<p><img src="userguide_files/figure-html/unnamed-chunk-130-4.png" width="672" /><img src="userguide_files/figure-html/unnamed-chunk-130-5.png" width="672" /></p>
+<pre><code>## 
+## 
+## ## Parameter Distributions</code></pre>
+<p><img src="userguide_files/figure-html/unnamed-chunk-130-6.png" width="672" /></p>
 </div>
             </section>
 
@@ -395,6 +409,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
 "download": ["userguide.pdf"],
 "toc": {
 "collapse": "section",
@@ -411,7 +429,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
