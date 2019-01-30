@@ -1,34 +1,49 @@
 
-<!-- # (PART\*) Frequently Asked Questions  {-} -->
+# (PART\*) FAQ & TroubleShooting {-}
+
+# Frequently Asked Questions
+
+## How are the biological reference points such as BMSY calculated?
+For the historical simulations, the biological reference points (SSB0, BMSY, FMSY, etc) are calculated using the life-history and selectivity parameters averaged over a 10-year period around the current year. For example, the biological reference points at the end of the historical period are calculated from the average life-history and selectivity parameters from the last 5 years of the historical period and the first 5 years of the projection period.
+
+B0, SSB0 and depletion in both the initial and final historical years are calculated from the life-history parameters at the end of the historical period (i.e. the 'current' year).
+
+## How is stock initialized in the first year? 
+The stock is unfished in the initial year. The initial unfished age-structure is subject to recruitment variability and therefore the stock is not at an unfished equilibrium in the initial year, but rather distributed around B0.
+
+## Can I set the stock depletion level in the initial year? 
+The initial depletion can be set using `cpars$initD`, which must be a vector of length `nsim` specifying the stock depletion for the initial year of the simulations.
+
+## Is the Data collected before or after fishing?
+The index (`Data@Ind`), abundance (`Data@Abun` or `Data@SpAbun`), and depletion (`Data@Dep`) are calculated at the beginning of the year before fishing occurs.
+
+## What is the lag in data collection?
+The Data object is populated with data from the previous year. A greater lag in some or all of the data sources can be specified with custom management procedures.
 
 
+# TroubleShooting
 
+## OM Documentation
+I'm getting the following error when I run `OMdoc()` (or something like it):
+```{}
+Error in yaml::yaml.load(string, ...) :
+  Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 1, column 16
 
-<!-- # TroubleShooting  -->
+```
 
-<!-- ## OM Documentation  -->
-<!-- I'm getting the following error when I run `OMdoc()` (or something like it): -->
-<!-- ```{} -->
-<!-- Error in yaml::yaml.load(string, ...) :  -->
-<!--   Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 1, column 16 -->
+This is usually caused by a special character in the first few lines of the Rmarkdown file (eg in Title, Subtitle, Author(s), or Date).
 
-<!-- ``` -->
+A common culpit is a single apostrophe, usually used to indicate the possessive of a singular noun.
 
-<!-- This is usually caused by a special character in the first few lines of the Rmarkdown file (eg in Title, Subtitle, Author(s), or Date). -->
+For example, the following will result in an error:
+```{}
+# Title
+Adrian's OM
+```
 
-<!-- A common culpit is a single apostrophe, usually used to indicate the possessive of a singular noun.   -->
+The solution to this problem is to type two apostrophes in place of one:
+```{}
+# Title
+Adrian''s OM
+```
 
-<!-- Example: -->
-<!-- ### Problem -->
-<!-- Results in an error -->
-<!-- ```{} -->
-<!-- # Title -->
-<!-- Adrian's OM -->
-<!-- ``` -->
-
-<!-- ### Solution  -->
-<!-- Type two apostrophes in place of one.  -->
-<!-- ```{} -->
-<!-- # Title -->
-<!-- Adrian''s OM -->
-<!-- ``` -->

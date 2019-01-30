@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
+  <title>Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)</title>
   <meta name="description" content="User guide for the DLMtool R package">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta property="og:title" content="Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta name="twitter:title" content="Chapter 29 Custom Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-28">
+<meta name="date" content="2019-01-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
 <link rel="prev" href="subsetting-the-mse-object.html">
-<link rel="next" href="acknowledgements.html">
+<link rel="next" href="using-real-indices.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -289,6 +289,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
+<li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
+<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
+<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
+<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
+<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
+<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
+<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
+<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
+<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -346,7 +358,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.3)</a>
           </h1>
         </div>
 
@@ -417,7 +429,7 @@ p_noverfish</code></pre></div>
 ##     PMobj@MPs &lt;- MSEobj@MPs
 ##     PMobj
 ## }
-## &lt;bytecode: 0x0000000018d4a030&gt;
+## &lt;bytecode: 0x000000001c7296b0&gt;
 ## &lt;environment: namespace:DLMtool&gt;
 ## attr(,&quot;class&quot;)
 ## [1] &quot;PM&quot;</code></pre>
@@ -465,7 +477,7 @@ PMobj<span class="op">@</span>Name &lt;-<span class="st"> &quot;Spawning Biomass
 <p>As an example, we will create another version of <code>DFO_plot</code> using some custom <code>PM</code> functions and a customized version of <code>TradePlot</code>.</p>
 <p>First we create the plot using <code>DFO_plot</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">DFO_plot</span>(MSEobj)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-214-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
 <p>From the help documentation (<code>?DFO_plot</code>) we can see that this function plots mean biomass relative to BMSY and fishing mortality rate relative to FMSY over the final 5 years of the projection.</p>
 <p>First we’ll develop a <code>PM</code> function to calculate the mean B/BMSY for the last 5 years of the projection period. Notice that this is very similiar to <code>P50</code> described above, with the modification of the <code>Caption</code> and the <code>Prob</code> slots, and the <code>Yrs</code> argument. We are calculating a mean here instead of a probability and are not using the <code>Ref</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MeanB &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">MSEobj =</span> <span class="ot">NULL</span>, <span class="dt">Ref =</span> <span class="dv">1</span>, <span class="dt">Yrs =</span> <span class="op">-</span><span class="dv">5</span>) {
@@ -527,7 +539,7 @@ PMobj<span class="op">@</span>Name &lt;-<span class="st"> &quot;Spawning Biomass
 <p>Finally, we will develop a customized plotting function to reproduce the image produced by <code>DFO_plot</code>.</p>
 <p>We can produced something fairly similar quite quickly using the <code>TradePlot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSEobj, <span class="st">&#39;MeanB&#39;</span>, <span class="st">&#39;MeanF&#39;</span>, <span class="dt">Lims=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-220-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-235-1.png" width="672" /></p>
 <pre><code>##          MP MeanB MeanF Satisificed
 ## 1       AvC  1.50  1.90        TRUE
 ## 2      DCAC  0.73  2.70        TRUE
@@ -553,44 +565,16 @@ PMobj<span class="op">@</span>Name &lt;-<span class="st"> &quot;Spawning Biomass
 }
 
 <span class="kw">NewPlot</span>(MSEobj)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-221-1.png" width="672" /></p>
-
-<!-- # (PART\*) Frequently Asked Questions  {-} -->
-<!-- # TroubleShooting  -->
-<!-- ## OM Documentation  -->
-<!-- I'm getting the following error when I run `OMdoc()` (or something like it): -->
-<!-- ```{} -->
-<!-- Error in yaml::yaml.load(string, ...) :  -->
-<!--   Parser error: while parsing a block mapping at line 1, column 1 did not find expected key at line 1, column 16 -->
-<!-- ``` -->
-<!-- This is usually caused by a special character in the first few lines of the Rmarkdown file (eg in Title, Subtitle, Author(s), or Date). -->
-<!-- A common culpit is a single apostrophe, usually used to indicate the possessive of a singular noun.   -->
-<!-- Example: -->
-<!-- ### Problem -->
-<!-- Results in an error -->
-<!-- ```{} -->
-<!-- # Title -->
-<!-- Adrian's OM -->
-<!-- ``` -->
-<!-- ### Solution  -->
-<!-- Type two apostrophes in place of one.  -->
-<!-- ```{} -->
-<!-- # Title -->
-<!-- Adrian''s OM -->
-<!-- ``` -->
-
+<p><img src="userguide_files/figure-html/unnamed-chunk-236-1.png" width="672" /></p>
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
 <a href="subsetting-the-mse-object.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="acknowledgements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="using-real-indices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

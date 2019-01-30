@@ -955,6 +955,72 @@ NewPlot(MSEobj)
 
 ```
 
+# Using Real Indices
+Since DLMtool V5.3 real indices of abundance can be added to the Data object and used to condition the OM. 
 
+Three types of real indices can provided: 'Biomass', 'VBiomass' and "SpBiomass" for total, vulnerable, and spawning biomass respectively. 
 
+The type(s) of index is specified in `Data@Type` and the index provided as a vector of length `OM@nyears` in `Data@RInd`, or a matrix with nrow = number of indices and ncol = `OM@nyears`. 
+
+The `Data` object with the real indices can be included in the operating model using the `cpars` slot. The information in the `Data@RInd` slot used in the MSE will match exactly the provided indices during the historical simulation period. The hyper-stability/depletion (beta) and observation error are calculated by comparing the real indices with the simulated indices during the historical year period and used to generate the `Data@RInd` in the projection period. 
+
+For example, here we first generate some indices of abundance and then include those indices as real indices of abundance in the OM. 
+
+First we generate three indices (total biomass, vulnerable biomass, and spawning biomass):
+```{r}
+OM <- DLMtool::testOM
+Hist <- runMSE(OM, Hist=TRUE, silent=TRUE)
+Bind <- Hist@TSdata$B[1,] # use the first simulation as our 'real' data
+Bind <- Bind/mean(Bind)
+VBind <- Hist@TSdata$VB[1,]
+VBind <- VBind/mean(VBind)
+SpBInd<- Hist@TSdata$SSB[1,]
+SpBInd <- SpBInd/mean(SpBInd)
+```
+
+Next we add these 'real' indices to a Data object:
+```{r}
+Data <- new("Data")
+Data@Type <- c("Biomass", "VBiomass", 'SpBiomass')
+Data@RInd <- array(rbind(Bind, VBind, SpBInd), dim=c(1, 3, length(Bind)))
+```
+
+Note that `Data@RInd` is an array with dimensions: number of simulations (1 in this case because it is 'real' data), number of real indices (3 in this case), and the length of the longest index (all equal to `OM@nyears` in this case):
+```{r}
+dim(Data@RInd)
+```
+
+Now we can add the Data object to our OM using the `cpars` slot:
+```{r}
+OM@cpars$Data <- Data
+```
+
+And run the MSE (we use the argument `PPD=TRUE` here to return the simulated Data object at the end of the MSE):
+```{r}
+MSE <- runMSE(OM, MPs="AvC", silent=TRUE, PPD=TRUE)
+data <- MSE@Misc$Data[[1]] # the simulated data from the first MP
+```
+
+Note the dimensions of the `RInd` array in the simulated data:
+```{r}
+dim(data@RInd)
+```
+
+The index is the same for every simulation for the historical years: 
+```{r}
+all(data@RInd[1,,1:OM@nyears] == data@RInd[2,,1:OM@nyears])
+all(data@RInd[1,,1:OM@nyears] == data@RInd[OM@nsim,,1:OM@nyears])
+```
+And identical to the real indices provided in the Data object:
+```{r}
+all(Data@RInd[1,,] == data@RInd[OM@nsim,,1:OM@nyears])
+```
+
+The hyper-stability/depletion coefficient (beta), auto-correlation, standard deviation, and correlation for each simulation and index are returned as a data frame in the `Misc` slot:
+```{r}
+head(MSE@Misc$RInd.stats)
+```
+Note that in this case there is perfect correlation for simulation 1. This is not surprising because our 'real' indices were generated from simulation 1 of the same OM. Low or negative correlation values indicate that the simulated trends in abundance are very different from the real indices provided in the Data object.
+
+The observation error stored in `RInd.stats` are used to maintain the same error structure in the projection simulations. 
 

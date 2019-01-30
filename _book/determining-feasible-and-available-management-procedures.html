@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
+  <title>Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.3)</title>
   <meta name="description" content="User guide for the DLMtool R package">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta property="og:title" content="Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta name="twitter:title" content="Chapter 21 Determining Feasible and Available Management Procedures | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-28">
+<meta name="date" content="2019-01-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -289,6 +289,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
+<li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
+<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
+<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
+<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
+<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
+<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
+<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
+<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
+<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -346,7 +358,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.3)</a>
           </h1>
         </div>
 
@@ -372,22 +384,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## Feasible management:</code></pre>
 <pre><code>## TAC - total allowable catch</code></pre>
 <pre><code>## No Data object provided. Returning feasible MPs</code></pre>
-<pre><code>##  [1] &quot;AvC&quot;         &quot;avgMP&quot;       &quot;BK&quot;          &quot;BK_CC&quot;       &quot;BK_ML&quot;      
-##  [6] &quot;CC1&quot;         &quot;CC2&quot;         &quot;CC3&quot;         &quot;CC4&quot;         &quot;CC5&quot;        
-## [11] &quot;CompSRA&quot;     &quot;CompSRA4010&quot; &quot;DAAC&quot;        &quot;DBSRA&quot;       &quot;DBSRA_40&quot;   
-## [16] &quot;DBSRA4010&quot;   &quot;DCAC&quot;        &quot;DCAC_40&quot;     &quot;DCAC_ML&quot;     &quot;DCAC4010&quot;   
-## [21] &quot;DCACs&quot;       &quot;DD&quot;          &quot;DD4010&quot;      &quot;DepF&quot;        &quot;DynF&quot;       
-## [26] &quot;Fadapt&quot;      &quot;Fdem&quot;        &quot;Fdem_CC&quot;     &quot;Fdem_ML&quot;     &quot;FMSYref&quot;    
-## [31] &quot;FMSYref50&quot;   &quot;FMSYref75&quot;   &quot;Fratio&quot;      &quot;Fratio_CC&quot;   &quot;Fratio_ML&quot;  
-## [36] &quot;Fratio4010&quot;  &quot;GB_CC&quot;       &quot;GB_slope&quot;    &quot;GB_target&quot;   &quot;Gcontrol&quot;   
-## [41] &quot;HDAAC&quot;       &quot;ICI&quot;         &quot;ICI2&quot;        &quot;Iratio&quot;      &quot;Islope1&quot;    
-## [46] &quot;Islope2&quot;     &quot;Islope4&quot;     &quot;IT10&quot;        &quot;IT5&quot;         &quot;Itarget1&quot;   
-## [51] &quot;Itarget2&quot;    &quot;Itarget3&quot;    &quot;Itarget4&quot;    &quot;ITM&quot;         &quot;L95target&quot;  
-## [56] &quot;Lratio_BHI&quot;  &quot;Lratio_BHI2&quot; &quot;LstepCC1&quot;    &quot;LstepCC2&quot;    &quot;LstepCC3&quot;   
+<pre><code>##  [1] &quot;AvC&quot;         &quot;BK&quot;          &quot;BK_CC&quot;       &quot;BK_ML&quot;       &quot;CC1&quot;        
+##  [6] &quot;CC2&quot;         &quot;CC3&quot;         &quot;CC4&quot;         &quot;CC5&quot;         &quot;CompSRA&quot;    
+## [11] &quot;CompSRA4010&quot; &quot;DAAC&quot;        &quot;DBSRA&quot;       &quot;DBSRA_40&quot;    &quot;DBSRA4010&quot;  
+## [16] &quot;DCAC&quot;        &quot;DCAC_40&quot;     &quot;DCAC_ML&quot;     &quot;DCAC4010&quot;    &quot;DCACs&quot;      
+## [21] &quot;DD&quot;          &quot;DD4010&quot;      &quot;DepF&quot;        &quot;DynF&quot;        &quot;Fadapt&quot;     
+## [26] &quot;Fdem&quot;        &quot;Fdem_CC&quot;     &quot;Fdem_ML&quot;     &quot;FMSYref&quot;     &quot;FMSYref50&quot;  
+## [31] &quot;FMSYref75&quot;   &quot;Fratio&quot;      &quot;Fratio_CC&quot;   &quot;Fratio_ML&quot;   &quot;Fratio4010&quot; 
+## [36] &quot;GB_CC&quot;       &quot;GB_slope&quot;    &quot;GB_target&quot;   &quot;Gcontrol&quot;    &quot;HDAAC&quot;      
+## [41] &quot;ICI&quot;         &quot;ICI2&quot;        &quot;Iratio&quot;      &quot;Islope1&quot;     &quot;Islope2&quot;    
+## [46] &quot;Islope4&quot;     &quot;IT10&quot;        &quot;IT5&quot;         &quot;Itarget1&quot;    &quot;Itarget2&quot;   
+## [51] &quot;Itarget3&quot;    &quot;Itarget4&quot;    &quot;ITM&quot;         &quot;L95target&quot;   &quot;Lratio_BHI&quot; 
+## [56] &quot;Lratio_BHI2&quot; &quot;Lratio_BHI3&quot; &quot;LstepCC1&quot;    &quot;LstepCC2&quot;    &quot;LstepCC3&quot;   
 ## [61] &quot;LstepCC4&quot;    &quot;Ltarget1&quot;    &quot;Ltarget2&quot;    &quot;Ltarget3&quot;    &quot;Ltarget4&quot;   
 ## [66] &quot;MCD&quot;         &quot;MCD4010&quot;     &quot;NFref&quot;       &quot;Rcontrol&quot;    &quot;Rcontrol2&quot;  
 ## [71] &quot;SBT1&quot;        &quot;SBT2&quot;        &quot;SPmod&quot;       &quot;SPMSY&quot;       &quot;SPslope&quot;    
-## [76] &quot;SPSRA&quot;       &quot;SPSRA_ML&quot;    &quot;TCPUE&quot;</code></pre>
+## [76] &quot;SPSRA&quot;</code></pre>
 <p>We can confirm that all of these MPs are output controls (return a TAC) by using the <code>MPtype</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">feaseMPs &lt;-<span class="st"> </span><span class="kw">Fease</span>(<span class="dt">TAC=</span><span class="ot">TRUE</span>, <span class="dt">TAE=</span><span class="ot">FALSE</span>, <span class="dt">SL=</span><span class="ot">FALSE</span>, <span class="dt">Spatial=</span><span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Feasible management:</code></pre>
@@ -396,59 +408,59 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">MPtype</span>(feaseMPs)</code></pre></div>
 <pre><code>##             MP      Type Recs
 ## 1          AvC    Output  TAC
-## 2        avgMP    Output  TAC
-## 3           BK    Output  TAC
-## 4        BK_CC    Output  TAC
-## 5        BK_ML    Output  TAC
-## 6          CC1    Output  TAC
-## 7          CC2    Output  TAC
-## 8          CC3    Output  TAC
-## 9          CC4    Output  TAC
-## 10         CC5    Output  TAC
-## 11     CompSRA    Output  TAC
-## 12 CompSRA4010    Output  TAC
-## 13        DAAC    Output  TAC
-## 14       DBSRA    Output  TAC
-## 15    DBSRA_40    Output  TAC
-## 16   DBSRA4010    Output  TAC
-## 17        DCAC    Output  TAC
-## 18     DCAC_40    Output  TAC
-## 19     DCAC_ML    Output  TAC
-## 20    DCAC4010    Output  TAC
-## 21       DCACs    Output  TAC
-## 22          DD    Output  TAC
-## 23      DD4010    Output  TAC
-## 24        DepF    Output  TAC
-## 25        DynF    Output  TAC
-## 26      Fadapt    Output  TAC
-## 27        Fdem    Output  TAC
-## 28     Fdem_CC    Output  TAC
-## 29     Fdem_ML    Output  TAC
-## 30      Fratio    Output  TAC
-## 31   Fratio_CC    Output  TAC
-## 32   Fratio_ML    Output  TAC
-## 33  Fratio4010    Output  TAC
-## 34       GB_CC    Output  TAC
-## 35    GB_slope    Output  TAC
-## 36   GB_target    Output  TAC
-## 37    Gcontrol    Output  TAC
-## 38       HDAAC    Output  TAC
-## 39         ICI    Output  TAC
-## 40        ICI2    Output  TAC
-## 41      Iratio    Output  TAC
-## 42     Islope1    Output  TAC
-## 43     Islope2    Output  TAC
-## 44     Islope4    Output  TAC
-## 45        IT10    Output  TAC
-## 46         IT5    Output  TAC
-## 47    Itarget1    Output  TAC
-## 48    Itarget2    Output  TAC
-## 49    Itarget3    Output  TAC
-## 50    Itarget4    Output  TAC
-## 51         ITM    Output  TAC
-## 52   L95target    Output  TAC
-## 53  Lratio_BHI    Output  TAC
-## 54 Lratio_BHI2    Output  TAC
+## 2           BK    Output  TAC
+## 3        BK_CC    Output  TAC
+## 4        BK_ML    Output  TAC
+## 5          CC1    Output  TAC
+## 6          CC2    Output  TAC
+## 7          CC3    Output  TAC
+## 8          CC4    Output  TAC
+## 9          CC5    Output  TAC
+## 10     CompSRA    Output  TAC
+## 11 CompSRA4010    Output  TAC
+## 12        DAAC    Output  TAC
+## 13       DBSRA    Output  TAC
+## 14    DBSRA_40    Output  TAC
+## 15   DBSRA4010    Output  TAC
+## 16        DCAC    Output  TAC
+## 17     DCAC_40    Output  TAC
+## 18     DCAC_ML    Output  TAC
+## 19    DCAC4010    Output  TAC
+## 20       DCACs    Output  TAC
+## 21          DD    Output  TAC
+## 22      DD4010    Output  TAC
+## 23        DepF    Output  TAC
+## 24        DynF    Output  TAC
+## 25      Fadapt    Output  TAC
+## 26        Fdem    Output  TAC
+## 27     Fdem_CC    Output  TAC
+## 28     Fdem_ML    Output  TAC
+## 29      Fratio    Output  TAC
+## 30   Fratio_CC    Output  TAC
+## 31   Fratio_ML    Output  TAC
+## 32  Fratio4010    Output  TAC
+## 33       GB_CC    Output  TAC
+## 34    GB_slope    Output  TAC
+## 35   GB_target    Output  TAC
+## 36    Gcontrol    Output  TAC
+## 37       HDAAC    Output  TAC
+## 38         ICI    Output  TAC
+## 39        ICI2    Output  TAC
+## 40      Iratio    Output  TAC
+## 41     Islope1    Output  TAC
+## 42     Islope2    Output  TAC
+## 43     Islope4    Output  TAC
+## 44        IT10    Output  TAC
+## 45         IT5    Output  TAC
+## 46    Itarget1    Output  TAC
+## 47    Itarget2    Output  TAC
+## 48    Itarget3    Output  TAC
+## 49    Itarget4    Output  TAC
+## 50         ITM    Output  TAC
+## 51   L95target    Output  TAC
+## 52  Lratio_BHI    Output  TAC
+## 53 Lratio_BHI2    Output  TAC
+## 54 Lratio_BHI3    Output  TAC
 ## 55    LstepCC1    Output  TAC
 ## 56    LstepCC2    Output  TAC
 ## 57    LstepCC3    Output  TAC
@@ -467,12 +479,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 70       SPMSY    Output  TAC
 ## 71     SPslope    Output  TAC
 ## 72       SPSRA    Output  TAC
-## 73    SPSRA_ML    Output  TAC
-## 74       TCPUE    Output  TAC
-## 75     FMSYref Reference  TAC
-## 76   FMSYref50 Reference  TAC
-## 77   FMSYref75 Reference  TAC
-## 78       NFref Reference  TAC</code></pre>
+## 73     FMSYref Reference  TAC
+## 74   FMSYref50 Reference  TAC
+## 75   FMSYref75 Reference  TAC
+## 76       NFref Reference  TAC</code></pre>
 <p>If a <code>Data</code> object is provided to <code>Fease</code>, the function will return the names of MPs that are both feasible in terms of management methods, and available in terms of the fishery data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">feaseMPs &lt;-<span class="st"> </span><span class="kw">Fease</span>(Atlantic_mackerel, <span class="dt">TAC=</span><span class="ot">FALSE</span>, <span class="dt">TAE=</span><span class="ot">TRUE</span>, <span class="dt">SL=</span><span class="ot">TRUE</span>, <span class="dt">Spatial=</span><span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Feasible management:</code></pre>
@@ -495,8 +505,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 12   matlenlim Input   SL
 ## 13  matlenlim2 Input   SL
 ## 14 minlenLopt1 Input   SL
-## 15     slotlim Input   SL
-## 16     TCPUE_e Input  TAE</code></pre>
+## 15     slotlim Input   SL</code></pre>
 </div>
 <div id="available-mps" class="section level2">
 <h2><span class="header-section-number">21.2</span> Available MPs</h2>
@@ -518,8 +527,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## [53] &quot;MCD4010&quot;      &quot;minlenLopt1&quot;  &quot;MRnoreal&quot;     &quot;MRreal&quot;      
 ## [57] &quot;NFref&quot;        &quot;Rcontrol&quot;     &quot;Rcontrol2&quot;    &quot;SBT1&quot;        
 ## [61] &quot;slotlim&quot;      &quot;SPmod&quot;        &quot;SPMSY&quot;        &quot;SPslope&quot;     
-## [65] &quot;SPSRA&quot;        &quot;YPR&quot;          &quot;avgMP&quot;        &quot;TCPUE_e&quot;     
-## [69] &quot;THC&quot;</code></pre>
+## [65] &quot;SPSRA&quot;        &quot;YPR&quot;</code></pre>
 <p>If all management methods are feasible, the list of MPs returned by the <code>Can</code> function will be the same as those returned by the <code>Fease</code> function when the <code>Data</code> object is provided.</p>
 </div>
 <div id="unavailable-mps" class="section level2">
@@ -552,23 +560,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## [23,] &quot;LBSPR_MLL&quot;  
 ## [24,] &quot;Lratio_BHI&quot; 
 ## [25,] &quot;Lratio_BHI2&quot;
-## [26,] &quot;LstepCC1&quot;   
-## [27,] &quot;LstepCC2&quot;   
-## [28,] &quot;LstepCC3&quot;   
-## [29,] &quot;LstepCC4&quot;   
-## [30,] &quot;LstepCE1&quot;   
-## [31,] &quot;LstepCE2&quot;   
-## [32,] &quot;Ltarget1&quot;   
-## [33,] &quot;Ltarget2&quot;   
-## [34,] &quot;Ltarget3&quot;   
-## [35,] &quot;Ltarget4&quot;   
-## [36,] &quot;LtargetE1&quot;  
-## [37,] &quot;LtargetE4&quot;  
-## [38,] &quot;SBT2&quot;       
-## [39,] &quot;SPSRA_ML&quot;   
-## [40,] &quot;YPR_CC&quot;     
-## [41,] &quot;YPR_ML&quot;     
-## [42,] &quot;TCPUE&quot;      
+## [26,] &quot;Lratio_BHI3&quot;
+## [27,] &quot;LstepCC1&quot;   
+## [28,] &quot;LstepCC2&quot;   
+## [29,] &quot;LstepCC3&quot;   
+## [30,] &quot;LstepCC4&quot;   
+## [31,] &quot;LstepCE1&quot;   
+## [32,] &quot;LstepCE2&quot;   
+## [33,] &quot;Ltarget1&quot;   
+## [34,] &quot;Ltarget2&quot;   
+## [35,] &quot;Ltarget3&quot;   
+## [36,] &quot;Ltarget4&quot;   
+## [37,] &quot;LtargetE1&quot;  
+## [38,] &quot;LtargetE4&quot;  
+## [39,] &quot;SBT2&quot;       
+## [40,] &quot;SPSRA_ML&quot;   
+## [41,] &quot;YPR_CC&quot;     
+## [42,] &quot;YPR_ML&quot;     
 ##       [,2]                                                         
 ##  [1,] &quot;Missing data: CAA&quot;                                          
 ##  [2,] &quot;Missing data: CAL&quot;                                          
@@ -592,10 +600,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## [20,] &quot;Missing data: Iref, MPrec&quot;                                  
 ## [21,] &quot;Missing data: ML&quot;                                           
 ## [22,] &quot;Missing data: CAL&quot;                                          
-## [23,] &quot;Missing data: CAL, OM&quot;                                      
+## [23,] &quot;Missing data: CAL, OM, Misc&quot;                                
 ## [24,] &quot;Missing data: CAL&quot;                                          
 ## [25,] &quot;Missing data: CAL&quot;                                          
-## [26,] &quot;Missing data: ML&quot;                                           
+## [26,] &quot;Missing data: CAL&quot;                                          
 ## [27,] &quot;Missing data: ML&quot;                                           
 ## [28,] &quot;Missing data: ML&quot;                                           
 ## [29,] &quot;Missing data: ML&quot;                                           
@@ -607,11 +615,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## [35,] &quot;Missing data: ML&quot;                                           
 ## [36,] &quot;Missing data: ML&quot;                                           
 ## [37,] &quot;Missing data: ML&quot;                                           
-## [38,] &quot;Missing data: Rec, Cref&quot;                                    
-## [39,] &quot;Missing data: CAL&quot;                                          
-## [40,] &quot;Missing data: CAA&quot;                                          
-## [41,] &quot;Missing data: CAL&quot;                                          
-## [42,] &quot;Missing data: MPrec&quot;</code></pre>
+## [38,] &quot;Missing data: ML&quot;                                           
+## [39,] &quot;Missing data: Rec, Cref&quot;                                    
+## [40,] &quot;Missing data: CAL&quot;                                          
+## [41,] &quot;Missing data: CAA&quot;                                          
+## [42,] &quot;Missing data: CAL&quot;</code></pre>
 </div>
 </div>
             </section>

@@ -14,3 +14,4 @@ file.copy('ExampleOM', '_book/docs', recursive=TRUE, overwrite = TRUE)
 file.copy('ExampleData', '_book/docs', recursive=TRUE, overwrite = TRUE)
 unlink(file.path('_book', 'docs', 'ExampleOM', 'build'), force=TRUE, recursive = TRUE)
 
+# rmarkdown::render_site(output_format = c('bookdown::gitbook'))

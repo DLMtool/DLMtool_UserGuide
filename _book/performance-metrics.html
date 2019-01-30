@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)</title>
+  <title>Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)</title>
   <meta name="description" content="User guide for the DLMtool R package">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta property="og:title" content="Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.2.999)" />
+  <meta name="twitter:title" content="Chapter 15 Performance Metrics | Data-Limited Methods Toolkit (DLMtool 5.3)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-28">
+<meta name="date" content="2019-01-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -289,6 +289,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
+<li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
+<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
+<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
+<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
+<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
+<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
+<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
+<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
+<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -346,7 +358,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.2.999)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.3)</a>
           </h1>
         </div>
 
@@ -450,7 +462,7 @@ Management strategies that have a lower probability of overfishing occurring are
      <span class="dt">xlab=</span><span class="st">&quot;Years&quot;</span>, <span class="dt">ylab=</span><span class="st">&#39;&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">bty=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>),
      <span class="dt">main=</span><span class="st">&quot;MP = &#39;AvC&#39;; Sim =  2&quot;</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="fl">0.5</span>, <span class="dt">lty=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 <p>Now we will calculate fraction of years where spawning biomass is above 0.5 <span class="math inline">\(\text{SB}_\text{MSY}\)</span> for the first and second simulations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(MSE<span class="op">@</span>B_BMSY[<span class="dv">1</span>,<span class="dv">1</span>,] <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>) <span class="co"># first simulation</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
@@ -849,7 +861,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 <h3><span class="header-section-number">15.5.2</span> Trade-Off Plots</h3>
 <p>The <code>TradePlot</code> function takes an object of class <code>MSE</code> and the names of <code>PM</code> functions (at least 2) to produce a trade-off plot. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE) <span class="co"># default plot </span></code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
 <pre><code>##          MP  STY  LTY  P10 AAVY Satisificed
 ## 1       AvC 0.85 0.50 0.80 0.94        TRUE
 ## 2      DCAC 0.82 0.61 0.82 0.98        TRUE
@@ -859,7 +871,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ## 6    MRreal 0.86 0.79 1.00 0.23       FALSE</code></pre>
 <p>The order of the <code>PM</code> function names determines plotting on the x and y axes. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="st">&#39;P50&#39;</span> ,<span class="st">&#39;LTY&#39;</span>)  <span class="co"># x = P50, y  = LTY</span></code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 <pre><code>##          MP  P50  LTY Satisificed
 ## 1       AvC 0.74 0.50        TRUE
 ## 2      DCAC 0.74 0.61        TRUE
@@ -868,7 +880,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ## 5 matlenlim 0.99 0.58        TRUE
 ## 6    MRreal 0.92 0.79        TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="st">&#39;LTY&#39;</span> ,<span class="st">&#39;P50&#39;</span>)  <span class="co"># x = LTY, y = P50</span></code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-119-2.png" width="672" /></p>
 <pre><code>##          MP  LTY  P50 Satisificed
 ## 1       AvC 0.50 0.74        TRUE
 ## 2      DCAC 0.61 0.74        TRUE
@@ -879,7 +891,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 <p>The PMs are recycled if an odd number are provided:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="st">&#39;P50&#39;</span> ,<span class="st">&#39;LTY&#39;</span>, <span class="st">&#39;STY&#39;</span>) </code></pre></div>
 <pre><code>## Odd number of PMs. Recycling first PM</code></pre>
-<p><img src="userguide_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <pre><code>##          MP  P50  LTY  STY Satisificed
 ## 1       AvC 0.74 0.50 0.85        TRUE
 ## 2      DCAC 0.74 0.61 0.82        TRUE
@@ -889,7 +901,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ## 6    MRreal 0.92 0.79 0.86        TRUE</code></pre>
 <p>The <code>Lims</code> argument is used to set the vertical and horizontal acceptable risk thresholds and are interpreted in the same order as the names of the <code>PM</code> functions. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="st">&#39;P50&#39;</span> ,<span class="st">&#39;LTY&#39;</span>, <span class="dt">Lims=</span><span class="kw">c</span>(<span class="fl">0.8</span>, <span class="dv">0</span>))  <span class="co"># 80% minimum acceptable risk for P50, no minimum for LTY</span></code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <pre><code>##          MP  P50  LTY Satisificed
 ## 1       AvC 0.74 0.50       FALSE
 ## 2      DCAC 0.74 0.61       FALSE
@@ -898,7 +910,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ## 5 matlenlim 0.99 0.58        TRUE
 ## 6    MRreal 0.92 0.79        TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="st">&#39;P50&#39;</span> ,<span class="st">&#39;STY&#39;</span>, <span class="st">&#39;P100&#39;</span>, <span class="st">&#39;LTY&#39;</span>, <span class="dt">Lims=</span><span class="kw">c</span>(<span class="fl">0.8</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">0</span>))  <span class="co"># 80% minimum acceptable risk for P50, 50% for P100, no minimum for STY and LTY</span></code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-106-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-121-2.png" width="672" /></p>
 <pre><code>##          MP  P50  STY P100  LTY Satisificed
 ## 1       AvC 0.74 0.85 0.66 0.50       FALSE
 ## 2      DCAC 0.74 0.82 0.64 0.61       FALSE
@@ -913,10 +925,10 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ##   if (class(Lims)!=&quot;numeric&quot;) stop(&quot;Second argument must be numeric&quot;)
 ##   TradePlot(MSEobj, Lims=Lims, PMlist=list(&quot;PNOF&quot;, &quot;LTY&quot;, &quot;P100&quot;, &quot;LTY&quot;, &quot;P50&quot;, &quot;LTY&quot;, &quot;P10&quot;, &quot;LTY&quot;),  ...)
 ## }
-## &lt;bytecode: 0x000000001e84cff8&gt;
+## &lt;bytecode: 0x0000000020092cd0&gt;
 ## &lt;environment: namespace:DLMtool&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Tplot</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 <pre><code>##          MP PNOF  LTY P100  P50  P10 Satisificed
 ## 1       AvC 0.67 0.50 0.66 0.74 0.80        TRUE
 ## 2      DCAC 0.63 0.61 0.64 0.74 0.82        TRUE
@@ -935,7 +947,7 @@ Results<span class="op">$</span>Yield <span class="co"># access the PM results</
 ## MRreal    76.2 92.2  77.9   2.1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">TradePlot</span>(MSE, <span class="dt">Lims=</span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.8</span>, <span class="fl">0.5</span>), 
           <span class="dt">PMlist=</span><span class="kw">list</span>(<span class="st">&quot;PNOF&quot;</span>, <span class="st">&quot;LTY&quot;</span>, <span class="st">&quot;P50&quot;</span>, <span class="st">&quot;AAVY&quot;</span>), <span class="dt">Refs=</span><span class="kw">list</span>(<span class="dt">AAVY=</span><span class="fl">0.15</span>))</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-109-1.png" width="672" /><img src="userguide_files/figure-html/unnamed-chunk-109-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-124-1.png" width="672" /><img src="userguide_files/figure-html/unnamed-chunk-124-2.png" width="672" /></p>
 <pre><code>##          MP PNOF  LTY  P50  AAVY Satisificed
 ## 1       AvC 0.67 0.50 0.74 0.880       FALSE
 ## 2      DCAC 0.63 0.61 0.74 0.900       FALSE
