@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-30">
+<meta name="date" content="2019-03-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -290,17 +290,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
-<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
-<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
-<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
-<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
-<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
-<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
-<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
-</ul></li>
-<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
-<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
-</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -340,6 +329,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="D.4" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-and-method-application"><i class="fa fa-check"></i><b>D.4</b> Data and Method Application</a><ul>
 <li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-assumed-to-be-representative"><i class="fa fa-check"></i>Data Assumed to be Representative</a></li>
 </ul></li>
+<li class="chapter" data-level="D.5" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#calculating-reference-points"><i class="fa fa-check"></i><b>D.5</b> Calculating Reference Points</a><ul>
+<li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#depletion-and-unfished-reference-points"><i class="fa fa-check"></i>Depletion and Unfished Reference Points</a></li>
+<li class="chapter" data-level="D.5.1" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#initial-depletion"><i class="fa fa-check"></i><b>D.5.1</b> Initial Depletion</a></li>
+<li class="chapter" data-level="D.5.2" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#msy-reference-points"><i class="fa fa-check"></i><b>D.5.2</b> MSY Reference Points</a></li>
+<li class="chapter" data-level="D.5.3" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#setting-depletion-at-a-fraction-of-bmsy"><i class="fa fa-check"></i><b>D.5.3</b> Setting Depletion at a fraction of BMSY</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="changes.html"><a href="changes.html"><i class="fa fa-check"></i><b>E</b> Changes</a><ul>
 <li class="chapter" data-level="" data-path="changes.html"><a href="changes.html#important-changes---dlmtool-v4.1-and-greater"><i class="fa fa-check"></i>Important changes - DLMtool V4.1 and greater</a></li>
@@ -372,62 +367,62 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There are several VOI functions in DLMtool.</p>
 <p>The <code>VOI</code> function generates two plots, one corresponding to the operating model parameters, and the other to the observation model parameters, showing the gradient in long-term yield with respect to the individual parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOI</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-125-1.png" width="864" /><img src="userguide_files/figure-html/unnamed-chunk-125-2.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-104-1.png" width="864" /><img src="userguide_files/figure-html/unnamed-chunk-104-2.png" width="864" /></p>
 <pre><code>## [[1]]
-##           MP           1     2      3       4      5      6
-## 1        AvC         Asp     M  LenCV       D   SSB0   Blow
-## 2                  21.74 19.73  19.64    18.8  17.43  16.75
-## 3       DCAC SSBMSY_SSB0  SSB0    L50 BMSY_B0   Blow    Esd
-## 4                  31.33 29.39  28.97   25.61  25.22  24.89
-## 5    FMSYref     BMSY_B0    hs    LFS       M   SSB0  LenCV
-## 6                   4.17  4.12   3.86    3.79   3.73   3.72
-## 7       curE          AC     K procmu  procsd FMSY_M   qinc
-## 8                  16.86 15.61  14.48   14.48  14.25  14.13
-## 9  matlenlim        qinc   Asp      D  maxlen    MGT      K
-## 10                 22.18 21.38   20.1   19.97  18.59  18.51
-## 11    MRreal          AC  qinc      K       D procmu procsd
-## 12                 14.72 14.27  14.03   13.52  12.33  12.33
+##           MP     1      2       3      4       5      6
+## 1        AvC   Asp SSBMSY       M  LenCV      L5 FMSY_M
+## 2            21.01  20.91   20.56  20.41   19.43  17.77
+## 3       DCAC LenCV     L5 Vmaxlen      M BMSY_B0    Asp
+## 4            29.35  28.68   25.97  24.84   24.73  24.54
+## 5    FMSYref    hs   SSB0     LFS  LenCV       M    Asp
+## 6             4.47   4.22    3.94   3.94    3.69   3.62
+## 7       curE    AC      K    SSB0   qinc  procmu procsd
+## 8            16.84  16.64   15.03     15    14.6   14.6
+## 9  matlenlim  qinc SSBMSY     MGT maxlen       D      K
+## 10           22.98  20.99   20.37  20.24    19.8  18.69
+## 11    MRreal     K   qinc      AC      D  procmu procsd
+## 12           15.16  15.13   14.77  13.75   12.43  12.43
 ## 
 ## [[2]]
 ##           MP        1     2     3     4          5     6
 ## 1        AvC    Cbias   Csd                             
-## 2               22.81 15.57                             
-## 3       DCAC    Cbias  Derr Mbias   Csd FMSY_Mbias Dbias
-## 4               42.56 22.24  19.7 16.87       16.7 10.08
+## 2               25.22 17.03                             
+## 3       DCAC    Cbias   Csd  Derr Mbias FMSY_Mbias Dbias
+## 4               38.27 23.16 21.37 18.39      14.59  12.7
 ## 5    FMSYref     &lt;NA&gt;                                   
 ## 6                &lt;NA&gt;                                   
 ## 7       curE     &lt;NA&gt;                                   
 ## 8                &lt;NA&gt;                                   
 ## 9  matlenlim lenMbias                                   
-## 10              19.22                                   
+## 10              19.65                                   
 ## 11    MRreal     &lt;NA&gt;                                   
 ## 12               &lt;NA&gt;</code></pre>
 <p>The <code>VOIplot</code> function shows something similar, but has an argument to specify either the Observation or Operating Model parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Observation Parameters</span>
 <span class="kw">VOIplot</span>(MSE, <span class="dt">nMP=</span><span class="dv">5</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-126-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-105-1.png" width="864" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># OM Parameters</span>
 <span class="kw">VOIplot</span>(MSE, <span class="dt">Par=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">nMP=</span><span class="dv">5</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-126-2.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-105-2.png" width="864" /></p>
 <p>By default, the <code>VOIplot</code> function only shows the four Management Procedures with the greatest sensitivity. Here we’ve made it show all five methods using the <code>nMP</code> argument.</p>
 <p>In this example we can see that the <code>Fratio</code> method is particularly sensitive to bias in the current estimate of abundance, and over-estimates of the current abundance result in very low long-term yield (probably do to collapse of the stock). The DCAC method appears most sensitive to bias in the estimated catch.</p>
 <p>We can also use the <code>VOIplot</code> function to look at the sensitivity with respect to the final biomass by specifying the <code>YVar</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot</span>(MSE, <span class="dt">Par=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">nMP=</span><span class="dv">5</span>, <span class="dt">YVar=</span><span class="st">&quot;B&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-127-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-106-1.png" width="864" /></p>
 <p>This result shows, perhaps unsurprisingly, that the final biomass is often strongly sensitive to the initial depletion, particularly for the DCAC and matlenlim methods.</p>
 <p>The <code>VOIplot2</code> function is an updated version of <code>VOIplot</code> that uses the <code>PM</code> functions and plots the Value of Information for a single MP:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">type=</span><span class="st">&quot;OM&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-107-2.png" width="672" /></p>
 <p>and with a different MP and performance metric:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">MP=</span><span class="st">&quot;DCAC&quot;</span>, <span class="dt">PM=</span><span class="st">&quot;P100&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOIplot2</span>(MSE, <span class="dt">MP=</span><span class="st">&quot;DCAC&quot;</span>, <span class="dt">type=</span><span class="st">&quot;OM&quot;</span>, <span class="dt">PM=</span><span class="st">&quot;P100&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-129-2.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-108-2.png" width="672" /></p>
 <p>The <code>VOI2</code> function relates the operating model parameters and parameters of the observation model to relative yield (yield over last 5 years of projection relative to a ‘best F’ scenario that maximizes yield.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VOI2</span>(MSE)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-130-1.png" width="864" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-109-1.png" width="864" /></p>
 <p><code>VOI2</code> assumes that relative cost for each type of improvement in data is linearly related to the number of samples (e.g. nCAAobs) or square function of improved precision and bias e.g.: relative <span class="math inline">\(\text{cost}= \frac{1}{(\text{newCV}/\text{oldCV})^2}\)</span></p>
 <p>The VOI features of DLMtool are continuing to be developed and more VOI functions will be added soon.</p>
 

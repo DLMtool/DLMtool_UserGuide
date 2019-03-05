@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-30">
+<meta name="date" content="2019-03-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -290,17 +290,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
-<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
-<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
-<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
-<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
-<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
-<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
-<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
-</ul></li>
-<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
-<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
-</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -340,6 +329,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="D.4" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-and-method-application"><i class="fa fa-check"></i><b>D.4</b> Data and Method Application</a><ul>
 <li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-assumed-to-be-representative"><i class="fa fa-check"></i>Data Assumed to be Representative</a></li>
 </ul></li>
+<li class="chapter" data-level="D.5" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#calculating-reference-points"><i class="fa fa-check"></i><b>D.5</b> Calculating Reference Points</a><ul>
+<li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#depletion-and-unfished-reference-points"><i class="fa fa-check"></i>Depletion and Unfished Reference Points</a></li>
+<li class="chapter" data-level="D.5.1" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#initial-depletion"><i class="fa fa-check"></i><b>D.5.1</b> Initial Depletion</a></li>
+<li class="chapter" data-level="D.5.2" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#msy-reference-points"><i class="fa fa-check"></i><b>D.5.2</b> MSY Reference Points</a></li>
+<li class="chapter" data-level="D.5.3" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#setting-depletion-at-a-fraction-of-bmsy"><i class="fa fa-check"></i><b>D.5.3</b> Setting Depletion at a fraction of BMSY</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="changes.html"><a href="changes.html"><i class="fa fa-check"></i><b>E</b> Changes</a><ul>
 <li class="chapter" data-level="" data-path="changes.html"><a href="changes.html#important-changes---dlmtool-v4.1-and-greater"><i class="fa fa-check"></i>Important changes - DLMtool V4.1 and greater</a></li>
@@ -374,8 +369,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">9.1</span> Setting up Parallel Processing</h2>
 <p>The <code>setup</code> function is used to set up parallel processing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setup</span>()</code></pre></div>
-<pre><code>## R Version:  R version 3.5.1 (2018-07-02)</code></pre>
-<pre><code>## snowfall 1.84-6.1 initialized (using snow 0.4-3): parallel execution on 8 CPUs.</code></pre>
+<pre><code>## R Version:  R version 3.5.2 (2018-12-20)</code></pre>
+<pre><code>## snowfall 1.84-6.1 initialized (using snow 0.4-3): parallel execution on 10 CPUs.</code></pre>
 <pre><code>## Library DLMtool loaded.</code></pre>
 <pre><code>## Library DLMtool loaded in cluster.</code></pre>
 <p>By default the <code>setup</code> function initializes half of the available processors as we have found this to be the most efficient for most systems. You can change the number of processors by specifying the <code>cpu</code> argument, e.g., <code>setup(cpu=6)</code>.</p>
@@ -386,9 +381,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Use the <code>parallel=TRUE</code> argument in <code>runMSE</code> to use parallel processing. Note that you must run <code>setup()</code> first.</p>
 <p>You will notice that the usual update messages are not printed to the console when parallel processing is used. This is why it is important to initially test your MSE with a small number of simulations without parallel processing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMSE_200P &lt;-<span class="st"> </span><span class="kw">runMSE</span>(myOM, <span class="dt">parallel =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Running MSE in parallel on 8 processors</code></pre>
+<pre><code>## Running MSE in parallel on 10 processors</code></pre>
 <pre><code>## MSE completed</code></pre>
-<p>Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations, run time decreased from 2 to 16 seconds when using parallel processing on 8 processors.</p>
+<p>Parallel processing can increase the speed of running the MSE considerably. For example, although in this demonstration we are only running a low number of simulations, run time decreased from 2 to 13 seconds when using parallel processing on 10 processors.</p>
 </div>
 <div id="determining-optimal-number-of-processors" class="section level2">
 <h2><span class="header-section-number">9.3</span> Determining Optimal Number of Processors</h2>
@@ -396,18 +391,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">optCPU</span>()</code></pre></div>
 <p><img src="userguide_files/figure-html/optCPU-1.png" width="672" /></p>
 <pre><code>##    ncpu  time
-## 1     1 41.34
-## 2     2 21.58
-## 3     3 14.96
-## 4     4 11.94
-## 5     5 10.61
-## 6     6  9.24
-## 7     7  8.75
-## 8     8  8.35
-## 9     9  8.41
-## 10   10  8.48
-## 11   11  8.50
-## 12   12  8.49</code></pre>
+## 1     1 40.82
+## 2     2 19.98
+## 3     3 13.33
+## 4     4 10.40
+## 5     5  9.09
+## 6     6  7.91
+## 7     7  7.44
+## 8     8  6.91
+## 9     9  6.82
+## 10   10  6.91
+## 11   11  6.88
+## 12   12  6.89</code></pre>
 
 </div>
 </div>

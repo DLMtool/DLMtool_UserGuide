@@ -25,7 +25,7 @@
 <meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
 
 
-<meta name="date" content="2019-01-30">
+<meta name="date" content="2019-03-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -290,17 +290,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
-<li class="part"><span><b>FAQ &amp; TroubleShooting</b></span></li>
-<li class="chapter" data-level="31" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html"><i class="fa fa-check"></i><b>31</b> Frequently Asked Questions</a><ul>
-<li class="chapter" data-level="31.1" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-are-the-biological-reference-points-such-as-bmsy-calculated"><i class="fa fa-check"></i><b>31.1</b> How are the biological reference points such as BMSY calculated?</a></li>
-<li class="chapter" data-level="31.2" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#how-is-stock-initialized-in-the-first-year"><i class="fa fa-check"></i><b>31.2</b> How is stock initialized in the first year?</a></li>
-<li class="chapter" data-level="31.3" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#can-i-set-the-stock-depletion-level-in-the-initial-year"><i class="fa fa-check"></i><b>31.3</b> Can I set the stock depletion level in the initial year?</a></li>
-<li class="chapter" data-level="31.4" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#is-the-data-collected-before-or-after-fishing"><i class="fa fa-check"></i><b>31.4</b> Is the Data collected before or after fishing?</a></li>
-<li class="chapter" data-level="31.5" data-path="frequently-asked-questions.html"><a href="frequently-asked-questions.html#what-is-the-lag-in-data-collection"><i class="fa fa-check"></i><b>31.5</b> What is the lag in data collection?</a></li>
-</ul></li>
-<li class="chapter" data-level="32" data-path="troubleshooting.html"><a href="troubleshooting.html"><i class="fa fa-check"></i><b>32</b> TroubleShooting</a><ul>
-<li class="chapter" data-level="32.1" data-path="troubleshooting.html"><a href="troubleshooting.html#om-documentation"><i class="fa fa-check"></i><b>32.1</b> OM Documentation</a></li>
-</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -339,6 +328,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="D.4" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-and-method-application"><i class="fa fa-check"></i><b>D.4</b> Data and Method Application</a><ul>
 <li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#data-assumed-to-be-representative"><i class="fa fa-check"></i>Data Assumed to be Representative</a></li>
+</ul></li>
+<li class="chapter" data-level="D.5" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#calculating-reference-points"><i class="fa fa-check"></i><b>D.5</b> Calculating Reference Points</a><ul>
+<li class="chapter" data-level="" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#depletion-and-unfished-reference-points"><i class="fa fa-check"></i>Depletion and Unfished Reference Points</a></li>
+<li class="chapter" data-level="D.5.1" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#initial-depletion"><i class="fa fa-check"></i><b>D.5.1</b> Initial Depletion</a></li>
+<li class="chapter" data-level="D.5.2" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#msy-reference-points"><i class="fa fa-check"></i><b>D.5.2</b> MSY Reference Points</a></li>
+<li class="chapter" data-level="D.5.3" data-path="assumptions-of-dlmtool.html"><a href="assumptions-of-dlmtool.html#setting-depletion-at-a-fraction-of-bmsy"><i class="fa fa-check"></i><b>D.5.3</b> Setting Depletion at a fraction of BMSY</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="changes.html"><a href="changes.html"><i class="fa fa-check"></i><b>E</b> Changes</a><ul>
@@ -392,7 +387,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>If the vectors are shorter than <code>nsim</code> they will simply be recycled. An error message will alert you if the vectors are not the same length.</p>
 <p>As a demonstration, we will use the <code>ForceCor</code> function to generate correlated samples of <em>M</em>, <em>K</em>, <em>L50</em>, and <em>Linf</em> and examine the <code>cpars</code> slot in the resulting OM object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">ForceCor</span>(DLMtool<span class="op">::</span>testOM)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-202-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(OM<span class="op">@</span>cpars)</code></pre></div>
 <pre><code>## List of 4
 ##  $ M   : num [1:48] 0.382 0.39 0.396 0.353 0.4 ...
@@ -509,10 +504,10 @@ val_int[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2<
 <p>For example, <code>M_ageArray</code> is an internal array that describes the natural mortality rate at age for each simulation and year. Typically, this array is derived from the <code>M</code>, <code>M2</code>, <code>Mexp</code>, <code>Mgrad</code> and <code>Msd</code> slots in the <code>Stock</code> object. Using the <code>cpars</code> feature we can override these values in the <code>OM</code> and provide our own values for <em>M</em> for each simulation, age, and year.</p>
 <p>Information on the <code>M_ageArray</code> variable in cpars can be found in the output of the <code>validcpars</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val_int[<span class="dv">15</span>,]</code></pre></div>
-<pre><code>##     Var.                                          Dim.
-## 15 age95 numeric matrix dim = c(nsim, nyears+proyears)
-##                                         Desc.     Type
-## 15 Age at 95% maturity by simulation and year internal</code></pre>
+<pre><code>##     Var.                                          Dim.                                      Desc.
+## 15 age95 numeric matrix dim = c(nsim, nyears+proyears) Age at 95% maturity by simulation and year
+##        Type
+## 15 internal</code></pre>
 <p>To generate our own values of the M-at-age array we would populate <code>OM@cpars$M_ageArray</code> with an array with dimensions <code>OM@nsim</code>, <code>OM@maxage</code>, <code>OM@nyears+OM@proyears</code>.</p>
 <p>The <code>cpars</code> feature is very powerful but also somewhat complicated, especially if you are using internal custom parameters. For example, by default DLMtool uses the <code>OM@L50_95</code> slot (the increment between length at 50% maturity (<code>OM@L50</code>) and length at 95% maturity (<code>L95</code>)) to calculate the internal parameter <code>L95</code>. This is neccessary to ensure that <code>L95</code> is always greater than <code>L50</code>. Using internal parameters in <code>cpars</code> it is possible to pass values to <code>L95</code> directly, however now it is up to you to make sure that the <code>L95</code> values are greater than the corresponding <code>L50</code> values, otherwise you end up with a species where fraction mature decreases with age/size!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span>testOM 
@@ -523,10 +518,10 @@ temp &lt;-<span class="st"> </span><span class="kw">runMSE</span>(OM, <span clas
 ## L95</code></pre>
 <pre><code>## Optimizing for user-specified movement</code></pre>
 <pre><code>## Optimizing for user-specified depletion in last historical year</code></pre>
-<pre><code>## 10 simulations have final biomass that is not close to sampled depletion</code></pre>
+<pre><code>## 11 simulations have final biomass that is not close to sampled depletion</code></pre>
 <pre><code>## Re-sampling depletion, recruitment error, and fishing effort</code></pre>
 <pre><code>## Calculating historical stock and fishing dynamics</code></pre>
-<pre><code>## Calculating MSY reference points</code></pre>
+<pre><code>## Calculating MSY reference points for each year</code></pre>
 <pre><code>## Calculating B-low reference points</code></pre>
 <pre><code>## Calculating reference yield - best fixed F strategy</code></pre>
 <pre><code>## Simulating observed data</code></pre>
@@ -583,7 +578,7 @@ temp &lt;-<span class="st"> </span><span class="kw">runMSE</span>(OM, <span clas
 ## 48 86.02250  80  -6.022501</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>OM<span class="op">@</span>maxage, temp<span class="op">@</span>AtAge<span class="op">$</span>Maturity[<span class="dv">1</span>,,<span class="dv">1</span>], <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, 
      <span class="dt">xlab=</span><span class="st">&quot;Age&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Maturity&quot;</span>)</code></pre></div>
-<p><img src="userguide_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
+<p><img src="userguide_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
 <p>We have tried to include checks to ensure the model is simulating credible population dynamics, but as this somewhat contrived example shows, care is needed when using <code>OM@cpars</code> to specify internal parameters. We recommend first running the model with <code>Hist=TRUE</code> as in the above example and examining the generated values to ensure the parameters you have added in <code>OM@cpars</code> are being used as expected.</p>
 <p>If you find that this is a feature you wish to use but are unclear how to do it, bug us with an email!</p>
 </div>
