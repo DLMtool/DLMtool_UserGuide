@@ -377,7 +377,7 @@ As you can see, there are `r nMP` MPs built into the DLMtool.
 DLMtool is extensible and it is relatively straightforward to develop your own MPs and include them in the MSE. This is covered in [Developing Custom Management Procedures]. 
 
 ## Types of Management Procedure 
-In previous versions of DLMtool, the MPs were divided into two classes: Output controls which returned a total allowable catch (**TAC**) and Input controls which allow regulation of **fishing effort**, **size selecitivty**, or **spatial area**. 
+In previous versions of DLMtool, the MPs were divided into two classes: Output controls which returned a total allowable catch (**TAC**) and Input controls which allow regulation of **fishing effort**, **size selectivity**, or **spatial area**. 
 
 Since DLMtool V5.1 it is possible to include MPs that provide a combination of input and output controls. 
 
@@ -402,7 +402,7 @@ You can access help documentation for the MPs in the usual fashion, for example:
 ```
 
 ### Input Control MPs
-Input controls allow some combination of adjustments to **fishing effort**, **size selecitivty**, or **spatial area**.
+Input controls allow some combination of adjustments to **fishing effort**, **size selectivity**, or **spatial area**.
 
 The available input control MPs are:
 ```{r avail-input}
