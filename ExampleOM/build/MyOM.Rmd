@@ -4,7 +4,7 @@ subtitle: 'Subtitle. One line only.'
 author:
 - Name and contact details (e.g email, affiliation) for each author.
 - One line per author.
-date: 12 March 2019
+date: 24 February 2020
 output: 
    html_document:
      toc: true
@@ -161,8 +161,6 @@ using Latex (see [here](https://www.sharelatex.com/learn/Mathematical_expression
 
 
 
-
-
 **interval**: The assessment interval - how often would you like to update the management system? <span style='color:blue'> 4</span>
 
 **pstar**: The percentile of the sample of the management recommendation for each method: <span style='color:blue'> 0.5</span>
@@ -228,10 +226,14 @@ Borrowed from: Albacore
 
 
 
-```{r plot.M, echo=FALSE, fig.asp=1.5}
-plotSlot(OM, Pars, slot='M')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/NaturalMortality.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Recruitment: h, SRrel, Perr, AC
 
@@ -271,10 +273,14 @@ Borrowed from: Albacore
 
 
 
-```{r plot.h, echo=FALSE, fig.asp=1}
-plotSlot(OM, Pars, slot='h')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/Recruitment.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Non-stationarity in stock productivity: Period, Amplitude
 
@@ -342,10 +348,14 @@ Borrowed from: Albacore
 
 
 
-```{r plot.Linf, echo=FALSE, fig.asp=1.5}
-plotSlot(OM, Pars, slot='Linf')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/Growth.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Maturity: L50, L50_95
 
@@ -367,12 +377,16 @@ Borrowed from: Albacore
 
 
 
-```{r plot.L50, echo=FALSE, fig.asp=1}
-plotSlot(OM, Pars, slot='L50')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/Maturity.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
-### Stock depletion: D
+### Stock depletion and Discard Mortality: D, Fdisc
 
 **D**: Current level of stock depletion SSB(current)/SSB(unfished). Uniform distribution lower and upper bounds. Fraction
 
@@ -383,10 +397,23 @@ Borrowed from: Albacore
 
 
 
-```{r plot.D, echo=FALSE, fig.asp=0.5}
-plotSlot(OM, Pars, slot='D')
+**Fdisc**: Fraction of discarded fish that die. Uniform distribution lower and upper bounds. Non-negative real numbers
+
+Specified Value(s): <span style='color:blue'> 0, 0</span>
+
+Borrowed from: Albacore 
+
+
+
+
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/Depletion.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Length-weight conversion parameters: a, b
 
@@ -437,16 +464,14 @@ Borrowed from: Albacore
 
 
 
-### Discard Mortality: Fdisc 
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Stock/Spatial.Rmd')
+ out <- knitr::knit_child(input) 
+```
 
-**Fdisc**: Fraction of discarded fish that die. Uniform distribution lower and upper bounds. Non-negative real numbers
-
-Specified Value(s): <span style='color:blue'> 0, 0</span>
-
-Borrowed from: Albacore 
-
-
-
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 # Fleet Parameters 
 
@@ -511,10 +536,14 @@ Borrowed from: Generic_Flat effort
 
 
 
-```{r plot.EffUpper, echo=FALSE, fig.asp=0.5}
-plotSlot(OM, Pars, slot='EffUpper')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Fleet/Effort.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Annual increase in catchability, interannual variability in catchability: qinc, qcv
 
@@ -536,10 +565,14 @@ Borrowed from: Generic_Flat effort
 
 
 
-```{r plot.qcv, echo=FALSE, fig.asp=1}
-plotSlot(OM, Pars, slot='qcv')
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Fleet/Catchability.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 ### Fishery gear length selectivity: L5, LFS, Vmaxlen, isRel
 
@@ -579,11 +612,6 @@ Borrowed from: Generic_Flat effort
 
 
 
-```{r plot.Vmaxlen, echo=FALSE, fig.asp=1}
-plotSlot(OM, Pars, slot='Vmaxlen')
-```
-
-
 ### Fishery length retention: LR5, LFR, Rmaxlen, DR
 
 **LR5**: Shortest length corresponding ot 5 percent retention. Uniform distribution lower and upper bounds. Non-negative real numbers
@@ -616,11 +644,6 @@ Borrowed from: Generic_Flat effort
 **DR**: Discard rate - the fraction of caught fish that are discarded. Uniform distribution lower and upper bounds. Fraction
 
 Slot not used.
-
-```{r plot.DR, echo=FALSE, fig.asp=0.75}
-plotSlot(OM, Pars, slot='DR')
-```
-
 
 ### Time-varying selectivity: SelYears, AbsSelYears, L5Lower, L5Upper, LFSLower, LFSUpper, VmaxLower, VmaxUpper
 
@@ -742,7 +765,7 @@ Borrowed from: Imprecise-Unbiased
 
 
 
-**Ibiascv**: Log-normal coefficient of variation controlling error in observations of relative abundance index. Uniform distribution lower and upper bounds. Positive real numbers
+**Ibiascv**: Not Used. Log-normal coefficient of variation controlling error in observations of relative abundance index. Uniform distribution lower and upper bounds. Positive real numbers
 
 Specified Value(s): <span style='color:blue'> 0.1</span>
 
@@ -847,7 +870,7 @@ Borrowed from: Imprecise-Unbiased
 
 ### Bias in fishery reference points, unfished biomass, FMSY, FMSY/M ratio, biomass at MSY relative to unfished: FMSYbiascv, FMSY_Mbiascv, BMSY_B0biascv
 
-**FMSYbiascv**: Log-normal coefficient of variation for sampling persistent bias in FMSY. Uniform distribution lower and upper bounds. Positive real numbers
+**FMSYbiascv**: Not used. Log-normal coefficient of variation for sampling persistent bias in FMSY. Uniform distribution lower and upper bounds. Positive real numbers
 
 Specified Value(s): <span style='color:blue'> 0.1</span>
 
@@ -949,8 +972,13 @@ Borrowed from: Imprecise-Unbiased
 
 
 ### Obs Plots
-```{r plot.Obs, echo=FALSE, fig.asp=1}
-plotObs(OM)
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Obs/Obs.Rmd')
+ out <- knitr::knit_child(input) 
+```
+
+```{r, echo=FALSE, results='asis'}
+cat(out)
 ```
 
 # Imp Parameters 
@@ -1021,16 +1049,25 @@ Borrowed from: Perfect_Imp
 
 
 ### Imp Plots
-```{r plot.Imp, echo=FALSE, fig.asp=1}
-plotImp(OM)
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Imp/Imp.Rmd')
+ out <- knitr::knit_child(input) 
 ```
 
-# OM Plots
-
-```{r plotOM, echo=FALSE, fig.asp=2}
-plot.OM(out)
+```{r, echo=FALSE, results='asis'}
+cat(out)
 ```
 
+
+# Historical Simulation Plots
+```{r, echo=FALSE,include=FALSE}
+input <- file.path(system.file(package = 'DLMtool'),'Rmd/Hist/Hist.Rmd')
+ out <- knitr::knit_child(input) 
+```
+
+```{r, echo=FALSE, results='asis'}
+cat(out)
+```
 
 # References
 

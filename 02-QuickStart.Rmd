@@ -691,7 +691,7 @@ By default the MSE runs without using parallel processing. We recommend running 
 
 ## Setting up Parallel Processing  
 The `setup` function is used to set up parallel processing.
-```{r setup, warning=FALSE}
+```{r setup1, warning=FALSE}
 setup()
 ```
 

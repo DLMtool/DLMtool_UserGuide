@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.3)</title>
-  <meta name="description" content="User guide for the DLMtool R package">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.4.2)</title>
+  <meta name="description" content="User guide for the DLMtool R package" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.3)" />
+  <meta property="og:title" content="Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.4.2)" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://dlmtool.github.io/DLMtool/userguide/introduction.html" />
   
@@ -17,23 +16,23 @@
   <meta name="github-repo" content="DLMtool/DLMtool" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.3)" />
+  <meta name="twitter:title" content="Chapter 11 Generating Correlated Life-History Parameters | Data-Limited Methods Toolkit (DLMtool 5.4.2)" />
   
   <meta name="twitter:description" content="User guide for the DLMtool R package" />
   
 
-<meta name="author" content="Tom Carruthers &amp; Adrian Hordyk">
+<meta name="author" content="Tom Carruthers &amp; Adrian Hordyk" />
 
 
-<meta name="date" content="2019-03-12">
+<meta name="date" content="2020-02-24" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
-<link rel="prev" href="creating-a-new-operating-model.html">
-<link rel="next" href="modifying-the-om.html">
+  <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon" />
+<link rel="prev" href="creating-a-new-operating-model.html"/>
+<link rel="next" href="modifying-the-om.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,41 +53,68 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -289,7 +318,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="29.2" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#pm-methods-in-detail"><i class="fa fa-check"></i><b>29.2</b> <code>PM</code> Methods in Detail</a></li>
 <li class="chapter" data-level="29.3" data-path="custom-performance-metrics.html"><a href="custom-performance-metrics.html#creating-example-pms-and-plot"><i class="fa fa-check"></i><b>29.3</b> Creating Example <code>PMs</code> and Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="30" data-path="using-real-indices.html"><a href="using-real-indices.html"><i class="fa fa-check"></i><b>30</b> Using Real Indices</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>A</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
@@ -339,6 +367,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="E" data-path="changes.html"><a href="changes.html"><i class="fa fa-check"></i><b>E</b> Changes</a><ul>
 <li class="chapter" data-level="" data-path="changes.html"><a href="changes.html#important-changes---dlmtool-v4.1-and-greater"><i class="fa fa-check"></i>Important changes - DLMtool V4.1 and greater</a></li>
 <li class="chapter" data-level="" data-path="changes.html"><a href="changes.html#important-changes---dlmtool-v4.5-and-greater"><i class="fa fa-check"></i>Important changes - DLMtool V4.5 and greater</a></li>
+<li class="chapter" data-level="E.1" data-path="changes.html"><a href="changes.html#bio-economic-model"><i class="fa fa-check"></i><b>E.1</b> Bio-Economic Model</a></li>
+<li class="chapter" data-level="E.2" data-path="changes.html"><a href="changes.html#key-bio-economic-parameters"><i class="fa fa-check"></i><b>E.2</b> Key Bio-Economic Parameters</a><ul>
+<li class="chapter" data-level="E.2.1" data-path="changes.html"><a href="changes.html#current-cost-and-revenue"><i class="fa fa-check"></i><b>E.2.1</b> Current Cost and Revenue</a></li>
+<li class="chapter" data-level="E.2.2" data-path="changes.html"><a href="changes.html#fishing-effort-responsiveness"><i class="fa fa-check"></i><b>E.2.2</b> Fishing Effort Responsiveness</a></li>
+</ul></li>
+<li class="chapter" data-level="E.3" data-path="changes.html"><a href="changes.html#changes-in-cost-and-revenue"><i class="fa fa-check"></i><b>E.3</b> Changes in Cost and Revenue</a></li>
+<li class="chapter" data-level="E.4" data-path="changes.html"><a href="changes.html#bio-economic-model-mps"><i class="fa fa-check"></i><b>E.4</b> Bio-Economic Model &amp; MPs</a><ul>
+<li class="chapter" data-level="E.4.1" data-path="changes.html"><a href="changes.html#with-a-tac"><i class="fa fa-check"></i><b>E.4.1</b> With a TAC</a></li>
+<li class="chapter" data-level="E.4.2" data-path="changes.html"><a href="changes.html#with-a-tae"><i class="fa fa-check"></i><b>E.4.2</b> With a TAE</a></li>
+<li class="chapter" data-level="E.4.3" data-path="changes.html"><a href="changes.html#without-tac-or-tae"><i class="fa fa-check"></i><b>E.4.3</b> Without TAC or TAE</a></li>
+</ul></li>
+<li class="chapter" data-level="E.5" data-path="changes.html"><a href="changes.html#some-examples"><i class="fa fa-check"></i><b>E.5</b> Some Examples</a></li>
+<li class="chapter" data-level="E.6" data-path="changes.html"><a href="changes.html#future-developments"><i class="fa fa-check"></i><b>E.6</b> Future Developments</a></li>
+<li class="chapter" data-level="E.7" data-path="changes.html"><a href="changes.html#plotting-code"><i class="fa fa-check"></i><b>E.7</b> Plotting Code</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://www.datalimitedtoolkit.com" target="blank">DLMtool Website</a></li>
@@ -353,7 +395,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.3)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data-Limited Methods Toolkit (DLMtool 5.4.2)</a>
           </h1>
         </div>
 
@@ -364,16 +406,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="generating-correlated-life-history-parameters" class="section level1">
 <h1><span class="header-section-number">Chapter 11</span> Generating Correlated Life-History Parameters</h1>
 <p>By default DLMtool independently samples the life-history parameters from uniform distributions. The <code>LH2OM</code> function can be used to force correlation between the life-history parameters, or predict values for missing life-history parameters.</p>
-<p>Thorson et al. (2017) developed a hierarchical model, based on records available in FishBase, to predict life-history parameters for all 33,000+ fish species listed within <a href="www.fishbase.org">FishBase</a>. The <code>LH2OM</code> function uses the Thorson et al. (2017) model to generate correlated samples of the life-history parameters based on the relevant taxonomic information (Class, Family, Genus, and Species) for the species being modelled in the MSE.</p>
+<p>Thorson et al. (2017) developed a hierarchical model, based on records available in FishBase, to predict life-history parameters for all 33,000+ fish species listed within <a href="www.fishbase.org">FishBase</a>. The <code>LH2OM</code> function uses the Thorson et al. (2017) model to generate correlated samples of the life-history parameters based on the relevant taxonomic information (Class, Family, Genus, and Species) for the species being modelled in the MSE.</p>
 <p>The approach uses taxonomic information and any available information on the life-history parameters of the species in the OM to generate predictions of the missing parameters. For example, if no knowledge exists on the four life-history parameters (<em>Linf</em>, <em>L50</em>, <em>M</em>, and <em>K</em>), the model uses the taxonomic information (first Genus and Species, and if records don’t exist for this species in FishBase, then up a taxonomic level to Family, and so on) to generate predicted values for all four parameters. If information is available for some parameters, e.g., reasonable bounds on <em>Linf</em> and <em>M</em> for the species, the hierarchical model is used to generate predictions of the corresponding <em>L50</em> and <em>K</em> values. That is, the observed ratios of <em>L50</em>/<em>Linf</em> and <em>M</em>/<em>K</em> are maintained. In this way the simulated life-history strategies are biologically realistic, and are appropriate for the species being modelled in the MSE.</p>
 <div id="predicting-all-life-history-parameters" class="section level2">
 <h2><span class="header-section-number">11.1</span> Predicting all life-history parameters</h2>
 <p>The <code>LH2OM</code> function can be used to predict the four correlated life-history parameters (<em>Linf</em>, <em>L50</em>, <em>M</em>, and <em>K</em>) using only the available taxonomic information (only for fish species).</p>
-<p>For example, here we create an empty <code>OM</code> object, populate the <code>Species</code> slot and use the <code>LH2OM</code> function to predict the life-history parameters using hierarchical model (Thorson et al. 2017):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<p>For example, here we create an empty <code>OM</code> object, populate the <code>Species</code> slot and use the <code>LH2OM</code> function to predict the life-history parameters using hierarchical model (Thorson et al. 2017):</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="generating-correlated-life-history-parameters.html#cb153-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="generating-correlated-life-history-parameters.html#cb155-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb155-2"><a href="generating-correlated-life-history-parameters.html#cb155-2"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</span></code></pre></div>
 <pre><code>## Predicting Linf</code></pre>
 <pre><code>## Predicting L50</code></pre>
 <pre><code>## Predicting K</code></pre>
@@ -384,11 +426,11 @@ OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre><
 <div id="predicting-some-life-history-parameters" class="section level2">
 <h2><span class="header-section-number">11.2</span> Predicting some life-history parameters</h2>
 <p>In some cases local estimates of life-history parameters may be available which are more reliable and less variable than those predicted from the FishBase database. For example, suppose that we had estimates of the natural mortality rate (<em>M</em>) for our stock that ranged between 0.3 and 0.4. We populate the <code>OM@M</code> slot with these values and use <code>LH2OM</code> to predict the correlated <em>K</em> parameter values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="generating-correlated-life-history-parameters.html#cb161-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="generating-correlated-life-history-parameters.html#cb163-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb163-2"><a href="generating-correlated-life-history-parameters.html#cb163-2"></a>OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)</span>
+<span id="cb163-3"><a href="generating-correlated-life-history-parameters.html#cb163-3"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</span></code></pre></div>
 <pre><code>## Predicting Linf</code></pre>
 <pre><code>## Predicting L50</code></pre>
 <pre><code>## Predicting K</code></pre>
@@ -397,12 +439,12 @@ OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre><
 <p><img src="userguide_files/figure-html/LH2OMexample2-1.png" width="672" /></p>
 <p>Notice that the sampled <em>M</em> values are within the bounds specified in <code>OM@M</code> (vertical lines).</p>
 <p>Similiarly, if information is also available for asymptotic length <em>Linf</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="generating-correlated-life-history-parameters.html#cb169-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)
-OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="generating-correlated-life-history-parameters.html#cb171-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb171-2"><a href="generating-correlated-life-history-parameters.html#cb171-2"></a>OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)</span>
+<span id="cb171-3"><a href="generating-correlated-life-history-parameters.html#cb171-3"></a>OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)</span>
+<span id="cb171-4"><a href="generating-correlated-life-history-parameters.html#cb171-4"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</span></code></pre></div>
 <pre><code>## Predicting L50</code></pre>
 <pre><code>## Predicting K</code></pre>
 <pre><code>## Predicting L50 from Linf</code></pre>
@@ -413,30 +455,30 @@ OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre><
 <div id="predicting-correlated-parameters" class="section level2">
 <h2><span class="header-section-number">11.3</span> Predicting correlated parameters</h2>
 <p>If bounds for all life-history parameters are specified in the OM, the <code>LH2OM</code> function will predict values of <em>L50</em> and <em>K</em> which may fall outside of the bounds specified in the OM. For example, here we specify bounds for all life-history parameters and see that the predicted values for <em>L50</em> and <em>K</em> are mostly above and below the bounds we specied in the OM slots (vertical lines and shading). This is because the predictions of the <em>L50</em>/<em>Linf</em> and <em>M</em>/<em>K</em> ratios from the FishBase database were outside the ranges specied in the OM; in other words, the ranges specified in the OM have rarely been observed in nature.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="generating-correlated-life-history-parameters.html#cb177-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)
-OM<span class="op">@</span>K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)
-OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)
-OM<span class="op">@</span>L50 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">20</span>)
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="generating-correlated-life-history-parameters.html#cb179-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb179-2"><a href="generating-correlated-life-history-parameters.html#cb179-2"></a>OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)</span>
+<span id="cb179-3"><a href="generating-correlated-life-history-parameters.html#cb179-3"></a>OM<span class="op">@</span>K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)</span>
+<span id="cb179-4"><a href="generating-correlated-life-history-parameters.html#cb179-4"></a>OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)</span>
+<span id="cb179-5"><a href="generating-correlated-life-history-parameters.html#cb179-5"></a>OM<span class="op">@</span>L50 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">20</span>)</span>
+<span id="cb179-6"><a href="generating-correlated-life-history-parameters.html#cb179-6"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM)</span></code></pre></div>
 <pre><code>## Predicting L50 from Linf</code></pre>
 <pre><code>## Predicting K from M</code></pre>
 <pre><code>## Species match: Actinopterygii Perciformes Scombridae Scomber japonicus</code></pre>
 <p><img src="userguide_files/figure-html/LH2OMexample4-1.png" width="672" /></p>
 <p>We can force the <code>LH2OM</code> function to only return values within the <em>M</em> and <em>K</em> bounds by using the <code>filterMK</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="generating-correlated-life-history-parameters.html#cb183-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)
-OM<span class="op">@</span>K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)
-OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)
-OM<span class="op">@</span>L50 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">20</span>)
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="dt">filterMK=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="generating-correlated-life-history-parameters.html#cb185-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb185-2"><a href="generating-correlated-life-history-parameters.html#cb185-2"></a>OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)</span>
+<span id="cb185-3"><a href="generating-correlated-life-history-parameters.html#cb185-3"></a>OM<span class="op">@</span>K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>)</span>
+<span id="cb185-4"><a href="generating-correlated-life-history-parameters.html#cb185-4"></a>OM<span class="op">@</span>Linf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>)</span>
+<span id="cb185-5"><a href="generating-correlated-life-history-parameters.html#cb185-5"></a>OM<span class="op">@</span>L50 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">20</span>)</span>
+<span id="cb185-6"><a href="generating-correlated-life-history-parameters.html#cb185-6"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="dt">filterMK=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## Predicting L50 from Linf</code></pre>
 <pre><code>## Predicting K from M</code></pre>
-<pre><code>## Filtering predicted K within bounds: 0.2 0.3</code></pre>
+<pre><code>## Filtering predicted K within bounds: 0.2 Filtering predicted K within bounds: 0.3</code></pre>
 <pre><code>## Species match: Actinopterygii Perciformes Scombridae Scomber japonicus</code></pre>
 <p><img src="userguide_files/figure-html/LH2OMexample5-1.png" width="672" /></p>
 </div>
@@ -444,24 +486,24 @@ OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="
 <h2><span class="header-section-number">11.4</span> Introducing Custom Parameters</h2>
 <p>The <code>LH2OM</code> function uses a feature of DLMtool called <em>Custom Parameters</em>, which are stored in the <code>OM@cpars</code> slot.</p>
 <p>By default the <code>OM@cpars</code> is an empty list:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="generating-correlated-life-history-parameters.html#cb190-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(OM<span class="op">@</span>cpars)</code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="generating-correlated-life-history-parameters.html#cb192-1"></a><span class="kw">str</span>(OM<span class="op">@</span>cpars)</span></code></pre></div>
 <pre><code>##  list()</code></pre>
 <p>After using the <code>LH2OM</code> function, the <code>cpars</code> slot is populated with <code>OM@nsim</code> correlated samples of the life-history parameters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="generating-correlated-life-history-parameters.html#cb194-1"></a>OM &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;OM&quot;</span>)</span></code></pre></div>
 <pre><code>## No Stock object found. Returning a blank OM object</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span>
-OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)
-OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="dt">plot=</span><span class="ot">FALSE</span>, <span class="dt">msg=</span><span class="ot">FALSE</span>)
-<span class="kw">str</span>(OM<span class="op">@</span>cpars)</code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="generating-correlated-life-history-parameters.html#cb196-1"></a>OM<span class="op">@</span>Species &lt;-<span class="st"> &quot;Scomber japonicus&quot;</span></span>
+<span id="cb196-2"><a href="generating-correlated-life-history-parameters.html#cb196-2"></a>OM<span class="op">@</span>M &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>)</span>
+<span id="cb196-3"><a href="generating-correlated-life-history-parameters.html#cb196-3"></a>OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="dt">plot=</span><span class="ot">FALSE</span>, <span class="dt">msg=</span><span class="ot">FALSE</span>)</span>
+<span id="cb196-4"><a href="generating-correlated-life-history-parameters.html#cb196-4"></a><span class="kw">str</span>(OM<span class="op">@</span>cpars)</span></code></pre></div>
 <pre><code>## List of 4
 ##  $ Linf: num [1:48] 42 44.4 42.8 48.3 42.7 ...
 ##  $ M   : num [1:48] 0.38 0.383 0.339 0.385 0.335 ...
 ##  $ K   : num [1:48] 0.226 0.232 0.206 0.246 0.187 ...
 ##  $ L50 : num [1:48] 26.2 27.8 27.1 30 25.7 ...</code></pre>
 <p>Notice also that the <code>OM@M</code> slot is no longer used <em>after</em> the <code>LH2OM</code> function has been run on the OM object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OM<span class="op">@</span>M</code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="generating-correlated-life-history-parameters.html#cb198-1"></a>OM<span class="op">@</span>M</span></code></pre></div>
 <pre><code>## [1] 0 0</code></pre>
 <p>Custom Parameters are a very powerful way to customize the DLMtool, and allow users full control over all sampled and most internal parameters in the DLMtool Operating Model. See the <a href="custom-parameters.html#custom-parameters">Custom Parameters</a> chapter for more information on this feature.</p>
 </div>
@@ -477,11 +519,13 @@ OM &lt;-<span class="st"> </span><span class="kw">LH2OM</span>(OM, <span class="
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -496,6 +540,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -514,10 +562,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
